@@ -129,6 +129,7 @@ object LanguageUtils {
             "u|う|ウ",
             "e|え|エ",
             "o|お|オ",
+            "n|ん|ン",
     )
 
     fun Char.isKanji(): Boolean {
