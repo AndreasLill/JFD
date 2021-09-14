@@ -106,11 +106,6 @@ class CollectionFragment : ActivityResultFragment(R.layout.fragment_collection),
         viewModel.initialize(requireContext())
     }
 
-    override fun onResume() {
-        super.onResume()
-        //TooltipDialog(actionButton, "click here").show(requireActivity().supportFragmentManager, TooltipDialog::class.simpleName)
-    }
-
     override fun requireBackPress(): Boolean {
         return actionButton.rotation > 0f
     }
