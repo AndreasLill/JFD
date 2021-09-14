@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false">
+
+    <com.andlill.jld.app.flashcard.DraggableCardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:rippleColor="@color/transparent"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="8dp">
+
+        <TextView
+            android:id="@+id/text_status_correct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:gravity="center"
+            android:padding="16dp"
+            android:visibility="gone"
+            android:text="@string/study_correct"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnPrimary"
+            android:background="?attr/colorCardCorrect"/>
+
+        <TextView
+            android:id="@+id/text_status_incorrect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:gravity="center"
+            android:padding="16dp"
+            android:visibility="gone"
+            android:text="@string/study_incorrect"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnPrimary"
+            android:background="?attr/colorCardIncorrect"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_reading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/sawarabi_gothic"
+                android:textSize="20sp"
+                android:textColor="?attr/colorAccent"
+                app:autoSizeTextType="uniform"
+                app:autoSizeMinTextSize="16sp"
+                app:autoSizeMaxTextSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/text_kanji"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_kanji"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/sawarabi_gothic"
+                android:textSize="32sp"
+                android:textColor="?attr/colorTextPrimary"
+                app:autoSizeTextType="uniform"
+                app:autoSizeMinTextSize="24sp"
+                app:autoSizeMaxTextSize="32sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:visibility="invisible"
+                android:background="?android:attr/dividerHorizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_kanji" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_glossary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:gravity="center_horizontal"
+                android:textSize="14sp"
+                android:textColor="?attr/colorTextSecondary"
+                app:autoSizeTextType="uniform"
+                app:autoSizeMinTextSize="13sp"
+                app:autoSizeMaxTextSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.andlill.jld.app.flashcard.DraggableCardView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

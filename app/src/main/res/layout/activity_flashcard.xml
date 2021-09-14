@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    tools:context=".app.flashcard.FlashCardActivity">
+
+    <include
+        android:id="@+id/layout_appbar"
+        layout="@layout/layout_appbar_transparent"/>
+
+    <TextView
+        android:id="@+id/text_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:textSize="12sp"
+        android:textColor="?attr/colorHint"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/progress_bar" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="64dp"
+        app:trackThickness="8dp"
+        app:trackCornerRadius="4dp"
+        app:indicatorColor="?attr/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_container" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:layout_width="320dp"
+        android:layout_height="480dp"
+        android:clipChildren="false"
+        android:elevation="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_background"
+        android:layout_width="320dp"
+        android:layout_height="480dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:cardElevation="3dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintStart_toStartOf="@id/fragment_container"
+        app:layout_constraintTop_toTopOf="@id/fragment_container">
+
+        <TextView
+            android:id="@+id/text_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:alpha="0.25"
+            android:textSize="24sp"
+            android:textColor="?attr/colorTextPrimary" />
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageButton
+        style="@style/AppStyle.RoundButton"
+        android:id="@+id/button_undo"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="32dp"
+        android:src="@drawable/ic_undo"
+        android:contentDescription="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_container"/>
+
+    <ImageButton
+        style="@style/AppStyle.RoundButton"
+        android:id="@+id/button_restart"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="32dp"
+        android:visibility="invisible"
+        android:src="@drawable/ic_refresh"
+        android:contentDescription="@null"
+        app:layout_constraintStart_toEndOf="@+id/button_undo"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_container"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- General -->
+    <string name="app_name">JLD</string>
+    <string name="app_version">1.0</string>
+    <string name="empty">Empty</string>
+    <string name="items">%d items</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="copy">Copy</string>
+    <string name="undo">Undo</string>
+    <string name="remove">Remove</string>
+    <string name="history">History</string>
+    <string name="name">Name</string>
+    <string name="expand">Expand</string>
+    <string name="settings">Settings</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="theme">Theme</string>
+    <string name="text_to_speech">Text-To-Speech</string>
+    <string name="sound">Sound</string>
+    <string name="copy_to_clipboard">Copied \'%s\' to clipboard.</string>
+
+    <!-- Dictionary -->
+    <string name="dictionary_ready">Ready</string>
+    <string name="dictionary_common">Common</string>
+    <string name="dictionary_info_default">Press the search icon above to search the dictionary.</string>
+    <string name="dictionary_no_results">No results found \'%s\'.</string>
+    <string name="dictionary_wait">Please wait until dictionary is finished loading.</string>
+
+    <!-- Collection -->
+    <string name="collection">Collection</string>
+    <string name="collection_content">Content</string>
+    <string name="collection_study">Study</string>
+    <string name="collection_import">Import</string>
+
+    <!-- Study -->
+    <string name="study_correct">Got it!</string>
+    <string name="study_incorrect">Try again!</string>
+    <string name="study_flashcards">Flashcards</string>
+
+    <!-- Menu -->
+    <string name="menu_item_dictionary">Dictionary</string>
+    <string name="menu_item_collections">Collections</string>
+    <string name="menu_item_study">Study</string>
+    <string name="menu_item_settings">Settings</string>
+    <string name="menu_item_dark_mode">Dark Mode</string>
+    <string name="menu_item_search">Search</string>
+    <string name="menu_item_copy_kanji">Copy Kanji</string>
+    <string name="menu_item_copy_kana">Copy Kana</string>
+    <string name="menu_item_collection_add">Add To Collection</string>
+    <string name="menu_item_collection_new">New Collection</string>
+    <string name="menu_item_collection_rename">Rename Collection</string>
+    <string name="menu_item_collection_import">Import Collection</string>
+    <string name="menu_item_export">Export</string>
+    <string name="menu_item_delete">Delete</string>
+    <string name="menu_item_share">Share</string>
+    <string name="menu_item_rename">Rename</string>
+    <string name="context_menu_options_title">Options for \'%s\'</string>
+
+    <!-- Activities & Fragments -->
+    <string name="dictionary_loading">Please wait, loading dictionary…</string>
+    <string name="dictionary_details_translation">Translation</string>
+    <string name="dictionary_details_reading">Alternative Readings</string>
+    <string name="dictionary_details_kanji">Kanji</string>
+    <string name="collection_details_study">Study Collection</string>
+    <string name="collection_details_share_title">Use the import code to share or backup your collections.</string>
+    <string name="collection_details_delete_entry">\'%s\' was deleted from the collection.</string>
+    <string name="collection_delete">The collection was deleted.</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_confirm">Confirm</string>
+    <string name="dialog_create_collection_label">Name</string>
+    <string name="dialog_import_info">Paste the import code below.</string>
+    <string name="dialog_confirm_collection_delete_body">Are you sure you wish to delete this collection?</string>
+
+    <!-- Error messages -->
+    <string name="validation_error_collection_name">Only letters and numbers are allowed.</string>
+    <string name="validation_error_collection_select">A collection must be selected.</string>
+    <string name="validation_error_collection_import">Import code is invalid.</string>
+</resources>

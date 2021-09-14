@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_item_collections"
+        android:icon="@drawable/ic_collection_list"
+        android:title="@string/menu_item_collections"
+        android:enabled="true"/>
+    <item
+        android:id="@+id/menu_item_dictionary"
+        android:icon="@drawable/ic_search"
+        android:title="@string/menu_item_dictionary"
+        android:enabled="true" />
+
+</menu>

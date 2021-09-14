@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Text Appearances -->
+    <style name="AppStyle.TextAppearance.Title" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorTextSecondary</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+    <style name="AppStyle.TextAppearance.Tab" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Buttons -->
+    <style name="AppStyle.DialogButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/background_button_dialog</item>
+        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="AppStyle.RoundButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">@drawable/background_button_round</item>
+        <item name="android:tint">?attr/colorTextPrimary</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+    <style name="AppStyle.FilledButton" parent="Widget.MaterialComponents.Button.Icon">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Snackbar -->
+    <style name="AppStyle.Snackbar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="materialThemeOverlay">@style/AppStyle.Snackbar</item>
+        <item name="actionTextColorAlpha">1</item>
+        <item name="backgroundTint">?attr/colorSnackbar</item>
+    </style>
+    <style name="AppStyle.SnackbarButton" parent="Widget.MaterialComponents.Button.TextButton.Snackbar">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorAccent</item>
+    </style>
+    <style name="AppStyle.SnackbarText" parent="Widget.MaterialComponents.Snackbar.TextView">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <!-- Input -->
+    <style name="AppStyle.InputHintAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColorHint">?attr/colorHint</item>
+    </style>
+
+    <!-- Navigation Drawer -->
+    <style name="AppStyle.NavigationDrawer" parent="Widget.MaterialComponents.NavigationView">
+        <item name="itemIconTint">@color/navigation_drawer_color</item>
+        <item name="itemTextColor">@color/navigation_drawer_color</item>
+        <item name="itemShapeFillColor">@color/navigation_drawer_background_color</item>
+    </style>
+
+    <!-- Toolbar -->
+    <style name="AppStyle.ToolbarTitle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="AppStyle.ToolbarSubtitle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <!-- SearchView -->
+    <style name="AppStyle.SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="searchHintIcon">@null</item>
+    </style>
+
+    <!-- Dialog -->
+    <style name="DialogAnimationSlide">
+        <item name="android:windowEnterAnimation">@anim/slide_in_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_down</item>
+    </style>
+    <style name="AppStyle.Dialog.ToolTip" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="android:windowElevation">2dp</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+</resources>

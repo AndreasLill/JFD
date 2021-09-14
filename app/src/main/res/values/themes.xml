@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="AppTheme.Base" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <!-- Custom Styles -->
+        <item name="navigationViewStyle">@style/AppStyle.NavigationDrawer</item>
+        <item name="searchViewStyle">@style/AppStyle.SearchViewStyle</item>
+        <item name="snackbarStyle">@style/AppStyle.Snackbar</item>
+        <item name="snackbarButtonStyle">@style/AppStyle.SnackbarButton</item>
+        <item name="snackbarTextViewStyle">@style/AppStyle.SnackbarText</item>
+    </style>
+
+    <style name="AppTheme.Default" parent="AppTheme.Base">
+        <!-- Default font -->
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/red_700</item>
+        <item name="colorPrimaryDark">@color/red_900</item>
+        <item name="colorAccent">@color/red_A200</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary colors -->
+        <item name="colorSecondary">?attr/colorAccent</item>
+        <item name="colorOnSecondary">?attr/colorOnPrimary</item>
+        <!-- Surface colors-->
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">?attr/colorTextPrimary</item>
+        <!-- Background colors -->
+        <item name="colorBackground">@color/blue_gray_50</item>
+        <item name="android:colorBackground">?attr/colorBackground</item>
+        <item name="colorOnBackground">?attr/colorOnSurface</item>
+        <!-- Custom attributes. -->
+        <item name="android:textColorPrimary">?attr/colorTextPrimary</item>
+        <item name="colorHint">@color/gray_500</item>
+        <item name="colorTextPrimary">@color/blue_gray_800</item>
+        <item name="colorTextSecondary">@color/gray_700</item>
+        <item name="colorCheckMark">@color/green_500</item>
+        <item name="colorRipple">@color/blue_gray_100</item>
+        <item name="colorSnackbar">@color/teal_50</item>
+        <item name="colorDictionaryCommonTag">@color/green_400</item>
+        <item name="colorDictionaryCommonHint">@color/teal_50</item>
+        <item name="colorCardCorrect">@color/green_400</item>
+        <item name="colorCardIncorrect">@color/amber_500</item>
+    </style>
+</resources>

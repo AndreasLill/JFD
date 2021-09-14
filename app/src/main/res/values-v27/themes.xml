@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- V27 - Base application theme. -->
+    <style name="AppTheme.Base" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <!-- Custom Styles -->
+        <item name="navigationViewStyle">@style/AppStyle.NavigationDrawer</item>
+        <item name="searchViewStyle">@style/AppStyle.SearchViewStyle</item>
+        <item name="snackbarStyle">@style/AppStyle.Snackbar</item>
+        <item name="snackbarButtonStyle">@style/AppStyle.SnackbarButton</item>
+        <item name="snackbarTextViewStyle">@style/AppStyle.SnackbarText</item>
+    </style>
+</resources>
