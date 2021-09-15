@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andlill.jld.R
 import com.andlill.jld.app.dictionarydetails.adapter.AddToCollectionAdapter
 import com.andlill.jld.app.dictionarydetails.DictionaryDetailsViewModel
+import com.andlill.jld.model.Collection
 import com.andlill.jld.model.DictionaryEntry
 
 class AddToCollectionDialog(private val viewModel: DictionaryDetailsViewModel) : DialogFragment() {
@@ -21,8 +22,8 @@ class AddToCollectionDialog(private val viewModel: DictionaryDetailsViewModel) :
         val layout = requireActivity().layoutInflater.inflate(R.layout.dialog_collection_add, null)
         val dialog = AlertDialog.Builder(requireContext(), R.style.Theme_AppCompat_Light_Dialog_Alert).setView(layout).create()
 
-        val entry = viewModel.getEntry().value as DictionaryEntry
-        val collections = viewModel.getCollections(requireContext())
+        val entry = viewModel.getDictionaryEntry().value as DictionaryEntry
+        val collections = viewModel.getCollections().value as ArrayList<Collection>
 
         layout.findViewById<RecyclerView>(R.id.recycler_collection).apply {
             layoutManager = LinearLayoutManager(requireContext())

@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,7 +34,9 @@ class DictionaryDetailsActivity : AppCompatActivity() {
     private lateinit var viewModel: DictionaryDetailsViewModel
 
     private lateinit var textToSpeech: TextToSpeech
+    private var menuItemCollection: MenuItem? = null
     private var calledFromCollection = false
+    private var existsInCollection = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,14 +47,25 @@ class DictionaryDetailsActivity : AppCompatActivity() {
         calledFromCollection = intent.getBooleanExtra(ARGUMENT_CALLED_FROM_COLLECTION, false)
 
         viewModel = ViewModelProvider(this).get(DictionaryDetailsViewModel::class.java)
-        viewModel.initialize(entryId)
+        viewModel.initialize(this, entryId)
 
-        val entry = viewModel.getEntry().value as DictionaryEntry
+        val entry = viewModel.getDictionaryEntry().value as DictionaryEntry
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        viewModel.getCollections().observe(this, { collections ->
+            existsInCollection = false
+            collections.forEach { collection ->
+                if (collection.content.contains(entry.id)) {
+                    existsInCollection = true
+                    return@forEach
+                }
+            }
+            updateMenuItemCollection()
+        })
 
         // Set top primary reading.
         if (entry.reading[0].kanji.isNotEmpty()) {
@@ -126,13 +140,23 @@ class DictionaryDetailsActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_activity_dictionary_details, menu)
-        menu?.findItem(R.id.menu_item_collection_add)?.isVisible = !calledFromCollection
-        menu?.findItem(R.id.menu_item_delete)?.isVisible = calledFromCollection
+        menuItemCollection = menu?.findItem(R.id.menu_item_collection_add) as MenuItem
+        menuItemCollection?.isVisible = !calledFromCollection
+        updateMenuItemCollection()
+        menu.findItem(R.id.menu_item_delete)?.isVisible = calledFromCollection
         return true
     }
 
+    private fun updateMenuItemCollection() {
+        if (existsInCollection) {
+            menuItemCollection?.icon = ContextCompat.getDrawable(this, R.drawable.ic_collection_check)
+        } else {
+            menuItemCollection?.icon = ContextCompat.getDrawable(this, R.drawable.ic_collection_add)
+        }
+    }
+
     private fun removeFromCollection() {
-        val entry = viewModel.getEntry().value as DictionaryEntry
+        val entry = viewModel.getDictionaryEntry().value as DictionaryEntry
         val intent = Intent()
         intent.putExtra(RESULT_ENTRY_ID, entry.id)
         setResult(RESULT_OK, intent)
