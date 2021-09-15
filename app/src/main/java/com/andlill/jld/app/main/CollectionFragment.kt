@@ -137,7 +137,7 @@ class CollectionFragment : ActivityResultFragment(R.layout.fragment_collection) 
                 val collection = viewModel.getCollection(id)
 
                 viewModel.deleteCollection(requireContext(), collection) {
-                    Snackbar.make(requireActivity().findViewById(android.R.id.content), getString(R.string.collection_delete), 5000).setAction(getString(R.string.undo)) {
+                    Snackbar.make(requireActivity().findViewById(android.R.id.content), String.format(getString(R.string.collection_delete), collection.name), 6000).setAction(getString(R.string.undo)) {
                         // Undo the delete action.
                         viewModel.addCollection(requireContext(), collection)
                     }.show()

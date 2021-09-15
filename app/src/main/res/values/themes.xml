@@ -40,7 +40,7 @@
         <item name="colorTextSecondary">@color/gray_700</item>
         <item name="colorCheckMark">@color/green_500</item>
         <item name="colorRipple">@color/blue_gray_100</item>
-        <item name="colorSnackbar">@color/teal_50</item>
+        <item name="colorSnackbar">@color/gray_800</item>
         <item name="colorDictionaryCommonTag">@color/green_400</item>
         <item name="colorDictionaryCommonHint">@color/teal_50</item>
         <item name="colorCardCorrect">@color/green_400</item>

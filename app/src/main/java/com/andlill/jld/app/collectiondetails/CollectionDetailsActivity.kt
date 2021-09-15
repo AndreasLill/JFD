@@ -167,7 +167,7 @@ class CollectionDetailsActivity : ResultActivity() {
                     contentAdapter.notifyItemRemoved(index)
                     contentAdapter.notifyItemRangeChanged(index, contentAdapter.itemCount)
                     // Show Undo snackbar.
-                    Snackbar.make(findViewById(android.R.id.content), String.format(getString(R.string.collection_details_delete_entry), entry.getReading()), 5000).setAction(getString(R.string.undo)) {
+                    Snackbar.make(findViewById(android.R.id.content), String.format(getString(R.string.collection_details_delete_entry), entry.getReading()), 6000).setAction(getString(R.string.undo)) {
                         // Undo the delete action.
                         viewModel.addContent(this@CollectionDetailsActivity, index, id) {
                             contentAdapter.notifyItemInserted(index)

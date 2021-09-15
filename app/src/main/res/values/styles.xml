@@ -50,7 +50,7 @@
     </style>
     <style name="AppStyle.SnackbarText" parent="Widget.MaterialComponents.Snackbar.TextView">
         <item name="android:textSize">13sp</item>
-        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 
     <!-- Input -->

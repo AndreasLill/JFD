@@ -117,7 +117,7 @@ class DictionaryDetailsActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_item_remove -> removeFromCollection()
+            R.id.menu_item_delete -> removeFromCollection()
             R.id.menu_item_collection_add -> AddToCollectionDialog(viewModel).show(supportFragmentManager, AddToCollectionDialog::class.simpleName)
             android.R.id.home -> finish()
         }
@@ -127,7 +127,7 @@ class DictionaryDetailsActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_activity_dictionary_details, menu)
         menu?.findItem(R.id.menu_item_collection_add)?.isVisible = !calledFromCollection
-        menu?.findItem(R.id.menu_item_remove)?.isVisible = calledFromCollection
+        menu?.findItem(R.id.menu_item_delete)?.isVisible = calledFromCollection
         return true
     }
 

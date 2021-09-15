@@ -11,7 +11,7 @@
     <string name="close">Close</string>
     <string name="copy">Copy</string>
     <string name="undo">Undo</string>
-    <string name="remove">Remove</string>
+    <string name="delete">Delete</string>
     <string name="history">History</string>
     <string name="name">Name</string>
     <string name="expand">Expand</string>
@@ -67,7 +67,7 @@
     <string name="collection_details_study">Study Collection</string>
     <string name="collection_details_share_title">Use the import code to share or backup your collections.</string>
     <string name="collection_details_delete_entry">\'%s\' was deleted from the collection.</string>
-    <string name="collection_delete">The collection was deleted.</string>
+    <string name="collection_delete">\'%s\' was deleted.</string>
 
     <!-- Dialogs -->
     <string name="dialog_confirm">Confirm</string>
