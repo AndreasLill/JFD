@@ -19,10 +19,9 @@ import com.andlill.jld.dialog.DialogResult
 import com.andlill.jld.app.main.dialog.ImportCollectionDialog
 import com.andlill.jld.app.main.dialog.NameCollectionDialog
 import com.andlill.jld.app.ActivityResultFragment
-import com.andlill.jld.listener.FragmentBackListener
 import com.google.android.material.snackbar.Snackbar
 
-class CollectionFragment : ActivityResultFragment(R.layout.fragment_collection), FragmentBackListener {
+class CollectionFragment : ActivityResultFragment(R.layout.fragment_collection) {
 
     private lateinit var viewModel: CollectionFragmentViewModel
     private lateinit var collectionAdapter: CollectionAdapter
@@ -104,15 +103,6 @@ class CollectionFragment : ActivityResultFragment(R.layout.fragment_collection),
         super.onStart()
         // Initialize on start in case of external updates.
         viewModel.initialize(requireContext())
-    }
-
-    override fun requireBackPress(): Boolean {
-        return actionButton.rotation > 0f
-    }
-
-    override fun onBackPressed() {
-        if (requireBackPress())
-            hideActionButtonMenu()
     }
 
     private fun importCollectionDialog() {

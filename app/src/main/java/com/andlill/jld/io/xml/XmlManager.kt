@@ -21,19 +21,19 @@ object XmlManager {
         var text = ""
         var event = parser.eventType
         var entry = DictionaryEntry()
-        var kanji = XmlModel.Kanji()
-        var kana = XmlModel.Kana()
+        var kanji = XmlKanji()
+        var kana = XmlKana()
         var sense = DictionaryEntry.Sense()
-        val kanjiList = ArrayList<XmlModel.Kanji>()
-        val kanaList = ArrayList<XmlModel.Kana>()
+        val kanjiList = ArrayList<XmlKanji>()
+        val kanaList = ArrayList<XmlKana>()
 
         while (event != XmlPullParser.END_DOCUMENT) {
             val tag = parser.name
             when (event) {
                 XmlPullParser.START_TAG -> when (tag) {
                     "entry" -> entry = DictionaryEntry()
-                    "k_ele" -> kanji = XmlModel.Kanji()
-                    "r_ele" -> kana = XmlModel.Kana()
+                    "k_ele" -> kanji = XmlKanji()
+                    "r_ele" -> kana = XmlKana()
                     "sense" -> sense = DictionaryEntry.Sense()
                 }
                 XmlPullParser.TEXT -> text = parser.text
@@ -91,7 +91,7 @@ object XmlManager {
         var text = ""
         var attribute = ""
         var event = parser.eventType
-        var entry = Kanji()
+        var kanji = Kanji()
 
         while (event != XmlPullParser.END_DOCUMENT) {
             val tag = parser.name
@@ -101,27 +101,27 @@ object XmlManager {
             }
             when (event) {
                 XmlPullParser.START_TAG -> when (tag) {
-                    "character" -> entry = Kanji()
+                    "character" -> kanji = Kanji()
                     "reading" -> if (attr.isNotEmpty()) { attribute = attr }
                     "meaning" -> if (attr.isNotEmpty()) { attribute = attr }
                 }
                 XmlPullParser.TEXT -> text = parser.text
                 XmlPullParser.END_TAG -> when (tag) {
-                    "literal" -> entry.character = text
-                    "grade" -> entry.grade = Integer.parseInt(text)
-                    "stroke_count" -> entry.stroke = Integer.parseInt(text)
-                    "freq" -> entry.freq = Integer.parseInt(text)
-                    "jlpt" -> entry.jlpt = Integer.parseInt(text)
+                    "literal" -> kanji.character = text
+                    "grade" -> kanji.grade = Integer.parseInt(text)
+                    "stroke_count" -> kanji.stroke = Integer.parseInt(text)
+                    "freq" -> kanji.freq = Integer.parseInt(text)
+                    "jlpt" -> kanji.jlpt = Integer.parseInt(text)
                     "reading" -> if (attribute == "ja_on" || attribute == "ja_kun") {
                         val reading = Kanji.Reading()
                         reading.value = text
                         reading.type = attribute.replace("ja_", "")
-                        entry.reading.add(reading).also { attribute = "" }
+                        kanji.reading.add(reading).also { attribute = "" }
                     }
                     "meaning" -> if (attribute.isEmpty()) {
-                        entry.meaning.add(text).also { attribute = "" }
+                        kanji.meaning.add(text).also { attribute = "" }
                     }
-                    "character" -> hashMap[entry.character] = entry
+                    "character" -> hashMap[kanji.character] = kanji
                 }
             }
             event = parser.next()
@@ -130,7 +130,7 @@ object XmlManager {
         return hashMap
     }
 
-    private fun createReadings(kanjiList: List<XmlModel.Kanji>, kanaList: List<XmlModel.Kana>): ArrayList<DictionaryEntry.Reading> {
+    private fun createReadings(kanjiList: List<XmlKanji>, kanaList: List<XmlKana>): ArrayList<DictionaryEntry.Reading> {
         val readings = ArrayList<DictionaryEntry.Reading>()
 
         for (kana in kanaList) {
@@ -175,5 +175,21 @@ object XmlManager {
             throw Exception("Readings should never be zero.")
 
         return readings
+    }
+
+    // Only used for XML processing
+    private class XmlKanji {
+        var value : String = ""
+        val info : ArrayList<String> = ArrayList()
+        val priority : ArrayList<String> = ArrayList()
+    }
+
+    // Only used for XML processing
+    private class XmlKana {
+        var value : String = ""
+        var noKanji : Boolean = false
+        val info : ArrayList<String> = ArrayList()
+        val priority : ArrayList<String> = ArrayList()
+        val restriction : ArrayList<String> = ArrayList()
     }
 }

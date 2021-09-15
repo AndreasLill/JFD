@@ -32,7 +32,6 @@ import com.andlill.jld.R
 import com.andlill.jld.app.main.adapter.SearchHistoryAdapter
 import com.andlill.jld.app.settings.SettingsActivity
 import com.andlill.jld.io.repository.*
-import com.andlill.jld.listener.*
 import com.andlill.jld.utils.AppPreferences
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.navigation.NavigationView
@@ -243,16 +242,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onBackPressed() {
-        // Get current visible fragment.
-        val fragment = supportFragmentManager.fragments.find { fragment -> fragment.isVisible }
         /* Cast to FragmentBackListener or null. */
-        val fragmentBackListener: FragmentBackListener? = if (fragment is FragmentBackListener) fragment else null
         val drawerLayout = findViewById<DrawerLayout>(R.id.layout_drawer)
 
         if (drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START)
-        else if (fragmentBackListener != null && fragmentBackListener.requireBackPress())
-            (fragment as FragmentBackListener).onBackPressed()
         else
             super.onBackPressed()
     }

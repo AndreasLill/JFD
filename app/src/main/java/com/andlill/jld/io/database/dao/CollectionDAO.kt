@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CollectionDAO {
 
-    @Query("SELECT * FROM Collection ORDER BY created DESC") // ORDER BY name COLLATE NOCASE
+    @Query("SELECT * FROM Collection ORDER BY created")
     suspend fun getAll(): List<Collection>
 
     @Query("SELECT * FROM Collection WHERE id = :id")
