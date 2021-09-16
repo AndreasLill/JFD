@@ -23,7 +23,7 @@ class RenameCollectionDialog(private val name: String, private val callback: (Di
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val layout = requireActivity().layoutInflater.inflate(R.layout.dialog_collection_name, null)
         layout.findViewById<TextView>(R.id.text_title).text = getString(R.string.menu_item_collection_rename)
-        val dialog = AlertDialog.Builder(requireContext(), R.style.Theme_AppCompat_Light_Dialog_Alert).setView(layout).create()
+        val dialog = AlertDialog.Builder(requireContext(), R.style.Theme_MaterialComponents_Dialog_Alert).setView(layout).create()
         dialog.setOnShowListener(this)
 
         inputLayout = layout.findViewById(R.id.layout_input)

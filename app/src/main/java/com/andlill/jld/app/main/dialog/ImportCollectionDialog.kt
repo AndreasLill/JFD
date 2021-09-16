@@ -29,7 +29,7 @@ class ImportCollectionDialog(private val callback: (DialogResult, Collection?) -
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val layout = requireActivity().layoutInflater.inflate(R.layout.dialog_collection_import, null)
-        val dialog = AlertDialog.Builder(requireActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert).setView(layout).create()
+        val dialog = AlertDialog.Builder(requireActivity(), R.style.Theme_MaterialComponents_Dialog_Alert).setView(layout).create()
 
         inputLayout = layout.findViewById(R.id.layout_input)
         input = layout.findViewById(R.id.input)

@@ -12,7 +12,7 @@ class ConfirmationDialog(private val dialogBody: String, private val callback: (
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val layout = requireActivity().layoutInflater.inflate(R.layout.dialog_confirmation, null)
-        val dialog = AlertDialog.Builder(requireActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert).setView(layout).create()
+        val dialog = AlertDialog.Builder(requireActivity(), R.style.Theme_MaterialComponents_Dialog_Alert).setView(layout).create()
 
         layout.findViewById<TextView>(R.id.text_title).text = getString(R.string.dialog_confirm)
         layout.findViewById<TextView>(R.id.text_body).text = dialogBody

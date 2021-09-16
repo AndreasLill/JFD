@@ -20,7 +20,7 @@ class AddToCollectionDialog(private val viewModel: DictionaryDetailsViewModel) :
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val layout = requireActivity().layoutInflater.inflate(R.layout.dialog_collection_add, null)
-        val dialog = AlertDialog.Builder(requireContext(), R.style.Theme_AppCompat_Light_Dialog_Alert).setView(layout).create()
+        val dialog = AlertDialog.Builder(requireContext(), R.style.Theme_MaterialComponents_Dialog_Alert).setView(layout).create()
 
         val entry = viewModel.getDictionaryEntry().value as DictionaryEntry
         val collections = viewModel.getCollections().value as ArrayList<Collection>

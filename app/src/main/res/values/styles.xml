@@ -12,6 +12,10 @@
         <item name="android:textSize">13sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="AppStyle.TextAppearance.NavigationDrawer" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
     <!-- Buttons -->
     <style name="AppStyle.DialogButton" parent="Widget.AppCompat.Button">
