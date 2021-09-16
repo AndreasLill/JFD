@@ -47,7 +47,7 @@ class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) 
                 activityLauncher.launch(intent)
             }
             else {
-                Snackbar.make(activity.findViewById(android.R.id.content), getString(R.string.dictionary_wait), 1500).show()
+                Snackbar.make(requireActivity().findViewById(R.id.layout_root), getString(R.string.dictionary_wait), 1500).show()
             }
         }
 
@@ -137,7 +137,7 @@ class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) 
                 val collection = viewModel.getCollection(id)
 
                 viewModel.deleteCollection(requireContext(), collection) {
-                    Snackbar.make(requireActivity().findViewById(android.R.id.content), String.format(getString(R.string.collection_delete), collection.name), 6000).setAction(getString(R.string.undo)) {
+                    Snackbar.make(requireActivity().findViewById(R.id.layout_root), String.format(getString(R.string.collection_delete), collection.name), 6000).setAction(getString(R.string.undo)) {
                         // Undo the delete action.
                         viewModel.addCollection(requireContext(), collection)
                     }.show()

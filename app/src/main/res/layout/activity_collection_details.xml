@@ -1,40 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
+    android:fitsSystemWindows="true"
     tools:context=".app.collectiondetails.CollectionDetailsActivity">
 
-    <include
-        layout="@layout/layout_appbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_collection_content"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scrollbars="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_appbar"
-        app:layout_constraintBottom_toTopOf="@+id/button_study"/>
+        <include
+            layout="@layout/layout_appbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    <Button
-        style="@style/AppStyle.FilledButton"
-        android:id="@+id/button_study"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/collection_details_study"
-        app:backgroundTint="?attr/colorAccent"
-        app:icon="@drawable/ic_study"
-        app:iconGravity="textStart"
-        app:cornerRadius="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_collection_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scrollbars="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_appbar"
+            app:layout_constraintBottom_toTopOf="@+id/button_study"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            style="@style/AppStyle.FilledButton"
+            android:id="@+id/button_study"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/collection_details_study"
+            app:backgroundTint="?attr/colorAccent"
+            app:icon="@drawable/ic_study"
+            app:iconGravity="textStart"
+            app:cornerRadius="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
