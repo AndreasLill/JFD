@@ -15,13 +15,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andlill.jld.R
-import com.andlill.jld.app.ResultActivity
+import com.andlill.jld.app.shared.ResultActivity
 import com.andlill.jld.app.collectiondetails.adapter.CollectionContentAdapter
 import com.andlill.jld.app.collectiondetails.dialog.RenameCollectionDialog
 import com.andlill.jld.app.dictionarydetails.DictionaryDetailsActivity
 import com.andlill.jld.app.flashcard.FlashCardActivity
-import com.andlill.jld.dialog.ConfirmationDialog
-import com.andlill.jld.dialog.DialogResult
+import com.andlill.jld.app.shared.dialog.ConfirmationDialog
+import com.andlill.jld.app.shared.dialog.DialogResult
 import com.andlill.jld.model.Collection
 import com.andlill.jld.model.DictionaryEntry
 import com.google.android.material.snackbar.Snackbar

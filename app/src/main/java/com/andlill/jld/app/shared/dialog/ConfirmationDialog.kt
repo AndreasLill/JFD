@@ -1,4 +1,4 @@
-package com.andlill.jld.dialog
+package com.andlill.jld.app.shared.dialog
 
 import android.app.Dialog
 import android.os.Bundle

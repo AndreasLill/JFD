@@ -15,13 +15,13 @@ import com.andlill.jld.R
 import com.andlill.jld.app.main.adapter.CollectionAdapter
 import com.andlill.jld.utils.ViewAnimation
 import com.andlill.jld.app.collectiondetails.CollectionDetailsActivity
-import com.andlill.jld.dialog.DialogResult
+import com.andlill.jld.app.shared.dialog.DialogResult
 import com.andlill.jld.app.main.dialog.ImportCollectionDialog
 import com.andlill.jld.app.main.dialog.NameCollectionDialog
-import com.andlill.jld.app.ActivityResultFragment
+import com.andlill.jld.app.shared.ResultActivityFragment
 import com.google.android.material.snackbar.Snackbar
 
-class CollectionFragment : ActivityResultFragment(R.layout.fragment_collection) {
+class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) {
 
     private lateinit var viewModel: CollectionFragmentViewModel
     private lateinit var collectionAdapter: CollectionAdapter

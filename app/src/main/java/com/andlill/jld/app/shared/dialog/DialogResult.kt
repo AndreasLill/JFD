@@ -1,4 +1,4 @@
-package com.andlill.jld.dialog
+package com.andlill.jld.app.shared.dialog
 
 enum class DialogResult {
     OK,

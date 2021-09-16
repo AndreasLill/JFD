@@ -1,4 +1,4 @@
-package com.andlill.jld.app
+package com.andlill.jld.app.shared
 
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts

@@ -10,7 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import com.andlill.jld.R
-import com.andlill.jld.dialog.DialogResult
+import com.andlill.jld.app.shared.dialog.DialogResult
 import com.andlill.jld.utils.AppUtils
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
