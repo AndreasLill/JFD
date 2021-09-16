@@ -316,7 +316,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             return
 
         // Scroll to dictionary fragment in view pager.
-        viewPager.setCurrentItem(0, true)
+        viewPager.setCurrentItem(0, false)
         val fragment = supportFragmentManager.findFragmentByTag("f" + viewPager.currentItem) as DictionaryFragment
 
         this.showProgressBar()

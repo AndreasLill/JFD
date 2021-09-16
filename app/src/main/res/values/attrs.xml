@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="colorNavigationDrawer" format="color"/>
     <attr name="colorBackground" format="color"/>
     <attr name="colorHint" format="color"/>
     <attr name="colorTextPrimary" format="color"/>

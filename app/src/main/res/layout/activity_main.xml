@@ -80,7 +80,11 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="false"
+        android:background="?attr/colorNavigationDrawer"
         app:headerLayout="@layout/header_navigation_drawer"
-        app:menu="@menu/menu_navigation_drawer"/>
+        app:itemTextColor="@color/navigation_drawer_color"
+        app:itemIconTint="@color/navigation_drawer_color"
+        app:itemShapeFillColor="@color/navigation_drawer_background_color"
+        app:menu="@menu/menu_navigation_drawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

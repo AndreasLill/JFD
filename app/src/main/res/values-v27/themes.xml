@@ -9,7 +9,6 @@
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:windowTranslucentStatus">false</item>
         <!-- Custom Styles -->
-        <item name="navigationViewStyle">@style/AppStyle.NavigationDrawer</item>
         <item name="searchViewStyle">@style/AppStyle.SearchViewStyle</item>
         <item name="snackbarStyle">@style/AppStyle.Snackbar</item>
         <item name="snackbarButtonStyle">@style/AppStyle.SnackbarButton</item>

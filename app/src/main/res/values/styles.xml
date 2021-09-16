@@ -59,13 +59,6 @@
         <item name="android:textColorHint">?attr/colorHint</item>
     </style>
 
-    <!-- Navigation Drawer -->
-    <style name="AppStyle.NavigationDrawer" parent="Widget.MaterialComponents.NavigationView">
-        <item name="itemIconTint">@color/navigation_drawer_color</item>
-        <item name="itemTextColor">@color/navigation_drawer_color</item>
-        <item name="itemShapeFillColor">@color/navigation_drawer_background_color</item>
-    </style>
-
     <!-- Toolbar -->
     <style name="AppStyle.ToolbarTitle" parent="TextAppearance.AppCompat">
         <item name="android:textSize">16sp</item>
@@ -84,12 +77,5 @@
     <style name="DialogAnimationSlide">
         <item name="android:windowEnterAnimation">@anim/slide_in_up</item>
         <item name="android:windowExitAnimation">@anim/slide_out_down</item>
-    </style>
-    <style name="AppStyle.Dialog.ToolTip" parent="Theme.MaterialComponents.Light.Dialog">
-        <item name="android:windowElevation">2dp</item>
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:backgroundDimEnabled">false</item>
     </style>
 </resources>
