@@ -78,7 +78,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun initializeUI() {
         // Setup the toolbar drawer toggle button.
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        toolbar.subtitle = getString(R.string.dictionary_ready)
         toolbar.setOnClickListener { searchViewMenuItem.expandActionView() }
         setSupportActionBar(toolbar)
 
@@ -155,14 +154,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         // Check if assets require reloading into memory.
         if (viewModel.requireReloadAssets()) {
-            // Update progress bar and toolbar subtitle.
             this.showProgressBar()
-            supportActionBar?.subtitle = getString(R.string.dictionary_loading)
 
             // Load required assets and callback when complete.
             viewModel.loadAssets(assets) {
                 this.hideProgressBar()
-                supportActionBar?.subtitle = getString(R.string.dictionary_ready)
             }
         }
     }
