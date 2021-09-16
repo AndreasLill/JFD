@@ -34,6 +34,7 @@
         <item name="colorOnBackground">?attr/colorOnSurface</item>
         <!-- Custom attributes. -->
         <item name="android:textColorPrimary">?attr/colorTextPrimary</item>
+        <item name="android:textCursorDrawable">@drawable/background_text_cursor</item>
         <item name="colorNavigationDrawer">@color/white</item>
         <item name="colorHint">@color/gray_500</item>
         <item name="colorTextPrimary">@color/blue_gray_800</item>
