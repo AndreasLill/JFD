@@ -72,6 +72,7 @@ class SearchDialog(private val viewModel: MainActivityViewModel, private val cal
     }
 
     private fun search(query: String) {
+        // Callback to activity and close.
         callback(query.trim())
         closeDialog()
     }
@@ -84,9 +85,8 @@ class SearchDialog(private val viewModel: MainActivityViewModel, private val cal
     }
 
     private fun closeDialog() {
-        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-        transaction.remove(this).commit()
+        // Pop the back stack to close dialog.
+        requireActivity().supportFragmentManager.popBackStack()
     }
 
     override fun onResume() {

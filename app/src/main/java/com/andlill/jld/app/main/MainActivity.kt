@@ -182,7 +182,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onBackPressed() {
-        /* Cast to FragmentBackListener or null. */
         val drawerLayout = findViewById<DrawerLayout>(R.id.layout_drawer)
 
         if (drawerLayout.isDrawerOpen(GravityCompat.START))
