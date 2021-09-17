@@ -29,6 +29,10 @@
         <item name="android:tint">?attr/colorTextPrimary</item>
         <item name="android:elevation">2dp</item>
     </style>
+    <style name="AppStyle.RoundButton.Transparent" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">@drawable/background_button_round_transparent</item>
+        <item name="android:tint">?attr/colorTextPrimary</item>
+    </style>
     <style name="AppStyle.FilledButton" parent="Widget.MaterialComponents.Button.Icon">
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>

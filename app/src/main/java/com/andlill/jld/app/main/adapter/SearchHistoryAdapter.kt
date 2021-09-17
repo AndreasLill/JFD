@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andlill.jld.R
 import com.andlill.jld.model.SearchHistory
 
-class SearchHistoryAdapter(private val callback: (CallbackAction, SearchHistory) -> Unit) : ListAdapter<SearchHistory, SearchHistoryAdapter.ViewHolder>(DiffCallback()) {
+class SearchHistoryAdapter(private val callback: (Action, SearchHistory) -> Unit) : ListAdapter<SearchHistory, SearchHistoryAdapter.ViewHolder>(DiffCallback()) {
 
-    enum class CallbackAction {
+    enum class Action {
         Select,
         Delete
     }
@@ -33,11 +33,11 @@ class SearchHistoryAdapter(private val callback: (CallbackAction, SearchHistory)
 
             // Listener on view.
             view.setOnClickListener {
-                callback(CallbackAction.Select, searchHistory)
+                callback(Action.Select, searchHistory)
             }
             // Listener on delete view.
             view.findViewById<View>(R.id.image_delete).setOnClickListener {
-                callback(CallbackAction.Delete, searchHistory)
+                callback(Action.Delete, searchHistory)
             }
         }
     }

@@ -1,39 +1,31 @@
 package com.andlill.jld.app.main
 
-import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.andlill.jld.BuildConfig
 import com.andlill.jld.R
-import com.andlill.jld.app.main.adapter.SearchHistoryAdapter
+import com.andlill.jld.app.main.dialog.SearchDialog
 import com.andlill.jld.app.settings.SettingsActivity
 import com.andlill.jld.io.repository.*
 import com.andlill.jld.utils.AppPreferences
-import com.google.android.material.color.MaterialColors
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.tabs.TabLayout
@@ -47,9 +39,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var preferences: SharedPreferences
     private lateinit var progressBar: LinearProgressIndicator
-    private lateinit var searchViewMenuItem: MenuItem
-    private lateinit var searchHistoryAdapter: SearchHistoryAdapter
-
     private lateinit var navigationDrawer: NavigationView
     private lateinit var tabs: Array<Int>
     private lateinit var viewPager: ViewPager2
@@ -78,7 +67,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun initializeUI() {
         // Setup the toolbar drawer toggle button.
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        toolbar.setOnClickListener { searchViewMenuItem.expandActionView() }
+        toolbar.setOnClickListener { openSearchDialog() }
         setSupportActionBar(toolbar)
 
         // Progress bar.
@@ -98,23 +87,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Set current build version to drawer header text.
         val versionTextView = navigationDrawer.getHeaderView(0).findViewById<TextView>(R.id.text_title_version)
         versionTextView.text = BuildConfig.VERSION_NAME
-
-        searchHistoryAdapter = SearchHistoryAdapter { action, searchHistory ->
-            when (action) {
-                SearchHistoryAdapter.CallbackAction.Select -> searchDictionary(searchHistory.value)
-                SearchHistoryAdapter.CallbackAction.Delete -> viewModel.deleteSearchHistory(this@MainActivity, searchHistory)
-            }
-        }
-
-        findViewById<RecyclerView>(R.id.recycler_history).apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            addItemDecoration(DividerItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL))
-            adapter = searchHistoryAdapter
-        }
-
-        viewModel.getSearchHistory().observe(this, { searchHistory ->
-            searchHistoryAdapter.submitList(ArrayList(searchHistory))
-        })
     }
 
     private fun initializeTabs() {
@@ -178,62 +150,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    override fun onTabSelected(tab: TabLayout.Tab?) {
-        if (tab != null) {
-            when (tabs[tab.position]) {
-                R.string.menu_item_dictionary -> {
-                    supportActionBar?.title = getString(R.string.menu_item_dictionary)
-                    navigationDrawer.menu.findItem(R.id.menu_item_dictionary).isChecked = true
-                }
-                R.string.menu_item_collections -> {
-                    supportActionBar?.title = getString(R.string.menu_item_collections)
-                    navigationDrawer.menu.findItem(R.id.menu_item_collections).isChecked = true
-                }
+    override fun onTabSelected(tab: TabLayout.Tab) {
+        when (tabs[tab.position]) {
+            R.string.menu_item_dictionary -> {
+                supportActionBar?.title = getString(R.string.menu_item_dictionary)
+                navigationDrawer.menu.findItem(R.id.menu_item_dictionary).isChecked = true
+            }
+            R.string.menu_item_collections -> {
+                supportActionBar?.title = getString(R.string.menu_item_collections)
+                navigationDrawer.menu.findItem(R.id.menu_item_collections).isChecked = true
             }
         }
     }
 
-    override fun onTabUnselected(tab: TabLayout.Tab?) {
+    override fun onTabUnselected(tab: TabLayout.Tab) {
     }
 
-    override fun onTabReselected(tab: TabLayout.Tab?) {
+    override fun onTabReselected(tab: TabLayout.Tab) {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_activity_main, menu)
-
-        // Configure search bar.
-        searchViewMenuItem = menu?.findItem(R.id.menu_item_search) as MenuItem
-
-        // Setup expand and collapse listeners.
-        searchViewMenuItem.setOnActionExpandListener(object: MenuItem.OnActionExpandListener {
-            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-                findViewById<View>(R.id.recycler_history).visibility = View.VISIBLE
-                return true
-            }
-
-            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                findViewById<View>(R.id.recycler_history).visibility = View.GONE
-                return true
-            }
-        })
-
-        val searchView = searchViewMenuItem.actionView as SearchView
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        searchView.setBackgroundResource(R.drawable.background_search_view)
-
-        val searchEditText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-        searchEditText.setHintTextColor(MaterialColors.getColor(searchView, R.attr.colorHint))
-        searchEditText.setTextColor(MaterialColors.getColor(searchView, R.attr.colorOnSurface))
-        searchEditText.textSize = 16f
-
-        val searchPlate = searchView.findViewById<View>(androidx.appcompat.R.id.search_plate)
-        searchPlate.setBackgroundColor(Color.TRANSPARENT)
-
-        val searchCloseIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
-        searchCloseIcon.setColorFilter(MaterialColors.getColor(searchView, R.attr.colorOnSurface))
-
         return true
     }
 
@@ -247,10 +184,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             super.onBackPressed()
     }
 
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        setIntent(intent)
-        handleIntent(intent)
+    private fun openSearchDialog() {
+        val dialog = SearchDialog(viewModel) { result ->
+            if (result.isNotEmpty())
+                searchDictionary(result)
+        }
+
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+        transaction.add(R.id.layout_drawer, dialog).addToBackStack(null).commit()
     }
 
     fun isDictionaryReady(): Boolean {
@@ -294,19 +236,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    private fun handleIntent(intent: Intent) {
-        if (intent.action == Intent.ACTION_SEARCH) {
-            val query = intent.getStringExtra(SearchManager.QUERY)
-
-            if (!query.isNullOrEmpty())
-                searchDictionary(query)
-        }
-    }
-
     private fun searchDictionary(query: String) {
-        // Collapse the search action view.
-        searchViewMenuItem.collapseActionView()
-
         // Check if dictionary is ready.
         if (!isDictionaryReady())
             return
