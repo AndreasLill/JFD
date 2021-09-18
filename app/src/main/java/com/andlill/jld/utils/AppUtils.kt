@@ -44,6 +44,16 @@ object AppUtils {
         inputMethod.hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_IMPLICIT_ONLY)
     }
 
+    fun setStatusBarLight(activity: Activity) {
+        val flags = activity.window.decorView.systemUiVisibility
+        activity.window.decorView.systemUiVisibility = flags and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+    }
+
+    fun setStatusBarDark(activity: Activity) {
+        val flags = activity.window.decorView.systemUiVisibility
+        activity.window.decorView.systemUiVisibility = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    }
+
     fun postDelayed(delay: Long, callback: () -> Unit) {
         HandlerCompat.postDelayed(Handler(), { callback() }, null, delay)
     }
