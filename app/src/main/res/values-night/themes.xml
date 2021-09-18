@@ -3,10 +3,11 @@
     <!-- Night - Base application theme. -->
     <style name="AppTheme.Base" parent="Theme.MaterialComponents.NoActionBar">
 
-        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:statusBarColor">@color/transparent</item>
         <item name="android:navigationBarColor">?attr/colorSurface</item>
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:windowTranslucentStatus">false</item>
+        <item name="elevationOverlayEnabled">false</item>
         <!-- Custom Styles -->
         <item name="searchViewStyle">@style/AppStyle.SearchViewStyle</item>
         <item name="snackbarStyle">@style/AppStyle.Snackbar</item>
@@ -19,14 +20,15 @@
         <item name="android:fontFamily">@font/roboto_regular</item>
         <!-- Primary colors -->
         <item name="colorPrimary">@color/purple_900</item>
+        <item name="colorPrimaryDark">@color/purple_900</item>
         <item name="colorAccent">@color/deep_purple_300</item>
-        <item name="colorPrimaryDark">@color/dark</item>
         <item name="colorOnPrimary">@color/blue_gray_100</item>
         <!-- Secondary colors -->
         <item name="colorSecondary">?attr/colorAccent</item>
         <item name="colorOnSecondary">?attr/colorOnPrimary</item>
         <!-- Surface colors-->
         <item name="colorSurface">@color/gray_900</item>
+        <item name="colorPrimarySurface">?attr/colorSurface</item>
         <item name="colorOnSurface">?attr/colorTextPrimary</item>
         <!-- Background colors -->
         <item name="colorBackground">@color/dark</item>
@@ -35,7 +37,6 @@
         <!-- Custom attributes. -->
         <item name="android:textColorPrimary">?attr/colorTextPrimary</item>
         <item name="android:textCursorDrawable">@drawable/background_text_cursor</item>
-        <item name="colorNavigationDrawer">@color/dark</item>
         <item name="colorHint">@color/gray_600</item>
         <item name="colorTextPrimary">@color/blue_gray_100</item>
         <item name="colorTextSecondary">@color/gray_500</item>

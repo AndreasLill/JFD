@@ -14,7 +14,9 @@
         android:id="@+id/layout_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipChildren="false">
+        android:fitsSystemWindows="false"
+        android:clipChildren="false"
+        android:background="?attr/colorBackground">
 
         <include layout="@layout/layout_appbar" />
 
@@ -67,8 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="false"
-        android:background="?attr/colorNavigationDrawer"
+        android:background="?attr/colorSurface"
         app:headerLayout="@layout/header_navigation_drawer"
         app:itemTextColor="@color/navigation_drawer_color"
         app:itemTextAppearance="@style/AppStyle.TextAppearance.NavigationDrawer"

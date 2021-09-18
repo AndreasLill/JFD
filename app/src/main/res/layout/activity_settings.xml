@@ -3,39 +3,49 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipChildren="false"
     android:fitsSystemWindows="true"
+    android:background="?attr/colorPrimary"
     tools:context=".app.settings.SettingsActivity">
 
-    <include layout="@layout/layout_appbar"/>
-
-    <androidx.core.widget.NestedScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        android:background="?attr/colorBackground"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="false"
+        android:clipChildren="false"
+        android:background="?attr/colorBackground">
 
-        <LinearLayout
+        <include layout="@layout/layout_appbar"/>
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:scrollbars="vertical"
+            android:background="?attr/colorBackground"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <!-- Dark Mode -->
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:textAppearance="@style/AppStyle.TextAppearance.Title"
-                android:text="@string/theme" />
-            <include
-                android:id="@+id/setting_dark_mode"
-                layout="@layout/layout_setting_choice"/>
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <!-- Dark Mode -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textAppearance="@style/AppStyle.TextAppearance.Title"
+                    android:text="@string/theme" />
+                <include
+                    android:id="@+id/setting_dark_mode"
+                    layout="@layout/layout_setting_choice"/>
 
-    </androidx.core.widget.NestedScrollView>
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

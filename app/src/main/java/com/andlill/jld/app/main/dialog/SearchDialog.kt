@@ -10,7 +10,6 @@ import android.widget.ImageButton
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +17,7 @@ import com.andlill.jld.R
 import com.andlill.jld.app.main.MainActivityViewModel
 import com.andlill.jld.app.main.adapter.SearchHistoryAdapter
 import com.andlill.jld.utils.AppUtils
-import java.util.ArrayList
+import java.util.*
 
 class SearchDialog(private val viewModel: MainActivityViewModel, private val callback: (String) -> Unit) : DialogFragment() {
 

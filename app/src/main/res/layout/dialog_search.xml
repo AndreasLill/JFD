@@ -9,7 +9,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="false"
+        android:clipChildren="false"
+        android:background="?attr/colorBackground">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/layout_appbar"
@@ -26,8 +29,7 @@
                 android:background="?attr/colorSurface"
                 android:elevation="8dp"
                 app:contentInsetStart="8dp"
-                app:contentInsetEnd="8dp"
-                style="@style/Widget.MaterialComponents.Toolbar.Primary">
+                app:contentInsetEnd="8dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -50,6 +52,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="16dp"
+                        android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:textSize="16sp"
                         android:hint="@string/menu_item_search"
