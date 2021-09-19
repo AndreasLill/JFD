@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Build
 import android.os.Handler
 import android.os.VibrationEffect
@@ -42,6 +43,10 @@ object AppUtils {
     fun hideSoftInput(activity: Activity, view: View) {
         val inputMethod = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethod.hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_IMPLICIT_ONLY)
+    }
+
+    fun isNightMode(activity: Activity): Boolean {
+        return activity.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
 
     fun setStatusBarLight(activity: Activity) {

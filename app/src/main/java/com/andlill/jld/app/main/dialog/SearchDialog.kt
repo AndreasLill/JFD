@@ -28,7 +28,11 @@ class SearchDialog(private val viewModel: MainActivityViewModel, private val cal
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.dialog_search, container, false)
-        AppUtils.setStatusBarDark(requireActivity())
+
+        // Set status bar to dark if not in night mode.
+        if (!AppUtils.isNightMode(requireActivity())) {
+            AppUtils.setStatusBarDark(requireActivity())
+        }
 
         val drawableMic = ContextCompat.getDrawable(requireContext(), R.drawable.ic_mic)
         val drawableClose = ContextCompat.getDrawable(requireContext(), R.drawable.ic_close)
@@ -95,7 +99,11 @@ class SearchDialog(private val viewModel: MainActivityViewModel, private val cal
     }
 
     override fun onStop() {
-        AppUtils.setStatusBarLight(requireActivity())
+        // Set status bar back to light if not in night mode.
+        if (!AppUtils.isNightMode(requireActivity())) {
+            AppUtils.setStatusBarLight(requireActivity())
+        }
+
         AppUtils.hideSoftInput(requireActivity(), input)
         super.onStop()
     }
