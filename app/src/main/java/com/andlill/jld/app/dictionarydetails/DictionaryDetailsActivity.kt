@@ -19,7 +19,6 @@ import com.andlill.jld.app.dictionarydetails.adapter.KanjiAdapter
 import com.andlill.jld.app.dictionarydetails.adapter.ReadingAdapter
 import com.andlill.jld.app.dictionarydetails.adapter.TranslationAdapter
 import com.andlill.jld.app.dictionarydetails.dialog.AddToCollectionDialog
-import com.andlill.jld.io.data.KanjiDictionary
 import com.andlill.jld.model.DictionaryEntry
 import java.util.*
 
@@ -88,7 +87,7 @@ class DictionaryDetailsActivity : AppCompatActivity() {
             findViewById<RecyclerView>(R.id.recycler_kanji).apply {
                 layoutManager = LinearLayoutManager(this@DictionaryDetailsActivity)
                 addItemDecoration(DividerItemDecoration(this@DictionaryDetailsActivity, DividerItemDecoration.VERTICAL))
-                adapter = KanjiAdapter(KanjiDictionary.getKanji(entry.reading[0].kanji))
+                adapter = KanjiAdapter(viewModel.getKanji(entry.reading[0].kanji))
             }
         }
         else {

@@ -24,12 +24,16 @@ class DictionaryDetailsViewModel : ViewModel() {
         collections.value = collectionsData
     }
 
-    fun getDictionaryEntry() : LiveData<DictionaryEntry> {
+    fun getDictionaryEntry(): LiveData<DictionaryEntry> {
         return dictionaryEntry
     }
 
-    fun getCollections() : LiveData<ArrayList<Collection>> {
+    fun getCollections(): LiveData<ArrayList<Collection>> {
         return collections
+    }
+
+    fun getKanji(word: String) = runBlocking {
+        return@runBlocking DictionaryRepository.getKanji(word)
     }
 
     fun updateCollection(context: Context, collection: Collection) = viewModelScope.launch {
