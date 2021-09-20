@@ -10,7 +10,9 @@ import com.andlill.jld.io.data.Dictionary
 import com.andlill.jld.io.data.KanjiDictionary
 import com.andlill.jld.io.repository.DictionaryRepository
 import com.andlill.jld.io.repository.SearchHistoryRepository
+import com.andlill.jld.io.repository.SharedPreferencesRepository
 import com.andlill.jld.model.SearchHistory
+import com.andlill.jld.utils.AppPreferences
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.io.InputStream
@@ -22,6 +24,10 @@ class MainActivityViewModel : ViewModel() {
     fun initialize(context: Context) = runBlocking {
         val data = SearchHistoryRepository.getAll(context)
         searchHistoryList.value = data
+    }
+
+    fun getDarkMode(context: Context): String {
+        return SharedPreferencesRepository.getDarkMode(context, AppPreferences.DarkModeOptions[0])
     }
 
     fun getSearchHistory() : LiveData<List<SearchHistory>> {

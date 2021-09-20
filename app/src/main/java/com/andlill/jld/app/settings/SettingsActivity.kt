@@ -1,6 +1,5 @@
 package com.andlill.jld.app.settings
 
-import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -31,10 +30,10 @@ class SettingsActivity : AppCompatActivity() {
         supportActionBar?.title = getString(R.string.menu_item_settings)
 
         viewModel = ViewModelProvider(this).get(SettingsActivityViewModel::class.java)
-        viewModel.initialize(getSharedPreferences(AppPreferences.PREFERENCES, Context.MODE_PRIVATE))
+        viewModel.initialize(this)
 
-        viewModel.getSharedPreferences().observe(this, {
-            initializeSettingDarkMode()
+        viewModel.getDarkMode().observe(this, { value ->
+            initializeSettingDarkMode(value)
         })
     }
 
@@ -49,19 +48,18 @@ class SettingsActivity : AppCompatActivity() {
         return this::settingsDialog.isInitialized && settingsDialog.isResumed
     }
 
-    private fun initializeSettingDarkMode() {
+    private fun initializeSettingDarkMode(value: String) {
         findViewById<View>(R.id.setting_dark_mode).apply {
-            // Get shared preference value or default.
-            val value = viewModel.getSharedPreferenceString(AppPreferences.KEY_DARK_MODE, AppPreferences.DarkModeOptions[0])
             // Setup views.
             findViewById<ImageView>(R.id.image_icon).setImageDrawable(ContextCompat.getDrawable(this@SettingsActivity, R.drawable.ic_dark_mode))
             findViewById<TextView>(R.id.text_title).text = getString(R.string.dark_mode)
             findViewById<TextView>(R.id.setting_value).text = value
-            // Setup dialog.
+            // Setup click listener for settings dialog.
             setOnClickListener {
                 if (!isDialogVisible()) {
                     settingsDialog = SettingsDialog(getString(R.string.dark_mode), AppPreferences.DarkModeOptions, value) { result ->
-                        viewModel.setSharedPreferences(AppPreferences.KEY_DARK_MODE, result)
+                        // Handle results from settings dialog.
+                        viewModel.setDarkMode(this@SettingsActivity, result)
                         when (result) {
                             AppPreferences.DarkModeOptions[0] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                             AppPreferences.DarkModeOptions[1] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

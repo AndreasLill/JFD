@@ -1,33 +1,26 @@
 package com.andlill.jld.app.settings
 
-import android.content.SharedPreferences
-import androidx.core.content.edit
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.andlill.jld.io.repository.SharedPreferencesRepository
+import com.andlill.jld.utils.AppPreferences
 
 class SettingsActivityViewModel : ViewModel() {
 
-    private var preferences = MutableLiveData<SharedPreferences>()
+    private val darkMode = MutableLiveData<String>()
 
-    fun initialize(pref: SharedPreferences) {
-        preferences.value = pref
+    fun initialize(context: Context) {
+        darkMode.value = SharedPreferencesRepository.getDarkMode(context, AppPreferences.DarkModeOptions[0])
     }
 
-    fun getSharedPreferences() : LiveData<SharedPreferences> {
-        return preferences
+    fun getDarkMode(): LiveData<String> {
+        return darkMode
     }
 
-    fun getSharedPreferenceString(key: String, default: String) : String {
-        return preferences.value?.getString(key, default) as String
-    }
-
-    fun setSharedPreferences(key: String, value: String) {
-        val data = preferences.value as SharedPreferences
-        data.edit {
-            putString(key, value)
-            commit()
-        }
-        preferences.postValue(data)
+    fun setDarkMode(context: Context, value: String) {
+        SharedPreferencesRepository.setDarkMode(context, value)
+        darkMode.postValue(value)
     }
 }

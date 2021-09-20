@@ -1,8 +1,6 @@
 package com.andlill.jld.app.main
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -37,7 +35,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var viewModel: MainActivityViewModel
 
-    private lateinit var preferences: SharedPreferences
     private lateinit var progressBar: LinearProgressIndicator
     private lateinit var navigationDrawer: NavigationView
     private lateinit var tabs: Array<Int>
@@ -48,17 +45,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Get shared preferences.
-        preferences = getSharedPreferences(AppPreferences.PREFERENCES, Context.MODE_PRIVATE)
+        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        viewModel.initialize(this)
 
-        // Check night mode.
-        when (preferences.getString(AppPreferences.KEY_DARK_MODE, AppPreferences.DarkModeOptions[0])) {
+        // Check for night mode.
+        when (viewModel.getDarkMode(this)) {
             AppPreferences.DarkModeOptions[0] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             AppPreferences.DarkModeOptions[1] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             AppPreferences.DarkModeOptions[2] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
-
-        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
         this.initializeUI()
         this.initializeTabs()
@@ -113,12 +108,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             }
         }.attach()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        // Initialize view model on start in case of external updates.
-        viewModel.initialize(this)
     }
 
     override fun onResume() {
