@@ -25,7 +25,7 @@ class CollectionDetailsViewModel : ViewModel() {
         return collection
     }
 
-    fun getDictionaryEntry(entryId: Int) : DictionaryEntry = runBlocking{
+    fun getDictionaryEntry(entryId: Int) : DictionaryEntry = runBlocking {
         return@runBlocking DictionaryRepository.getEntry(entryId)
     }
 

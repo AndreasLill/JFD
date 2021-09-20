@@ -38,7 +38,7 @@ class ImportCollectionDialog(private val callback: (DialogResult, Collection?) -
             if (action == EditorInfo.IME_ACTION_GO || action == EditorInfo.IME_ACTION_DONE) {
                 if (validateInput(input.text.toString())) {
                     callback(DialogResult.OK, collection)
-                    requireDialog().dismiss()
+                    dismiss()
                 }
             }
             false
@@ -52,12 +52,12 @@ class ImportCollectionDialog(private val callback: (DialogResult, Collection?) -
         layout.findViewById<View>(R.id.button_ok).setOnClickListener {
             if (validateInput(input.text.toString())) {
                 callback(DialogResult.OK, collection)
-                requireDialog().dismiss()
+                dismiss()
             }
         }
         // Set listener on Cancel button.
         layout.findViewById<View>(R.id.button_cancel).setOnClickListener {
-            requireDialog().dismiss()
+            dismiss()
         }
 
         return dialog

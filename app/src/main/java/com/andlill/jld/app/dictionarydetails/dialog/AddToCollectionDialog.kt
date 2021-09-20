@@ -15,6 +15,7 @@ import com.andlill.jld.app.dictionarydetails.adapter.AddToCollectionAdapter
 import com.andlill.jld.app.dictionarydetails.DictionaryDetailsViewModel
 import com.andlill.jld.model.Collection
 import com.andlill.jld.model.DictionaryEntry
+import com.andlill.jld.utils.AppUtils
 
 class AddToCollectionDialog(private val viewModel: DictionaryDetailsViewModel) : DialogFragment() {
 
@@ -37,13 +38,13 @@ class AddToCollectionDialog(private val viewModel: DictionaryDetailsViewModel) :
                 }
 
                 viewModel.updateCollection(requireContext(), collection)
-                HandlerCompat.postDelayed(Handler(), {requireDialog().dismiss()}, null, 100)
+                AppUtils.postDelayed(100) {
+                    dismiss()
+                }
             }
         }
 
-        layout.findViewById<View>(R.id.button_close).setOnClickListener {
-            requireDialog().dismiss()
-        }
+        layout.findViewById<View>(R.id.button_close).setOnClickListener { dismiss() }
 
         return dialog
     }

@@ -22,7 +22,7 @@ import java.util.*
 class FlashCardActivity : AppCompatActivity() {
 
     companion object {
-        const val ARGUMENT_COLLECTION = "com.andlill.jld.app.flashcard.FlashCardActivity.Collection"
+        const val ARGUMENT_COLLECTION = "com.andlill.jld.Collection"
     }
 
     // Flashcard View Model

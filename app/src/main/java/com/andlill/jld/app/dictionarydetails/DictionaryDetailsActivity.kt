@@ -27,7 +27,7 @@ class DictionaryDetailsActivity : AppCompatActivity() {
 
     companion object {
         const val ARGUMENT_ENTRY_ID = "com.andlill.jld.DictionaryEntry"
-        const val ARGUMENT_CALLED_FROM_COLLECTION = "com.andlill.jld.CalledFromCollection"
+        const val ARGUMENT_CALLED_FROM_EXTERNAL = "com.andlill.jld.CalledFromCollection"
         const val RESULT_ENTRY_ID = "com.andlill.jld.ResultEntryId"
     }
 
@@ -35,7 +35,7 @@ class DictionaryDetailsActivity : AppCompatActivity() {
 
     private lateinit var textToSpeech: TextToSpeech
     private var menuItemCollection: MenuItem? = null
-    private var calledFromCollection = false
+    private var calledFromExternal = false
     private var existsInCollection = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ class DictionaryDetailsActivity : AppCompatActivity() {
 
         // Get dictionary entry from intent arguments.
         val entryId = intent.getIntExtra(ARGUMENT_ENTRY_ID, 0)
-        calledFromCollection = intent.getBooleanExtra(ARGUMENT_CALLED_FROM_COLLECTION, false)
+        calledFromExternal = intent.getBooleanExtra(ARGUMENT_CALLED_FROM_EXTERNAL, false)
 
         viewModel = ViewModelProvider(this).get(DictionaryDetailsViewModel::class.java)
         viewModel.initialize(this, entryId)
@@ -139,11 +139,16 @@ class DictionaryDetailsActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_activity_dictionary_details, menu)
-        menuItemCollection = menu?.findItem(R.id.menu_item_collection_add) as MenuItem
-        menuItemCollection?.isVisible = !calledFromCollection
-        updateMenuItemCollection()
-        menu.findItem(R.id.menu_item_delete)?.isVisible = calledFromCollection
+        when (calledFromExternal) {
+            true -> {
+                menuInflater.inflate(R.menu.menu_activity_dictionary_details_external, menu)
+            }
+            false -> {
+                menuInflater.inflate(R.menu.menu_activity_dictionary_details, menu)
+                menuItemCollection = menu?.findItem(R.id.menu_item_collection_add) as MenuItem
+                updateMenuItemCollection()
+            }
+        }
         return true
     }
 

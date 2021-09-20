@@ -11,7 +11,7 @@ import com.andlill.jld.model.DictionaryEntry
 import com.andlill.jld.utils.AppUtils
 import com.google.android.material.color.MaterialColors
 
-class DictionaryAdapter(val callback: (DictionaryEntry) -> Unit) : RecyclerView.Adapter<DictionaryAdapter.ViewHolder>() {
+class DictionaryAdapter(private val callback: (DictionaryEntry) -> Unit) : RecyclerView.Adapter<DictionaryAdapter.ViewHolder>() {
 
     private val dataSet: ArrayList<DictionaryEntry> = ArrayList()
 

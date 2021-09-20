@@ -10,7 +10,7 @@ import com.andlill.jld.app.collectiondetails.CollectionDetailsViewModel
 import com.andlill.jld.model.Collection
 import com.andlill.jld.model.DictionaryEntry
 
-class CollectionContentAdapter(private val viewModel: CollectionDetailsViewModel, val callback: (DictionaryEntry) -> Unit) : RecyclerView.Adapter<CollectionContentAdapter.ViewHolder>() {
+class CollectionContentAdapter(private val viewModel: CollectionDetailsViewModel, private val callback: (DictionaryEntry) -> Unit) : RecyclerView.Adapter<CollectionContentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.adapter_collection_content, parent, false))

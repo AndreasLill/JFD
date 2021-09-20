@@ -33,7 +33,7 @@ class NameCollectionDialog(private val callback: (DialogResult, String) -> Unit)
             if (action == EditorInfo.IME_ACTION_GO || action == EditorInfo.IME_ACTION_DONE) {
                 if (validateInput(input.text.toString())) {
                     callback(DialogResult.OK, input.text.toString().trim())
-                    requireDialog().dismiss()
+                    dismiss()
                 }
             }
             false
@@ -43,12 +43,12 @@ class NameCollectionDialog(private val callback: (DialogResult, String) -> Unit)
         layout.findViewById<View>(R.id.button_ok).setOnClickListener {
             if (validateInput(input.text.toString())) {
                 callback(DialogResult.OK, input.text.toString().trim())
-                requireDialog().dismiss()
+                dismiss()
             }
         }
         // Set listener on Cancel button.
         layout.findViewById<View>(R.id.button_cancel).setOnClickListener {
-            requireDialog().dismiss()
+            dismiss()
         }
 
         return dialog

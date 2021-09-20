@@ -31,7 +31,7 @@ import java.util.*
 class CollectionDetailsActivity : ResultActivity() {
 
     companion object {
-        const val ARGUMENT_COLLECTION_ID = "com.andlill.jld.app.collection.CollectionDetailsActivity.COLLECTION_ID"
+        const val ARGUMENT_COLLECTION_ID = "com.andlill.jld.CollectionId"
     }
 
     // ViewModel
@@ -70,12 +70,6 @@ class CollectionDetailsActivity : ResultActivity() {
             this.adapter = contentAdapter
         }
 
-        /*
-        CollectionTouchAdapter(this, contentAdapter, collection, ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0) {
-            collectionViewModel.updateCollection(this@CollectionDetailsActivity, collection)
-        }.attachToRecyclerView(contentRecyclerView)
-        */
-
         viewModel.getCollection().observe(this, {
             supportActionBar?.title = it.name
             supportActionBar?.subtitle = if (it.content.isNotEmpty()) { String.format(getString(R.string.items), it.content.size) } else { getString(R.string.empty) }
@@ -92,7 +86,7 @@ class CollectionDetailsActivity : ResultActivity() {
         val intent = Intent(this, DictionaryDetailsActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         intent.putExtra(DictionaryDetailsActivity.ARGUMENT_ENTRY_ID, entry.id)
-        intent.putExtra(DictionaryDetailsActivity.ARGUMENT_CALLED_FROM_COLLECTION, true)
+        intent.putExtra(DictionaryDetailsActivity.ARGUMENT_CALLED_FROM_EXTERNAL, true)
         activityLauncher.launch(intent)
     }
 
