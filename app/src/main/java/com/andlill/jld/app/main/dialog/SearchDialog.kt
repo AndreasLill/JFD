@@ -42,7 +42,11 @@ class SearchDialog(private val viewModel: MainActivityViewModel, private val cal
         // Setup edit text input.
         input = view.findViewById<EditText>(R.id.edit_text_search).apply {
             setOnEditorActionListener { _, action, _ ->
-                if (action == EditorInfo.IME_ACTION_GO || action == EditorInfo.IME_ACTION_DONE) { search(input.text.toString()) }
+                if (action == EditorInfo.IME_ACTION_GO || action == EditorInfo.IME_ACTION_DONE) {
+                    AppUtils.postDelayed(100) {
+                        search(input.text.toString())
+                    }
+                }
                 false
             }
             addTextChangedListener {
@@ -56,8 +60,14 @@ class SearchDialog(private val viewModel: MainActivityViewModel, private val cal
         // Setup search history adapter and recycler view.
         searchHistoryAdapter = SearchHistoryAdapter { action, searchHistory ->
             when (action) {
-                SearchHistoryAdapter.Action.Select -> search(searchHistory.value)
-                SearchHistoryAdapter.Action.Delete -> viewModel.deleteSearchHistory(requireContext(), searchHistory)
+                SearchHistoryAdapter.Action.Select -> {
+                    AppUtils.postDelayed(100) {
+                        search(searchHistory.value)
+                    }
+                }
+                SearchHistoryAdapter.Action.Delete -> {
+                    viewModel.deleteSearchHistory(requireContext(), searchHistory)
+                }
             }
         }
 
