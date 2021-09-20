@@ -12,13 +12,13 @@ import com.andlill.jld.io.repository.DictionaryRepository
 import com.andlill.jld.io.repository.SearchHistoryRepository
 import com.andlill.jld.io.repository.SharedPreferencesRepository
 import com.andlill.jld.model.SearchHistory
-import com.andlill.jld.utils.AppPreferences
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.io.InputStream
 
 class MainActivityViewModel : ViewModel() {
 
+    val darkModeOptions get() = SharedPreferencesRepository.OPTIONS_DARK_MODE
     private var searchHistoryList = MutableLiveData<List<SearchHistory>>()
 
     fun initialize(context: Context) = runBlocking {
@@ -27,10 +27,10 @@ class MainActivityViewModel : ViewModel() {
     }
 
     fun getDarkMode(context: Context): String {
-        return SharedPreferencesRepository.getDarkMode(context, AppPreferences.DarkModeOptions[0])
+        return SharedPreferencesRepository.getDarkMode(context)
     }
 
-    fun getSearchHistory() : LiveData<List<SearchHistory>> {
+    fun getSearchHistory(): LiveData<List<SearchHistory>> {
         return searchHistoryList
     }
 
@@ -47,12 +47,15 @@ class MainActivityViewModel : ViewModel() {
     fun requireReloadAssets() : Boolean {
         return Dictionary.isEmpty() || KanjiDictionary.isEmpty()
     }
+
     // Load assets if required, callback when complete.
-    fun loadAssets(assets: AssetManager, callback: () -> Unit) = viewModelScope.launch {
+    fun loadAssets(assets: AssetManager, callback: () -> Unit) {
         val dictStream: InputStream? = when { Dictionary.isEmpty() -> assets.open("JMdict_e.xml") else -> null }
         val kanjiStream: InputStream? = when { KanjiDictionary.isEmpty() -> assets.open("kanjidic2.xml") else -> null }
 
-        DictionaryRepository.loadData(dictStream, kanjiStream)
-        callback()
+        viewModelScope.launch {
+            DictionaryRepository.loadData(dictStream, kanjiStream)
+            callback()
+        }
     }
 }

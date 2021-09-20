@@ -5,14 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.andlill.jld.io.repository.SharedPreferencesRepository
-import com.andlill.jld.utils.AppPreferences
 
 class SettingsActivityViewModel : ViewModel() {
 
+    val darkModeOptions get() = SharedPreferencesRepository.OPTIONS_DARK_MODE
     private val darkMode = MutableLiveData<String>()
 
     fun initialize(context: Context) {
-        darkMode.value = SharedPreferencesRepository.getDarkMode(context, AppPreferences.DarkModeOptions[0])
+        darkMode.value = SharedPreferencesRepository.getDarkMode(context)
     }
 
     fun getDarkMode(): LiveData<String> {

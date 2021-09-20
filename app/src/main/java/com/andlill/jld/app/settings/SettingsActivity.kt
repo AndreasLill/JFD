@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.andlill.jld.R
 import com.andlill.jld.app.settings.dialog.SettingsDialog
-import com.andlill.jld.utils.AppPreferences
 import java.util.*
 
 class SettingsActivity : AppCompatActivity() {
@@ -57,13 +56,13 @@ class SettingsActivity : AppCompatActivity() {
             // Setup click listener for settings dialog.
             setOnClickListener {
                 if (!isDialogVisible()) {
-                    settingsDialog = SettingsDialog(getString(R.string.dark_mode), AppPreferences.DarkModeOptions, value) { result ->
+                    settingsDialog = SettingsDialog(getString(R.string.dark_mode), viewModel.darkModeOptions, value) { result ->
                         // Handle results from settings dialog.
                         viewModel.setDarkMode(this@SettingsActivity, result)
                         when (result) {
-                            AppPreferences.DarkModeOptions[0] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-                            AppPreferences.DarkModeOptions[1] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                            AppPreferences.DarkModeOptions[2] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                            viewModel.darkModeOptions[0] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                            viewModel.darkModeOptions[1] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                            viewModel.darkModeOptions[2] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                         }
                     }
                     settingsDialog.show(supportFragmentManager, SettingsDialog::class.simpleName)
