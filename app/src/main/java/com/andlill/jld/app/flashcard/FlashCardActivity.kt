@@ -45,6 +45,11 @@ class FlashCardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_flashcard)
 
+        // Set status bar to dark if not in night mode.
+        if (!AppUtils.isNightMode(this)) {
+            AppUtils.setStatusBarDark(this)
+        }
+
         // Get intent extras.
         val collection = intent.getSerializableExtra(ARGUMENT_COLLECTION) as Collection
 
@@ -99,6 +104,14 @@ class FlashCardActivity : AppCompatActivity() {
         textToSpeech.stop()
     }
 
+    override fun onStop() {
+        super.onStop()
+
+        // Set status bar back to light if not in night mode.
+        if (!AppUtils.isNightMode(this)) {
+            AppUtils.setStatusBarLight(this)
+        }
+    }
     override fun onDestroy() {
         super.onDestroy()
         textToSpeech.shutdown()
