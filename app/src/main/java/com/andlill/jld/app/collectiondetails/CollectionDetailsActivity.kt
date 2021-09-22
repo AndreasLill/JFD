@@ -17,11 +17,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andlill.jld.R
 import com.andlill.jld.app.shared.ResultActivity
 import com.andlill.jld.app.collectiondetails.adapter.CollectionContentAdapter
-import com.andlill.jld.app.collectiondetails.dialog.RenameCollectionDialog
+import com.andlill.jld.app.shared.dialog.RenameCollectionDialog
 import com.andlill.jld.app.dictionarydetails.DictionaryDetailsActivity
 import com.andlill.jld.app.flashcard.FlashCardActivity
 import com.andlill.jld.app.shared.dialog.ConfirmationDialog
-import com.andlill.jld.app.shared.dialog.DialogResult
 import com.andlill.jld.model.Collection
 import com.andlill.jld.model.DictionaryEntry
 import com.google.android.material.snackbar.Snackbar
@@ -113,13 +112,8 @@ class CollectionDetailsActivity : ResultActivity() {
 
     private fun rename() {
         val collection = viewModel.getCollection().value as Collection
-        RenameCollectionDialog(collection.name) { result, name ->
-            when (result) {
-                DialogResult.OK -> {
-                    viewModel.renameCollection(this@CollectionDetailsActivity, name)
-                }
-                DialogResult.Dismiss -> {}
-            }
+        RenameCollectionDialog(collection.name) { name ->
+            viewModel.renameCollection(this, name)
         }.show(supportFragmentManager, RenameCollectionDialog::class.simpleName)
     }
 
@@ -131,6 +125,22 @@ class CollectionDetailsActivity : ResultActivity() {
             setResult(RESULT_OK, intent)
             finish()
         }.show(supportFragmentManager, ConfirmationDialog::class.simpleName)
+    }
+
+    private fun removeContent(id: Int, index: Int) {
+        val entry = viewModel.getDictionaryEntry(id)
+        viewModel.removeContent(this, index) {
+            contentAdapter.notifyItemRemoved(index)
+            contentAdapter.notifyItemRangeChanged(index, contentAdapter.itemCount)
+            // Show Undo snackbar.
+            Snackbar.make(findViewById(R.id.layout_root), String.format(getString(R.string.collection_details_delete_entry), entry.getReading()), 6000).setAction(getString(R.string.undo)) {
+                // Undo the delete action.
+                viewModel.addContent(this, index, id) {
+                    contentAdapter.notifyItemInserted(index)
+                    contentAdapter.notifyItemRangeChanged(index, contentAdapter.itemCount)
+                }
+            }.show()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -151,25 +161,13 @@ class CollectionDetailsActivity : ResultActivity() {
     }
 
     override fun handleActivityResult(result: ActivityResult) {
-        if (result.resultCode == Activity.RESULT_OK && result.data != null) {
-            if (result.data?.hasExtra(DictionaryDetailsActivity.RESULT_ENTRY_ID) == true) {
-                val id = result.data?.getIntExtra(DictionaryDetailsActivity.RESULT_ENTRY_ID, 0) as Int
-                val entry = viewModel.getDictionaryEntry(id)
-                val index = contentAdapter.getIndexOf(id)
+        if (result.resultCode != Activity.RESULT_OK || result.data == null)
+            return
+        if (!result.data!!.hasExtra(DictionaryDetailsActivity.RESULT_ENTRY_ID))
+            return
 
-                viewModel.removeContent(this@CollectionDetailsActivity, index) {
-                    contentAdapter.notifyItemRemoved(index)
-                    contentAdapter.notifyItemRangeChanged(index, contentAdapter.itemCount)
-                    // Show Undo snackbar.
-                    Snackbar.make(findViewById(R.id.layout_root), String.format(getString(R.string.collection_details_delete_entry), entry.getReading()), 6000).setAction(getString(R.string.undo)) {
-                        // Undo the delete action.
-                        viewModel.addContent(this@CollectionDetailsActivity, index, id) {
-                            contentAdapter.notifyItemInserted(index)
-                            contentAdapter.notifyItemRangeChanged(index, contentAdapter.itemCount)
-                        }
-                    }.show()
-                }
-            }
-        }
+        val id = result.data?.getIntExtra(DictionaryDetailsActivity.RESULT_ENTRY_ID, -1) as Int
+        val index = contentAdapter.getIndexOf(id)
+        removeContent(id, index)
     }
 }

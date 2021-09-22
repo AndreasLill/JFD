@@ -10,12 +10,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import com.andlill.jld.R
-import com.andlill.jld.app.shared.dialog.DialogResult
 import com.andlill.jld.utils.AppUtils
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
-class NameCollectionDialog(private val callback: (DialogResult, String) -> Unit) : DialogFragment(), DialogInterface.OnShowListener {
+class NameCollectionDialog(private val callback: (String) -> Unit) : DialogFragment(), DialogInterface.OnShowListener {
 
     private lateinit var inputLayout: TextInputLayout
     private lateinit var input: TextInputEditText
@@ -32,7 +31,7 @@ class NameCollectionDialog(private val callback: (DialogResult, String) -> Unit)
         input.setOnEditorActionListener { _, action, _ ->
             if (action == EditorInfo.IME_ACTION_GO || action == EditorInfo.IME_ACTION_DONE) {
                 if (validateInput(input.text.toString())) {
-                    callback(DialogResult.OK, input.text.toString().trim())
+                    callback(input.text.toString().trim())
                     dismiss()
                 }
             }
@@ -42,7 +41,7 @@ class NameCollectionDialog(private val callback: (DialogResult, String) -> Unit)
         // Set listener on OK button.
         layout.findViewById<View>(R.id.button_ok).setOnClickListener {
             if (validateInput(input.text.toString())) {
-                callback(DialogResult.OK, input.text.toString().trim())
+                callback(input.text.toString().trim())
                 dismiss()
             }
         }
@@ -61,7 +60,6 @@ class NameCollectionDialog(private val callback: (DialogResult, String) -> Unit)
     override fun onDismiss(dialog: DialogInterface) {
         AppUtils.hideSoftInput(requireActivity(), input)
         super.onDismiss(dialog)
-        callback(DialogResult.Dismiss, "")
     }
 
     private fun validateInput(text: String): Boolean {

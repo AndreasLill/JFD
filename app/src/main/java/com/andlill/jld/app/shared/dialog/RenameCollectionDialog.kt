@@ -1,4 +1,4 @@
-package com.andlill.jld.app.collectiondetails.dialog
+package com.andlill.jld.app.shared.dialog
 
 import android.app.Dialog
 import android.content.DialogInterface
@@ -10,12 +10,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import com.andlill.jld.R
-import com.andlill.jld.app.shared.dialog.DialogResult
 import com.andlill.jld.utils.AppUtils
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
-class RenameCollectionDialog(private val name: String, private val callback: (DialogResult, String) -> Unit) : DialogFragment(), DialogInterface.OnShowListener {
+class RenameCollectionDialog(private val name: String, private val callback: (String) -> Unit) : DialogFragment(), DialogInterface.OnShowListener {
 
     private lateinit var inputLayout: TextInputLayout
     private lateinit var input: TextInputEditText
@@ -33,7 +32,7 @@ class RenameCollectionDialog(private val name: String, private val callback: (Di
         input.setOnEditorActionListener { _, action, _ ->
             if (action == EditorInfo.IME_ACTION_GO || action == EditorInfo.IME_ACTION_DONE) {
                 if (validateInput(input.text.toString())) {
-                    callback(DialogResult.OK, input.text.toString().trim())
+                    callback(input.text.toString().trim())
                     dismiss()
                 }
             }
@@ -43,7 +42,7 @@ class RenameCollectionDialog(private val name: String, private val callback: (Di
         // Set listener on OK button.
         layout.findViewById<View>(R.id.button_ok).setOnClickListener {
             if (validateInput(input.text.toString())) {
-                callback(DialogResult.OK, input.text.toString().trim())
+                callback(input.text.toString().trim())
                 dismiss()
             }
         }

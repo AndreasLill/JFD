@@ -35,12 +35,14 @@ class MainActivityViewModel : ViewModel() {
     }
 
     fun updateSearchHistory(context: Context, query: String) = viewModelScope.launch {
-        val data = SearchHistoryRepository.update(context, query.trim())
+        SearchHistoryRepository.update(context, query.trim())
+        val data = SearchHistoryRepository.getAll(context)
         searchHistoryList.postValue(data)
     }
 
     fun deleteSearchHistory(context: Context, searchHistory: SearchHistory) = viewModelScope.launch {
-        val data = SearchHistoryRepository.delete(context, searchHistory)
+        SearchHistoryRepository.delete(context, searchHistory)
+        val data = SearchHistoryRepository.getAll(context)
         searchHistoryList.postValue(data)
     }
 

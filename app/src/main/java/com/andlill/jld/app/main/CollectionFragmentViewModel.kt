@@ -28,6 +28,13 @@ class CollectionFragmentViewModel : ViewModel() {
         return collectionList
     }
 
+    fun updateCollection(context: Context, collection: Collection) = viewModelScope.launch {
+        CollectionRepository.update(context, collection)
+
+        val data = CollectionRepository.getAll(context)
+        collectionList.postValue(data)
+    }
+
     fun createCollection(context: Context, name: String) = viewModelScope.launch {
         val collection = Collection()
         collection.name = name.trim()
@@ -46,7 +53,9 @@ class CollectionFragmentViewModel : ViewModel() {
     }
 
     fun deleteCollection(context: Context, collection: Collection, callback: () -> Unit) = viewModelScope.launch {
-        val data = CollectionRepository.delete(context, collection)
+        CollectionRepository.delete(context, collection)
+
+        val data = CollectionRepository.getAll(context)
         collectionList.postValue(data)
         callback()
     }

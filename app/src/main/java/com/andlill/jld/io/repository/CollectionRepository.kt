@@ -29,6 +29,5 @@ object CollectionRepository {
 
     suspend fun delete(context: Context, collection: Collection) = withContext(Dispatchers.IO) {
         AppDatabase.database(context).collection().delete(collection)
-        return@withContext AppDatabase.database(context).collection().getAll() as ArrayList<Collection>
     }
 }

@@ -24,7 +24,7 @@ object DictionaryRepository {
     }
 
     suspend fun search(query: String) = withContext(Dispatchers.Default) {
-        return@withContext Dictionary.search(query.trim())
+        return@withContext Dictionary.search(query)
     }
 
     suspend fun getEntry(id: Int) = withContext(Dispatchers.Default) {

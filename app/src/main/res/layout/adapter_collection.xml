@@ -6,27 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/colorSurface"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:padding="8dp">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_horizontal_50"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+    android:foreground="?android:attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/image_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_margin="16dp"
         android:src="@drawable/ic_collection"
         android:contentDescription="@string/collection"
         app:tint="?attr/colorAccent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guideline_horizontal_50"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal_50" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <LinearLayout
         android:id="@+id/layout_title"
@@ -35,8 +27,8 @@
         android:layout_marginStart="16dp"
         android:orientation="vertical"
         app:layout_constraintStart_toEndOf="@+id/image_icon"
-        app:layout_constraintTop_toTopOf="@id/guideline_horizontal_50"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal_50">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/text_title"
@@ -53,5 +45,19 @@
             android:textSize="12sp" />
 
     </LinearLayout>
+
+    <ImageButton
+        style="@style/AppStyle.RoundButton.Transparent"
+        android:id="@+id/button_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:padding="8dp"
+        android:src="@drawable/ic_menu"
+        android:contentDescription="@string/menu"
+        app:tint="?attr/colorHint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

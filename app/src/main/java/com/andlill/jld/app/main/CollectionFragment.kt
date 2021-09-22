@@ -12,13 +12,15 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andlill.jld.R
-import com.andlill.jld.app.main.adapter.CollectionAdapter
-import com.andlill.jld.utils.ViewAnimation
 import com.andlill.jld.app.collectiondetails.CollectionDetailsActivity
-import com.andlill.jld.app.shared.dialog.DialogResult
+import com.andlill.jld.app.main.adapter.CollectionAdapter
 import com.andlill.jld.app.main.dialog.ImportCollectionDialog
 import com.andlill.jld.app.main.dialog.NameCollectionDialog
 import com.andlill.jld.app.shared.ResultActivityFragment
+import com.andlill.jld.app.shared.dialog.RenameCollectionDialog
+import com.andlill.jld.model.Collection
+import com.andlill.jld.utils.ViewAnimation
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.snackbar.Snackbar
 
 class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) {
@@ -36,18 +38,11 @@ class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) 
 
         viewModel = ViewModelProvider(this).get(CollectionFragmentViewModel::class.java)
 
-        collectionAdapter = CollectionAdapter { collection->
-            val activity = requireActivity() as MainActivity
-            // Check if activity is ready.
-            if (activity.isDictionaryReady()) {
-                // Start new activity, fragment handles the result.
-                val intent = Intent(activity, CollectionDetailsActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                intent.putExtra(CollectionDetailsActivity.ARGUMENT_COLLECTION_ID, collection.id)
-                activityLauncher.launch(intent)
-            }
-            else {
-                Snackbar.make(requireActivity().findViewById(R.id.layout_root), getString(R.string.dictionary_wait), 1500).show()
+        collectionAdapter = CollectionAdapter { action, collection->
+            when (action) {
+                CollectionAdapter.Action.Select -> openCollection(collection)
+                CollectionAdapter.Action.Rename -> renameCollection(collection)
+                CollectionAdapter.Action.Delete -> deleteCollection(collection)
             }
         }
 
@@ -105,44 +100,62 @@ class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) 
         viewModel.initialize(requireContext())
     }
 
+    private fun openCollection(collection: Collection) {
+        // Get progress bar from MainActivity.
+        val progress = requireActivity().findViewById<LinearProgressIndicator>(R.id.progress_bar)
+
+        // Check if dictionary is finished loading.
+        if (progress.isIndeterminate) {
+            Snackbar.make(requireActivity().findViewById(R.id.layout_root), getString(R.string.dictionary_wait), 1500).show()
+            return
+        }
+
+        // Start new activity, fragment handles the result.
+        val intent = Intent(activity, CollectionDetailsActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        intent.putExtra(CollectionDetailsActivity.ARGUMENT_COLLECTION_ID, collection.id)
+        activityLauncher.launch(intent)
+    }
+
+    private fun renameCollection(collection: Collection) {
+        RenameCollectionDialog(collection.name) { name ->
+            collection.name = name
+            viewModel.updateCollection(requireContext(), collection)
+        }.show(requireActivity().supportFragmentManager, RenameCollectionDialog::class.simpleName)
+    }
+
+    private fun deleteCollection(collection: Collection) {
+        viewModel.deleteCollection(requireContext(), collection) {
+            Snackbar.make(requireActivity().findViewById(R.id.layout_root), String.format(getString(R.string.collection_delete), collection.name), 6000).setAction(getString(R.string.undo)) {
+                // Undo the delete action.
+                viewModel.addCollection(requireContext(), collection)
+            }.show()
+        }
+    }
+
     private fun importCollectionDialog() {
         hideActionButtonMenu()
-        ImportCollectionDialog { result, collection ->
-            when (result) {
-                DialogResult.OK -> {
-                    if (collection != null) {
-                        collection.id = 0
-                        viewModel.addCollection(requireContext(), collection)
-                    }
-                }
-                DialogResult.Dismiss -> {}
-            }
+        ImportCollectionDialog { collection ->
+            collection.id = 0
+            viewModel.addCollection(requireContext(), collection)
         }.show(requireActivity().supportFragmentManager, ImportCollectionDialog::class.simpleName)
     }
 
     private fun createCollectionDialog() {
         hideActionButtonMenu()
-        NameCollectionDialog { result, name ->
-            when (result) {
-                DialogResult.OK -> viewModel.createCollection(requireContext(), name)
-                DialogResult.Dismiss -> {}
-            }
+        NameCollectionDialog { name ->
+            viewModel.createCollection(requireContext(), name)
         }.show(requireActivity().supportFragmentManager, NameCollectionDialog::class.simpleName)
     }
 
     override fun handleActivityResult(result: ActivityResult) {
-        if (result.resultCode == Activity.RESULT_OK) {
-            if (result.data != null && result.data?.hasExtra(CollectionDetailsActivity.ARGUMENT_COLLECTION_ID) == true) {
-                val id = result.data?.getLongExtra(CollectionDetailsActivity.ARGUMENT_COLLECTION_ID, 0) as Long
-                val collection = viewModel.getCollection(id)
+        if (result.resultCode != Activity.RESULT_OK || result.data == null)
+            return
+        if (!result.data!!.hasExtra(CollectionDetailsActivity.ARGUMENT_COLLECTION_ID))
+            return
 
-                viewModel.deleteCollection(requireContext(), collection) {
-                    Snackbar.make(requireActivity().findViewById(R.id.layout_root), String.format(getString(R.string.collection_delete), collection.name), 6000).setAction(getString(R.string.undo)) {
-                        // Undo the delete action.
-                        viewModel.addCollection(requireContext(), collection)
-                    }.show()
-                }
-            }
-        }
+        val id = result.data?.getLongExtra(CollectionDetailsActivity.ARGUMENT_COLLECTION_ID, 0) as Long
+        val collection = viewModel.getCollection(id)
+        deleteCollection(collection)
     }
 }

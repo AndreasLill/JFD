@@ -189,7 +189,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         transaction.add(R.id.layout_drawer, dialog).addToBackStack(null).commit()
     }
 
-    fun isDictionaryReady(): Boolean {
+    private fun isReady(): Boolean {
         return !progressBar.isIndeterminate
     }
 
@@ -232,7 +232,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun searchDictionary(query: String) {
         // Check if dictionary is ready.
-        if (!isDictionaryReady())
+        if (!isReady())
             return
 
         // Scroll to dictionary fragment in view pager.

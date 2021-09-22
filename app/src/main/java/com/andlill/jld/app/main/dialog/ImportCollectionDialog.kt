@@ -1,7 +1,6 @@
 package com.andlill.jld.app.main.dialog
 
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
@@ -11,16 +10,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import com.andlill.jld.R
-import com.andlill.jld.app.shared.dialog.DialogResult
 import com.andlill.jld.model.Collection
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
-import java.lang.Exception
 
-class ImportCollectionDialog(private val callback: (DialogResult, Collection?) -> Unit) : DialogFragment() {
+class ImportCollectionDialog(private val callback: (Collection) -> Unit) : DialogFragment() {
 
-    private var collection: Collection? = null
+    private lateinit var collection: Collection
     private lateinit var inputLayout: TextInputLayout
     private lateinit var input: TextInputEditText
     private lateinit var collectionLayout: View
@@ -37,7 +34,7 @@ class ImportCollectionDialog(private val callback: (DialogResult, Collection?) -
         input.setOnEditorActionListener { _, action, _ ->
             if (action == EditorInfo.IME_ACTION_GO || action == EditorInfo.IME_ACTION_DONE) {
                 if (validateInput(input.text.toString())) {
-                    callback(DialogResult.OK, collection)
+                    callback(collection)
                     dismiss()
                 }
             }
@@ -51,7 +48,7 @@ class ImportCollectionDialog(private val callback: (DialogResult, Collection?) -
         // Set listener on OK button.
         layout.findViewById<View>(R.id.button_ok).setOnClickListener {
             if (validateInput(input.text.toString())) {
-                callback(DialogResult.OK, collection)
+                callback(collection)
                 dismiss()
             }
         }
@@ -65,12 +62,12 @@ class ImportCollectionDialog(private val callback: (DialogResult, Collection?) -
 
     private fun validateInput(text: String): Boolean {
         return if (Regex("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?\$").matches(text)) {
-            collection = tryDecodeImport(text)
-            if (collection != null) {
+            val import = tryDecodeImport(text)
+            if (import != null) {
                 inputLayout.isErrorEnabled = false
                 collectionLayout.visibility = View.VISIBLE
-                collectionTextTitle.text = collection?.name
-                collectionTextSubtitle.text = String.format(requireActivity().getString(R.string.items), collection?.content?.size)
+                collectionTextTitle.text = collection.name
+                collectionTextSubtitle.text = String.format(requireActivity().getString(R.string.items), collection.content.size)
                 true
             }
             else {
@@ -80,16 +77,10 @@ class ImportCollectionDialog(private val callback: (DialogResult, Collection?) -
             }
         }
         else {
-            collection = null
             collectionLayout.visibility = View.GONE
             inputLayout.error = requireActivity().getString(R.string.validation_error_collection_import)
             false
         }
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        callback(DialogResult.Dismiss, null)
     }
 
     private fun tryDecodeImport(str: String): Collection? {

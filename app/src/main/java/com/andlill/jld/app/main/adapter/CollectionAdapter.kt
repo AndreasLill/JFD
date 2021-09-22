@@ -5,13 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.andlill.jld.R
 import com.andlill.jld.model.Collection
 
-class CollectionAdapter(private val callback: (Collection) -> Unit) : ListAdapter<Collection, CollectionAdapter.ViewHolder>(DiffCallback()) {
+class CollectionAdapter(private val callback: (Action, Collection) -> Unit) : ListAdapter<Collection, CollectionAdapter.ViewHolder>(DiffCallback()) {
+
+    enum class Action {
+        Select,
+        Rename,
+        Delete
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.adapter_collection, parent, false))
@@ -21,7 +28,7 @@ class CollectionAdapter(private val callback: (Collection) -> Unit) : ListAdapte
         val item = getItem(position)
         holder.bind(item)
         holder.itemView.setOnClickListener {
-            callback(item)
+            callback(Action.Select, item)
         }
     }
 
@@ -34,6 +41,20 @@ class CollectionAdapter(private val callback: (Collection) -> Unit) : ListAdapte
                 view.findViewById<TextView>(R.id.text_subtitle).text = String.format(view.context.getString(R.string.items), collection.content.size)
             else
                 view.findViewById<TextView>(R.id.text_subtitle).text = view.context.getString(R.string.empty)
+
+            view.findViewById<View>(R.id.button_menu).setOnClickListener {
+                PopupMenu(view.context, it).apply {
+                    inflate(R.menu.menu_adapter_collection)
+                    setOnMenuItemClickListener { menuItem ->
+                        when (menuItem.itemId) {
+                            R.id.menu_item_rename -> callback(Action.Rename, collection)
+                            R.id.menu_item_delete -> callback(Action.Delete, collection)
+                        }
+                        return@setOnMenuItemClickListener true
+                    }
+                    show()
+                }
+            }
         }
     }
 
