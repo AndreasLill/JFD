@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="true"
-        app:cardBackgroundColor="?attr/colorSurface"
+        app:cardBackgroundColor="?attr/colorElevatedSurface"
         app:rippleColor="@color/transparent"
         app:cardElevation="4dp"
         app:cardCornerRadius="8dp">

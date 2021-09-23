@@ -30,7 +30,7 @@
         <item name="android:letterSpacing">0.05</item>
     </style>
     <style name="AppStyle.RoundButton" parent="Widget.AppCompat.ImageButton">
-        <item name="android:background">?attr/colorSurface</item>
+        <item name="android:background">@drawable/background_button_round</item>
         <item name="android:foreground">@drawable/ripple_round</item>
         <item name="android:tint">?attr/colorTextPrimary</item>
         <item name="android:elevation">4dp</item>

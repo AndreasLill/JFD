@@ -69,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="?attr/colorSurface"
+        android:background="?attr/colorElevatedSurface"
         app:headerLayout="@layout/header_navigation_drawer"
         app:itemTextColor="@color/navigation_drawer_color"
         app:itemTextAppearance="@style/AppStyle.TextAppearance.NavigationDrawer"

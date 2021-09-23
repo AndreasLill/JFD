@@ -4,7 +4,7 @@
     <style name="AppTheme.Base" parent="Theme.MaterialComponents.Light.NoActionBar">
 
         <item name="android:statusBarColor">@color/transparent</item>
-        <item name="android:navigationBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorElevatedSurface</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowTranslucentStatus">false</item>
@@ -31,15 +31,14 @@
         <!-- Secondary colors -->
         <item name="colorSecondary">?attr/colorAccent</item>
         <item name="colorOnSecondary">?attr/colorOnPrimary</item>
+        <!-- Background colors -->
+        <item name="colorBackground">@color/blue_gray_50</item>
+        <item name="colorOnBackground">?attr/colorOnSurface</item>
         <!-- Surface colors-->
         <item name="colorSurface">@color/white</item>
         <item name="colorElevatedSurface">?attr/colorSurface</item>
         <item name="colorPrimarySurface">?attr/colorSurface</item>
         <item name="colorOnSurface">?attr/colorTextPrimary</item>
-        <!-- Background colors -->
-        <item name="colorBackground">@color/blue_gray_50</item>
-        <item name="android:colorBackground">?attr/colorBackground</item>
-        <item name="colorOnBackground">?attr/colorOnSurface</item>
         <!-- Custom attributes. -->
         <item name="colorHint">@color/gray_500</item>
         <item name="colorTextPrimary">@color/blue_gray_800</item>
