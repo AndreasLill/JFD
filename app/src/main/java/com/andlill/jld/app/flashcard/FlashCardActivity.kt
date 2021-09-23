@@ -128,10 +128,6 @@ class FlashCardActivity : AppCompatActivity() {
         }
     }
 
-    private fun popBackStackFragments() {
-        supportFragmentManager.popBackStack()
-    }
-
     private fun createFrontCardFragment(dictionaryEntry: DictionaryEntry) {
         // Create flashcard fragment.
         val cardFragment = FlashCardFragment(dictionaryEntry, FlashCardFragment.Type.Front) { action, direction -> handleCardAction(action, direction) }
@@ -247,27 +243,16 @@ class FlashCardActivity : AppCompatActivity() {
             updateBackgroundCard(false, "")
 
         createFrontCardFragment(flashCards[0])
-        viewModel.isFlipped = false
+        viewModel.canFlip = true
     }
 
     private fun flipCard() {
         if (!viewModel.canFlip)
             return
 
-        if (viewModel.isFlipped) {
-            popBackStackFragments()
-            viewModel.isFlipped = false
-            viewModel.canFlip = false
-            AppUtils.postDelayed(400) { viewModel.canFlip = true }
-            return
-        }
-
         // Get cards from view model.
         val flashCards = viewModel.getFlashCards()
-
         createBackCardFragment(flashCards[0])
-        viewModel.isFlipped = true
         viewModel.canFlip = false
-        AppUtils.postDelayed(400) { viewModel.canFlip = true }
     }
 }
