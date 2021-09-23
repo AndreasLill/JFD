@@ -138,12 +138,13 @@ class DictionaryDetailsActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_activity_dictionary_details, menu)
         when (calledFromExternal) {
             true -> {
-                menuInflater.inflate(R.menu.menu_activity_dictionary_details_external, menu)
+                menu?.setGroupVisible(R.id.group_external, true)
             }
             false -> {
-                menuInflater.inflate(R.menu.menu_activity_dictionary_details, menu)
+                menu?.setGroupVisible(R.id.group_default, true)
                 menuItemCollection = menu?.findItem(R.id.menu_item_collection_add) as MenuItem
                 updateMenuItemCollection()
             }
