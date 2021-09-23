@@ -64,7 +64,7 @@ class RenameCollectionDialog(private val name: String, private val callback: (St
     }
 
     private fun validateInput(text: String): Boolean {
-        return if (Regex("^[A-Za-z0-9 ]{1,30}\$").matches(text)) {
+        return if (Regex("^\\w{1,30}\$").matches(text)) {
             inputLayout.isErrorEnabled = false
             true
         }

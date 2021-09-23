@@ -18,6 +18,8 @@ import java.util.*
 
 class SettingsDialog(private val title: String, private val settings: Array<String>, private val selected: String, private val callback: (String) -> Unit) : DialogFragment() {
 
+    private var value: String = ""
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val layout = requireActivity().layoutInflater.inflate(R.layout.dialog_settings, null)
         val dialog = AlertDialog.Builder(requireContext(), R.style.Theme_MaterialComponents_Dialog_Alert).setView(layout).create()
@@ -25,8 +27,8 @@ class SettingsDialog(private val title: String, private val settings: Array<Stri
         dialog.window?.attributes?.windowAnimations = R.style.DialogAnimationSlide
 
         val settingsAdapter = SettingsAdapter(settings, selected) { result ->
+            value = result
             AppUtils.postDelayed(100) {
-                callback(result)
                 dismiss()
             }
         }
@@ -38,5 +40,12 @@ class SettingsDialog(private val title: String, private val settings: Array<Stri
         }
 
         return dialog
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        if (value.isNotEmpty())
+            callback(value)
     }
 }

@@ -61,26 +61,21 @@ class ImportCollectionDialog(private val callback: (Collection) -> Unit) : Dialo
     }
 
     private fun validateInput(text: String): Boolean {
-        return if (Regex("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?\$").matches(text)) {
+        if (Regex("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?\$").matches(text)) {
             val import = tryDecodeImport(text)
             if (import != null) {
+                collection = import
                 inputLayout.isErrorEnabled = false
                 collectionLayout.visibility = View.VISIBLE
                 collectionTextTitle.text = collection.name
                 collectionTextSubtitle.text = String.format(requireActivity().getString(R.string.items), collection.content.size)
-                true
-            }
-            else {
-                collectionLayout.visibility = View.GONE
-                inputLayout.error = requireActivity().getString(R.string.validation_error_collection_import)
-                false
+                return true
             }
         }
-        else {
-            collectionLayout.visibility = View.GONE
-            inputLayout.error = requireActivity().getString(R.string.validation_error_collection_import)
-            false
-        }
+
+        collectionLayout.visibility = View.GONE
+        inputLayout.error = requireActivity().getString(R.string.validation_error_collection_import)
+        return false
     }
 
     private fun tryDecodeImport(str: String): Collection? {

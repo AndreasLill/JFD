@@ -8,7 +8,6 @@ import com.andlill.jld.io.repository.SharedPreferencesRepository
 
 class SettingsActivityViewModel : ViewModel() {
 
-    val darkModeOptions get() = SharedPreferencesRepository.OPTIONS_DARK_MODE
     private val darkMode = MutableLiveData<String>()
 
     fun initialize(context: Context) {

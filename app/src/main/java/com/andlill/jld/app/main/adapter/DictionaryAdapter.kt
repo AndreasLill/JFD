@@ -56,10 +56,12 @@ class DictionaryAdapter(private val callback: (DictionaryEntry) -> Unit) : Recyc
             val viewLabel = view.findViewById<View>(R.id.view_label)
 
             if (entry.isCommon()) {
+                layoutRoot.alpha = 1f
                 layoutRoot.setBackgroundColor(MaterialColors.getColor(layoutRoot, R.attr.colorDictionaryCommonHint))
                 viewLabel.setBackgroundColor(MaterialColors.getColor(viewLabel, R.attr.colorDictionaryCommonTag))
             }
             else {
+                layoutRoot.alpha = 0.6f
                 layoutRoot.setBackgroundColor(MaterialColors.getColor(layoutRoot, R.attr.colorSurface))
                 viewLabel.setBackgroundColor(MaterialColors.getColor(viewLabel, R.attr.colorSurface))
             }

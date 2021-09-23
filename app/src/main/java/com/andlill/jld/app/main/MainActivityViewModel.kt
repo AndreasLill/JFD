@@ -18,16 +18,11 @@ import java.io.InputStream
 
 class MainActivityViewModel : ViewModel() {
 
-    val darkModeOptions get() = SharedPreferencesRepository.OPTIONS_DARK_MODE
     private var searchHistoryList = MutableLiveData<List<SearchHistory>>()
 
     fun initialize(context: Context) = runBlocking {
         val data = SearchHistoryRepository.getAll(context)
         searchHistoryList.value = data
-    }
-
-    fun getDarkMode(context: Context): String {
-        return SharedPreferencesRepository.getDarkMode(context)
     }
 
     fun getSearchHistory(): LiveData<List<SearchHistory>> {

@@ -48,10 +48,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         viewModel.initialize(this)
 
         // Check for night mode.
-        when (viewModel.getDarkMode(this)) {
-            viewModel.darkModeOptions[0] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            viewModel.darkModeOptions[1] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            viewModel.darkModeOptions[2] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        when (SharedPreferencesRepository.getDarkMode(this)) {
+            SharedPreferencesRepository.OPTIONS_DARK_MODE[0] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            SharedPreferencesRepository.OPTIONS_DARK_MODE[1] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            SharedPreferencesRepository.OPTIONS_DARK_MODE[2] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
         this.initializeUI()
