@@ -7,7 +7,7 @@
     android:paddingStart="8dp"
     android:paddingEnd="8dp"
     android:background="?attr/colorSurface"
-    android:foreground="?android:attr/selectableItemBackground"
+    android:foreground="@drawable/ripple_rectangle"
     android:clickable="true"
     android:focusable="true">
 

@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Text Appearances -->
+    <style name="AppStyle.TextAppearance.MenuItem" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textSize">15sp</item>
+    </style>
     <style name="AppStyle.TextAppearance.Title" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">?attr/colorTextSecondary</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">?attr/colorTextSecondary</item>
-        <item name="android:letterSpacing">0.1</item>
+        <item name="android:letterSpacing">0.05</item>
         <item name="android:textAllCaps">true</item>
     </style>
     <style name="AppStyle.TextAppearance.Tab" parent="TextAppearance.AppCompat">
@@ -18,18 +22,22 @@
 
     <!-- Buttons -->
     <style name="AppStyle.DialogButton" parent="Widget.AppCompat.Button">
-        <item name="android:background">@drawable/background_button_dialog</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:foreground">@drawable/ripple_rectangle</item>
         <item name="android:textColor">?attr/colorAccent</item>
         <item name="android:textSize">13sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.05</item>
     </style>
     <style name="AppStyle.RoundButton" parent="Widget.AppCompat.ImageButton">
-        <item name="android:background">@drawable/background_button_round</item>
+        <item name="android:background">?attr/colorSurface</item>
+        <item name="android:foreground">@drawable/ripple_round</item>
         <item name="android:tint">?attr/colorTextPrimary</item>
-        <item name="android:elevation">2dp</item>
+        <item name="android:elevation">4dp</item>
     </style>
     <style name="AppStyle.RoundButton.Transparent" parent="Widget.AppCompat.ImageButton">
-        <item name="android:background">@drawable/background_button_round_transparent</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:foreground">@drawable/ripple_round</item>
         <item name="android:tint">?attr/colorTextPrimary</item>
     </style>
     <style name="AppStyle.FilledButton" parent="Widget.MaterialComponents.Button.Icon">
@@ -46,14 +54,7 @@
     <style name="AppStyle.Snackbar" parent="Widget.MaterialComponents.Snackbar">
         <item name="materialThemeOverlay">@style/AppStyle.Snackbar</item>
         <item name="actionTextColorAlpha">1</item>
-        <item name="backgroundTint">?attr/colorSnackbar</item>
-    </style>
-    <style name="AppStyle.SnackbarButton" parent="Widget.MaterialComponents.Button.TextButton.Snackbar">
-        <item name="android:background">@color/transparent</item>
-        <item name="android:foreground">?attr/selectableItemBackground</item>
-        <item name="android:textSize">13sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="backgroundTint">@color/gray_800</item>
     </style>
     <style name="AppStyle.SnackbarText" parent="Widget.MaterialComponents.Snackbar.TextView">
         <item name="android:textSize">13sp</item>

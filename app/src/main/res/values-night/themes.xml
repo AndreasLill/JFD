@@ -9,16 +9,20 @@
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:windowTranslucentStatus">false</item>
         <item name="elevationOverlayEnabled">false</item>
+        <!-- Menu -->
+        <item name="popupMenuBackground">?attr/colorElevatedSurface</item>
         <!-- Custom Styles -->
+        <item name="android:textCursorDrawable">@drawable/text_cursor</item>
+        <item name="android:itemTextAppearance">@style/AppStyle.TextAppearance.MenuItem</item>
         <item name="searchViewStyle">@style/AppStyle.SearchViewStyle</item>
         <item name="snackbarStyle">@style/AppStyle.Snackbar</item>
-        <item name="snackbarButtonStyle">@style/AppStyle.SnackbarButton</item>
+        <item name="snackbarButtonStyle">@style/AppStyle.DialogButton</item>
         <item name="snackbarTextViewStyle">@style/AppStyle.SnackbarText</item>
+        <!-- Default font -->
+        <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
 
     <style name="AppTheme.Default" parent="AppTheme.Base">
-        <!-- Default font -->
-        <item name="android:fontFamily">@font/roboto_regular</item>
         <!-- Primary colors -->
         <item name="colorPrimary">@color/purple_900</item>
         <item name="colorPrimaryDark">@color/purple_900</item>
@@ -29,6 +33,7 @@
         <item name="colorOnSecondary">?attr/colorOnPrimary</item>
         <!-- Surface colors-->
         <item name="colorSurface">@color/gray_900</item>
+        <item name="colorElevatedSurface">@color/gray_800</item>
         <item name="colorPrimarySurface">?attr/colorSurface</item>
         <item name="colorOnSurface">?attr/colorTextPrimary</item>
         <!-- Background colors -->
@@ -36,14 +41,10 @@
         <item name="android:colorBackground">?attr/colorBackground</item>
         <item name="colorOnBackground">?attr/colorOnSurface</item>
         <!-- Custom attributes. -->
-        <item name="android:textColorPrimary">?attr/colorTextPrimary</item>
-        <item name="android:textCursorDrawable">@drawable/background_text_cursor</item>
         <item name="colorHint">@color/gray_600</item>
         <item name="colorTextPrimary">@color/blue_gray_100</item>
         <item name="colorTextSecondary">@color/gray_500</item>
         <item name="colorCheckMark">@color/green_300</item>
-        <item name="colorRipple">@color/blue_gray_100</item>
-        <item name="colorSnackbar">@color/gray_800</item>
         <item name="colorDictionaryCommonTag">@color/green_300</item>
         <item name="colorDictionaryCommonHint">@color/gray_850</item>
         <item name="colorCardCorrect">@color/green_700</item>

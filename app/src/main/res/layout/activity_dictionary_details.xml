@@ -91,7 +91,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:text="@string/dictionary_details_translation"
-                        android:textAppearance="@style/AppStyle.TextAppearance.Title"/>
+                        android:textAppearance="@style/AppStyle.TextAppearance.Title" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_translation"
@@ -123,7 +123,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:text="@string/dictionary_details_kanji"
-                        android:textAppearance="@style/AppStyle.TextAppearance.Title"/>
+                        android:textAppearance="@style/AppStyle.TextAppearance.Title" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_kanji"
@@ -149,7 +149,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:text="@string/dictionary_details_reading"
-                        android:textAppearance="@style/AppStyle.TextAppearance.Title"/>
+                        android:textAppearance="@style/AppStyle.TextAppearance.Title" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_reading"

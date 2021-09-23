@@ -10,10 +10,16 @@
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:windowTranslucentStatus">false</item>
         <item name="elevationOverlayEnabled">false</item>
+        <!-- Menu -->
+        <item name="popupMenuBackground">?attr/colorElevatedSurface</item>
         <!-- Custom Styles -->
+        <item name="android:textCursorDrawable">@drawable/text_cursor</item>
+        <item name="android:itemTextAppearance">@style/AppStyle.TextAppearance.MenuItem</item>
         <item name="searchViewStyle">@style/AppStyle.SearchViewStyle</item>
         <item name="snackbarStyle">@style/AppStyle.Snackbar</item>
-        <item name="snackbarButtonStyle">@style/AppStyle.SnackbarButton</item>
+        <item name="snackbarButtonStyle">@style/AppStyle.DialogButton</item>
         <item name="snackbarTextViewStyle">@style/AppStyle.SnackbarText</item>
+        <!-- Default font -->
+        <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
 </resources>

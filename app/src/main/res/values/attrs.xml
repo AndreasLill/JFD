@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="colorElevatedSurface" format="color"/>
     <attr name="colorBackground" format="color"/>
     <attr name="colorHint" format="color"/>
     <attr name="colorTextPrimary" format="color"/>
     <attr name="colorTextSecondary" format="color"/>
     <attr name="colorCheckMark" format="color"/>
-    <attr name="colorRipple" format="color"/>
-    <attr name="colorSnackbar" format="color"/>
     <attr name="colorDictionaryCommonTag" format="color"/>
     <attr name="colorDictionaryCommonHint" format="color"/>
     <attr name="colorCardCorrect" format="color"/>
