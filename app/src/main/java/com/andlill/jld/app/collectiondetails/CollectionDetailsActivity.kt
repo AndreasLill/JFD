@@ -49,14 +49,10 @@ class CollectionDetailsActivity : ResultActivity() {
         viewModel = ViewModelProvider(this).get(CollectionDetailsViewModel::class.java)
         viewModel.initialize(this, collectionId)
 
-        val collection = viewModel.getCollection().value as Collection
-
         // Setup toolbar.
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = collection.name
-        supportActionBar?.subtitle = if (collection.content.isNotEmpty()) { String.format(getString(R.string.items), collection.content.size) } else { getString(R.string.empty) }
 
         contentAdapter = CollectionContentAdapter(viewModel) { entry ->
             startActivityDictionaryDetails(entry)
