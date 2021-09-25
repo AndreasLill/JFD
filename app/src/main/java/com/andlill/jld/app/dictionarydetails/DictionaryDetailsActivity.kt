@@ -1,6 +1,5 @@
 package com.andlill.jld.app.dictionarydetails
 
-import android.content.Intent
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.view.Menu
@@ -27,7 +26,6 @@ class DictionaryDetailsActivity : AppCompatActivity() {
     companion object {
         const val ARGUMENT_ENTRY_ID = "com.andlill.jld.DictionaryEntry"
         const val ARGUMENT_CALLED_FROM_EXTERNAL = "com.andlill.jld.CalledFromCollection"
-        const val RESULT_ENTRY_ID = "com.andlill.jld.ResultEntryId"
     }
 
     private lateinit var viewModel: DictionaryDetailsViewModel
@@ -130,7 +128,6 @@ class DictionaryDetailsActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_item_delete -> removeFromCollection()
             R.id.menu_item_collection_add -> AddToCollectionDialog(viewModel).show(supportFragmentManager, AddToCollectionDialog::class.simpleName)
             android.R.id.home -> finish()
         }
@@ -139,16 +136,13 @@ class DictionaryDetailsActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_activity_dictionary_details, menu)
-        when (calledFromExternal) {
-            true -> {
-                menu?.setGroupVisible(R.id.group_external, true)
-            }
-            false -> {
-                menu?.setGroupVisible(R.id.group_default, true)
-                menuItemCollection = menu?.findItem(R.id.menu_item_collection_add) as MenuItem
-                updateMenuItemCollection()
-            }
+        menuItemCollection = menu?.findItem(R.id.menu_item_collection_add) as MenuItem
+
+        if (calledFromExternal) {
+            menu.setGroupVisible(R.id.group_default, false)
         }
+
+        updateMenuItemCollection()
         return true
     }
 
@@ -158,13 +152,5 @@ class DictionaryDetailsActivity : AppCompatActivity() {
         } else {
             menuItemCollection?.icon = ContextCompat.getDrawable(this, R.drawable.ic_collection_add)
         }
-    }
-
-    private fun removeFromCollection() {
-        val entry = viewModel.getDictionaryEntry().value as DictionaryEntry
-        val intent = Intent()
-        intent.putExtra(RESULT_ENTRY_ID, entry.id)
-        setResult(RESULT_OK, intent)
-        finish()
     }
 }

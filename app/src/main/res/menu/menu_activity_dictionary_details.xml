@@ -3,19 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <group android:id="@+id/group_default" android:visible="false">
+    <group android:id="@+id/group_default">
         <item
             android:id="@+id/menu_item_collection_add"
             android:title="@string/menu_item_collection_add"
             android:icon="@drawable/ic_collection_add"
             app:showAsAction="ifRoom"/>
     </group>
-    <group android:id="@+id/group_external" android:visible="false">
-        <item
-            android:id="@+id/menu_item_delete"
-            android:title="@string/delete"
-            android:icon="@drawable/ic_delete"
-            app:showAsAction="ifRoom"/>
-    </group>
-
 </menu>

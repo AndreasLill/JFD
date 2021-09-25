@@ -47,7 +47,7 @@ class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) 
         }
 
         viewModel.getCollections().observe(viewLifecycleOwner, { collection ->
-            collectionAdapter.submitList(ArrayList(collection))
+            collectionAdapter.submitList(collection.toList())
         })
 
         view.findViewById<RecyclerView>(R.id.recycler_collection).apply {

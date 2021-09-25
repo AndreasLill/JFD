@@ -79,7 +79,7 @@ class SearchDialog(private val viewModel: MainActivityViewModel, private val cal
 
         // Setup view model observe.
         viewModel.getSearchHistory().observe(this, { searchHistory ->
-            searchHistoryAdapter.submitList(ArrayList(searchHistory))
+            searchHistoryAdapter.submitList(searchHistory.toList())
         })
 
         return view

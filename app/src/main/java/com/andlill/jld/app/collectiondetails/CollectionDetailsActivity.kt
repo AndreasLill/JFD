@@ -1,13 +1,12 @@
 package com.andlill.jld.app.collectiondetails
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Base64
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.result.ActivityResult
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.MenuCompat
 import androidx.lifecycle.ViewModelProvider
@@ -15,30 +14,35 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andlill.jld.R
-import com.andlill.jld.app.shared.ResultActivity
 import com.andlill.jld.app.collectiondetails.adapter.CollectionContentAdapter
-import com.andlill.jld.app.shared.dialog.RenameCollectionDialog
 import com.andlill.jld.app.dictionarydetails.DictionaryDetailsActivity
 import com.andlill.jld.app.flashcard.FlashCardActivity
 import com.andlill.jld.app.shared.dialog.ConfirmationDialog
+import com.andlill.jld.app.shared.dialog.RenameCollectionDialog
 import com.andlill.jld.model.Collection
 import com.andlill.jld.model.DictionaryEntry
-import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import java.util.*
 
-class CollectionDetailsActivity : ResultActivity() {
+class CollectionDetailsActivity : AppCompatActivity() {
 
     companion object {
         const val ARGUMENT_COLLECTION_ID = "com.andlill.jld.CollectionId"
+    }
+
+    enum class ActivityState {
+        Default,
+        Selection
     }
 
     // ViewModel
     private lateinit var viewModel: CollectionDetailsViewModel
 
     // Views
+    private lateinit var activityMenu: Menu
     private lateinit var contentRecyclerView: RecyclerView
     private lateinit var contentAdapter: CollectionContentAdapter
+    private var state = ActivityState.Default
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,8 +58,11 @@ class CollectionDetailsActivity : ResultActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        contentAdapter = CollectionContentAdapter(viewModel) { entry ->
-            startActivityDictionaryDetails(entry)
+        contentAdapter = CollectionContentAdapter(viewModel) { action, entry ->
+            when (action) {
+                CollectionContentAdapter.Action.Select -> startActivityDictionaryDetails(entry)
+                CollectionContentAdapter.Action.Selection -> updateSelection()
+            }
         }
 
         contentRecyclerView = findViewById<RecyclerView>(R.id.recycler_collection_content).apply {
@@ -65,16 +72,20 @@ class CollectionDetailsActivity : ResultActivity() {
             this.adapter = contentAdapter
         }
 
-        viewModel.getCollection().observe(this, {
-            supportActionBar?.title = it.name
-            supportActionBar?.subtitle = if (it.content.isNotEmpty()) { String.format(getString(R.string.items), it.content.size) } else { getString(R.string.empty) }
+        viewModel.getCollection().observe(this, { collection ->
+            contentAdapter.clearSelection()
+            contentAdapter.submitList(collection.content.toList())
+            updateToolBarTitle()
         })
 
         findViewById<View>(R.id.button_study).apply { setOnClickListener { study() } }
     }
 
     override fun onBackPressed() {
-        finish()
+        when (state) {
+            ActivityState.Default -> finish()
+            ActivityState.Selection -> cancelSelection()
+        }
     }
 
     private fun startActivityDictionaryDetails(entry: DictionaryEntry) {
@@ -82,7 +93,7 @@ class CollectionDetailsActivity : ResultActivity() {
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         intent.putExtra(DictionaryDetailsActivity.ARGUMENT_ENTRY_ID, entry.id)
         intent.putExtra(DictionaryDetailsActivity.ARGUMENT_CALLED_FROM_EXTERNAL, true)
-        activityLauncher.launch(intent)
+        startActivity(intent)
     }
 
     private fun study() {
@@ -90,7 +101,7 @@ class CollectionDetailsActivity : ResultActivity() {
         val intent = Intent(this, FlashCardActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         intent.putExtra(FlashCardActivity.ARGUMENT_COLLECTION, collection)
-        activityLauncher.launch(intent)
+        startActivity(intent)
     }
 
     private fun share() {
@@ -123,6 +134,48 @@ class CollectionDetailsActivity : ResultActivity() {
         }.show(supportFragmentManager, ConfirmationDialog::class.simpleName)
     }
 
+    private fun updateSelection() {
+        val selection = contentAdapter.getSelection()
+
+        if (selection.isEmpty()) {
+            endSelection()
+            return
+        }
+
+        state = ActivityState.Selection
+        activityMenu.setGroupVisible(R.id.group_default, false)
+        activityMenu.setGroupVisible(R.id.group_selection, true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
+        supportActionBar?.title = "Selection"
+        supportActionBar?.subtitle = String.format("${selection.size} items selected")
+    }
+
+    private fun endSelection() {
+        state = ActivityState.Default
+        activityMenu.setGroupVisible(R.id.group_default, true)
+        activityMenu.setGroupVisible(R.id.group_selection, false)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
+        updateToolBarTitle()
+    }
+
+    private fun cancelSelection() {
+        contentAdapter.cancelSelection()
+        endSelection()
+    }
+
+    private fun deleteSelection() {
+        val selection = contentAdapter.getSelection()
+        viewModel.removeContent(this, selection)
+        endSelection()
+    }
+
+    private fun updateToolBarTitle() {
+        val collection = viewModel.getCollection().value as Collection
+        supportActionBar?.title = collection.name
+        supportActionBar?.subtitle = if (collection.content.isNotEmpty()) { String.format(getString(R.string.items), collection.content.size) } else { getString(R.string.empty) }
+    }
+
+    /*
     private fun removeContent(id: Int, index: Int) {
         val entry = viewModel.getDictionaryEntry(id)
         viewModel.removeContent(this, index) {
@@ -138,13 +191,20 @@ class CollectionDetailsActivity : ResultActivity() {
             }.show()
         }
     }
+     */
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_item_share -> share()
             R.id.menu_item_rename -> rename()
             R.id.menu_item_delete -> delete()
-            android.R.id.home -> finish()
+            R.id.menu_item_selection_delete -> deleteSelection()
+            android.R.id.home -> {
+                when (state) {
+                    ActivityState.Default -> finish()
+                    ActivityState.Selection -> cancelSelection()
+                }
+            }
         }
 
         return true
@@ -152,18 +212,8 @@ class CollectionDetailsActivity : ResultActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_activity_collection_details, menu)
+        this.activityMenu = menu as Menu
         MenuCompat.setGroupDividerEnabled(menu, true)
         return true
-    }
-
-    override fun handleActivityResult(result: ActivityResult) {
-        if (result.resultCode != Activity.RESULT_OK || result.data == null)
-            return
-        if (!result.data!!.hasExtra(DictionaryDetailsActivity.RESULT_ENTRY_ID))
-            return
-
-        val id = result.data?.getIntExtra(DictionaryDetailsActivity.RESULT_ENTRY_ID, -1) as Int
-        val index = contentAdapter.getIndexOf(id)
-        removeContent(id, index)
     }
 }
