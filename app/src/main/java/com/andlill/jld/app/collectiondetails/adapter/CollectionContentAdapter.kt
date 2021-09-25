@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.andlill.jld.R
 import com.andlill.jld.app.collectiondetails.CollectionDetailsViewModel
+import com.andlill.jld.model.Collection
 import com.andlill.jld.model.DictionaryEntry
 import com.google.android.material.color.MaterialColors
 
-class CollectionContentAdapter(private val viewModel: CollectionDetailsViewModel, private val callback: (Action, DictionaryEntry) -> Unit) : ListAdapter<Int, CollectionContentAdapter.ViewHolder>(DiffCallback()) {
+class CollectionContentAdapter(private val viewModel: CollectionDetailsViewModel, private val callback: (Action, DictionaryEntry) -> Unit) : RecyclerView.Adapter<CollectionContentAdapter.ViewHolder>() {
 
     enum class Action {
         Select,
@@ -26,7 +27,8 @@ class CollectionContentAdapter(private val viewModel: CollectionDetailsViewModel
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val entry = viewModel.getDictionaryEntry(getItem(position))
+        val collection = viewModel.getCollection().value as Collection
+        val entry = viewModel.getDictionaryEntry(collection.content[position])
         holder.bind(position, entry)
         holder.itemView.setOnClickListener {
             callback(Action.Select, entry)
@@ -45,6 +47,16 @@ class CollectionContentAdapter(private val viewModel: CollectionDetailsViewModel
         }
     }
 
+    override fun getItemCount(): Int {
+        val collection = viewModel.getCollection().value as Collection
+        return collection.content.size
+    }
+
+    fun indexOf(item: Int): Int {
+        val collection = viewModel.getCollection().value as Collection
+        return collection.content.indexOf(item)
+    }
+
     fun getSelection(): List<Int> {
         return selection
     }
@@ -54,8 +66,9 @@ class CollectionContentAdapter(private val viewModel: CollectionDetailsViewModel
     }
 
     fun cancelSelection() {
+        val collection = viewModel.getCollection().value as Collection
         selection.forEach {
-            val index = currentList.indexOf(it)
+            val index = collection.content.indexOf(it)
             notifyItemChanged(index)
         }
         selection.clear()
@@ -78,16 +91,5 @@ class CollectionContentAdapter(private val viewModel: CollectionDetailsViewModel
             if (entry.sense.isNotEmpty())
                 view.findViewById<TextView>(R.id.text_translation).text = entry.sense[0].glossary.joinToString("; ")
         }
-    }
-
-    private class DiffCallback : DiffUtil.ItemCallback<Int>() {
-        override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
-            return oldItem == newItem
-        }
-
-        override fun areContentsTheSame(oldItem: Int, newItem: Int): Boolean {
-            return oldItem == newItem
-        }
-
     }
 }

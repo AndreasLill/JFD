@@ -29,6 +29,9 @@
     <string name="dictionary_info_default">Press the search icon above to search the dictionary.</string>
     <string name="dictionary_no_results">No results found \'%s\'.</string>
     <string name="dictionary_wait">Please wait until dictionary is finished loading.</string>
+    <string name="dictionary_details_translation">Translation</string>
+    <string name="dictionary_details_reading">Alternative Readings</string>
+    <string name="dictionary_details_kanji">Kanji</string>
 
     <!-- Collection -->
     <string name="collection">Collection</string>
@@ -36,6 +39,12 @@
     <string name="collection_study">Study</string>
     <string name="collection_import">Import</string>
     <string name="collection_user">User</string>
+    <string name="collection_delete">\'%s\' was deleted.</string>
+    <string name="collection_share_title">Use the import code to share or backup your collections.</string>
+    <string name="collection_details_study">Study Collection</string>
+    <string name="collection_details_selection_title">Selection</string>
+    <string name="collection_details_selection_subtitle">%d items selected</string>
+    <string name="collection_details_content_removed">%d items removed from collection.</string>
 
     <!-- Study -->
     <string name="study_correct">Got it!</string>
@@ -60,16 +69,6 @@
     <string name="menu_item_share">Share</string>
     <string name="menu_item_rename">Rename</string>
     <string name="context_menu_options_title">Options for \'%s\'</string>
-
-    <!-- Activities & Fragments -->
-    <string name="dictionary_loading">Please wait, loading dictionary…</string>
-    <string name="dictionary_details_translation">Translation</string>
-    <string name="dictionary_details_reading">Alternative Readings</string>
-    <string name="dictionary_details_kanji">Kanji</string>
-    <string name="collection_details_study">Study Collection</string>
-    <string name="collection_details_share_title">Use the import code to share or backup your collections.</string>
-    <string name="collection_details_delete_entry">\'%s\' was deleted from the collection.</string>
-    <string name="collection_delete">\'%s\' was deleted.</string>
 
     <!-- Dialogs -->
     <string name="dialog_confirm">Confirm</string>

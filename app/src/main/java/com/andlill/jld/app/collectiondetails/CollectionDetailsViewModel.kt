@@ -36,12 +36,21 @@ class CollectionDetailsViewModel : ViewModel() {
         collection.postValue(data)
     }
 
-    fun removeContent(context: Context, selection: List<Int>) = viewModelScope.launch {
+    fun removeContent(context: Context, selection: HashMap<Int, Int>, callback: () -> Unit) = viewModelScope.launch {
         val data = collection.value as Collection
-        selection.forEach {
+        selection.values.forEach {
             data.content.remove(it)
         }
         CollectionRepository.update(context, data)
-        collection.postValue(data)
+        callback()
+    }
+
+    fun addContent(context: Context, selection: HashMap<Int, Int>, callback: () -> Unit) = viewModelScope.launch {
+        val data = collection.value as Collection
+        selection.forEach { (index, value) ->
+            data.content.add(index, value)
+        }
+        CollectionRepository.update(context, data)
+        callback()
     }
 }

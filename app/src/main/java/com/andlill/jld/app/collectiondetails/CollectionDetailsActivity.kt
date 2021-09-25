@@ -21,8 +21,10 @@ import com.andlill.jld.app.shared.dialog.ConfirmationDialog
 import com.andlill.jld.app.shared.dialog.RenameCollectionDialog
 import com.andlill.jld.model.Collection
 import com.andlill.jld.model.DictionaryEntry
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import java.util.*
+import kotlin.collections.HashMap
 
 class CollectionDetailsActivity : AppCompatActivity() {
 
@@ -35,10 +37,8 @@ class CollectionDetailsActivity : AppCompatActivity() {
         Selection
     }
 
-    // ViewModel
     private lateinit var viewModel: CollectionDetailsViewModel
 
-    // Views
     private lateinit var activityMenu: Menu
     private lateinit var contentRecyclerView: RecyclerView
     private lateinit var contentAdapter: CollectionContentAdapter
@@ -72,9 +72,7 @@ class CollectionDetailsActivity : AppCompatActivity() {
             this.adapter = contentAdapter
         }
 
-        viewModel.getCollection().observe(this, { collection ->
-            contentAdapter.clearSelection()
-            contentAdapter.submitList(collection.content.toList())
+        viewModel.getCollection().observe(this, {
             updateToolBarTitle()
         })
 
@@ -112,7 +110,7 @@ class CollectionDetailsActivity : AppCompatActivity() {
             action = Intent.ACTION_SEND
             type = "text/plain"
             putExtra(Intent.EXTRA_TEXT, base64)
-            putExtra(Intent.EXTRA_TITLE, getString(R.string.collection_details_share_title))
+            putExtra(Intent.EXTRA_TITLE, getString(R.string.collection_share_title))
         }, null)
         startActivity(share)
     }
@@ -146,8 +144,8 @@ class CollectionDetailsActivity : AppCompatActivity() {
         activityMenu.setGroupVisible(R.id.group_default, false)
         activityMenu.setGroupVisible(R.id.group_selection, true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
-        supportActionBar?.title = "Selection"
-        supportActionBar?.subtitle = String.format("${selection.size} items selected")
+        supportActionBar?.title = getString(R.string.collection_details_selection_title)
+        supportActionBar?.subtitle = String.format(getString(R.string.collection_details_selection_subtitle, selection.size))
     }
 
     private fun endSelection() {
@@ -165,7 +163,15 @@ class CollectionDetailsActivity : AppCompatActivity() {
 
     private fun deleteSelection() {
         val selection = contentAdapter.getSelection()
-        viewModel.removeContent(this, selection)
+        // Save data to a HashMap with index as key to preserve the index.
+        val selectionMap = HashMap<Int, Int>()
+        selection.forEach {
+            val index = contentAdapter.indexOf(it)
+            selectionMap[index] = it
+        }
+        // Clear selection.
+        contentAdapter.clearSelection()
+        removeContent(selectionMap)
         endSelection()
     }
 
@@ -175,23 +181,25 @@ class CollectionDetailsActivity : AppCompatActivity() {
         supportActionBar?.subtitle = if (collection.content.isNotEmpty()) { String.format(getString(R.string.items), collection.content.size) } else { getString(R.string.empty) }
     }
 
-    /*
-    private fun removeContent(id: Int, index: Int) {
-        val entry = viewModel.getDictionaryEntry(id)
-        viewModel.removeContent(this, index) {
-            contentAdapter.notifyItemRemoved(index)
-            contentAdapter.notifyItemRangeChanged(index, contentAdapter.itemCount)
-            // Show Undo snackbar.
-            Snackbar.make(findViewById(R.id.layout_root), String.format(getString(R.string.collection_details_delete_entry), entry.getReading()), 6000).setAction(getString(R.string.undo)) {
-                // Undo the delete action.
-                viewModel.addContent(this, index, id) {
-                    contentAdapter.notifyItemInserted(index)
-                    contentAdapter.notifyItemRangeChanged(index, contentAdapter.itemCount)
+    private fun removeContent(selection: HashMap<Int, Int>) {
+        viewModel.removeContent(this, selection) {
+            // Remove the content by key in selection.
+            selection.keys.forEach { index ->
+                contentAdapter.notifyItemRemoved(index)
+                contentAdapter.notifyItemRangeChanged(index, contentAdapter.itemCount)
+            }
+            Snackbar.make(findViewById(R.id.layout_root), String.format(getString(R.string.collection_details_content_removed), selection.size), 6000).setAction(getString(R.string.undo)) {
+                viewModel.addContent(this, selection) {
+                    // Restore the content by index/value pair.
+                    selection.keys.forEach { index ->
+                        contentAdapter.notifyItemInserted(index)
+                        contentAdapter.notifyItemRangeChanged(index, contentAdapter.itemCount)
+                        updateToolBarTitle()
+                    }
                 }
             }.show()
         }
     }
-     */
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
