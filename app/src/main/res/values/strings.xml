@@ -4,7 +4,7 @@
     <string name="app_name">JLD</string>
     <string name="app_version">1.0</string>
     <string name="empty">Empty</string>
-    <string name="items">%d items</string>
+    <string name="item_count">%d items</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="open">Open</string>
@@ -43,7 +43,6 @@
     <string name="collection_share_title">Use the import code to share or backup your collections.</string>
     <string name="collection_details_study">Study Collection</string>
     <string name="collection_details_selection_title">Selection</string>
-    <string name="collection_details_selection_subtitle">%d items selected</string>
     <string name="collection_details_content_removed">%d items removed from collection.</string>
 
     <!-- Study -->

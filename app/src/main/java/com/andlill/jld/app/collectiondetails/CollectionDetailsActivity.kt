@@ -42,6 +42,7 @@ class CollectionDetailsActivity : AppCompatActivity() {
     private lateinit var activityMenu: Menu
     private lateinit var contentRecyclerView: RecyclerView
     private lateinit var contentAdapter: CollectionContentAdapter
+    private lateinit var buttonStudy: View
     private var state = ActivityState.Default
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,7 +77,7 @@ class CollectionDetailsActivity : AppCompatActivity() {
             updateToolBarTitle()
         })
 
-        findViewById<View>(R.id.button_study).apply { setOnClickListener { study() } }
+        buttonStudy = findViewById<View>(R.id.button_study).apply { setOnClickListener { study() } }
     }
 
     override fun onBackPressed() {
@@ -134,25 +135,33 @@ class CollectionDetailsActivity : AppCompatActivity() {
 
     private fun updateSelection() {
         val selection = contentAdapter.getSelection()
-
         if (selection.isEmpty()) {
             endSelection()
             return
         }
 
+        supportActionBar?.title = getString(R.string.collection_details_selection_title)
+        supportActionBar?.subtitle = String.format(getString(R.string.item_count, selection.size))
+
+        if (state == ActivityState.Selection)
+            return
+
         state = ActivityState.Selection
         activityMenu.setGroupVisible(R.id.group_default, false)
         activityMenu.setGroupVisible(R.id.group_selection, true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
-        supportActionBar?.title = getString(R.string.collection_details_selection_title)
-        supportActionBar?.subtitle = String.format(getString(R.string.collection_details_selection_subtitle, selection.size))
+        buttonStudy.animate().translationYBy(buttonStudy.height.toFloat())
     }
 
     private fun endSelection() {
+        if (state == ActivityState.Default)
+            return
+
         state = ActivityState.Default
         activityMenu.setGroupVisible(R.id.group_default, true)
         activityMenu.setGroupVisible(R.id.group_selection, false)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
+        buttonStudy.animate().translationYBy(-buttonStudy.height.toFloat())
         updateToolBarTitle()
     }
 
@@ -178,24 +187,26 @@ class CollectionDetailsActivity : AppCompatActivity() {
     private fun updateToolBarTitle() {
         val collection = viewModel.getCollection().value as Collection
         supportActionBar?.title = collection.name
-        supportActionBar?.subtitle = if (collection.content.isNotEmpty()) { String.format(getString(R.string.items), collection.content.size) } else { getString(R.string.empty) }
+        supportActionBar?.subtitle = if (collection.content.isNotEmpty()) { String.format(getString(R.string.item_count), collection.content.size) } else { getString(R.string.empty) }
     }
 
     private fun removeContent(selection: HashMap<Int, Int>) {
+        // Get the lowest index to use for range change.
+        val lowestIndex = selection.keys.minOrNull() as Int
+        // Remove content from collection and callback.
         viewModel.removeContent(this, selection) {
             // Remove the content by key in selection.
-            selection.keys.forEach { index ->
-                contentAdapter.notifyItemRemoved(index)
-                contentAdapter.notifyItemRangeChanged(index, contentAdapter.itemCount)
-            }
+            selection.keys.forEach { index -> contentAdapter.notifyItemRemoved(index) }
+            // Update item range using the lowest index.
+            contentAdapter.notifyItemRangeChanged(lowestIndex, contentAdapter.itemCount)
             Snackbar.make(findViewById(R.id.layout_root), String.format(getString(R.string.collection_details_content_removed), selection.size), 6000).setAction(getString(R.string.undo)) {
+                // Undo the remove action and add the content back to the collection.
                 viewModel.addContent(this, selection) {
                     // Restore the content by index/value pair.
-                    selection.keys.forEach { index ->
-                        contentAdapter.notifyItemInserted(index)
-                        contentAdapter.notifyItemRangeChanged(index, contentAdapter.itemCount)
-                        updateToolBarTitle()
-                    }
+                    selection.keys.forEach { index -> contentAdapter.notifyItemInserted(index) }
+                    // Update item range using the lowest index.
+                    contentAdapter.notifyItemRangeChanged(lowestIndex, contentAdapter.itemCount)
+                    updateToolBarTitle()
                 }
             }.show()
         }

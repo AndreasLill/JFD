@@ -38,7 +38,7 @@ class CollectionAdapter(private val callback: (Action, Collection) -> Unit) : Li
             view.findViewById<TextView>(R.id.text_title).text = collection.name
 
             if (collection.content.isNotEmpty())
-                view.findViewById<TextView>(R.id.text_subtitle).text = String.format(view.context.getString(R.string.items), collection.content.size)
+                view.findViewById<TextView>(R.id.text_subtitle).text = String.format(view.context.getString(R.string.item_count), collection.content.size)
             else
                 view.findViewById<TextView>(R.id.text_subtitle).text = view.context.getString(R.string.empty)
 

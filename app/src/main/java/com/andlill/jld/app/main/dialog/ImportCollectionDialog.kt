@@ -68,7 +68,7 @@ class ImportCollectionDialog(private val callback: (Collection) -> Unit) : Dialo
                 inputLayout.isErrorEnabled = false
                 collectionLayout.visibility = View.VISIBLE
                 collectionTextTitle.text = collection.name
-                collectionTextSubtitle.text = String.format(requireActivity().getString(R.string.items), collection.content.size)
+                collectionTextSubtitle.text = String.format(requireActivity().getString(R.string.item_count), collection.content.size)
                 return true
             }
         }
