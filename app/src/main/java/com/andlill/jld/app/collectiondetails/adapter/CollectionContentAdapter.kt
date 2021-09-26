@@ -4,8 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.andlill.jld.R
 import com.andlill.jld.app.collectiondetails.CollectionDetailsViewModel
@@ -17,7 +15,9 @@ class CollectionContentAdapter(private val viewModel: CollectionDetailsViewModel
 
     enum class Action {
         Select,
-        Selection,
+        SelectionStart,
+        SelectionUpdate,
+        SelectionEnd,
     }
 
     private val selection = ArrayList<Int>()
@@ -34,15 +34,19 @@ class CollectionContentAdapter(private val viewModel: CollectionDetailsViewModel
             callback(Action.Select, entry)
         }
         holder.itemView.setOnLongClickListener { view ->
-            if (selection.contains(entry.id)) {
-                selection.remove(entry.id)
-                view.setBackgroundColor(MaterialColors.getColor(view, R.attr.colorSurface))
-            }
-            else {
-                selection.add(entry.id)
-                view.setBackgroundColor(MaterialColors.getColor(view, R.attr.colorControlHighlight))
-            }
-            callback(Action.Selection, entry)
+            // Start selection mode if empty.
+            if (selection.isEmpty())
+                callback(Action.SelectionStart, entry)
+
+            // Update by adding or removing entry to selection.
+            updateSelection(view, entry)
+
+            // End selection mode if empty after update.
+            if (selection.isEmpty())
+                callback(Action.SelectionEnd, entry)
+            else
+                callback(Action.SelectionUpdate, entry)
+
             true
         }
     }
@@ -50,6 +54,17 @@ class CollectionContentAdapter(private val viewModel: CollectionDetailsViewModel
     override fun getItemCount(): Int {
         val collection = viewModel.getCollection().value as Collection
         return collection.content.size
+    }
+
+    private fun updateSelection(view: View, entry: DictionaryEntry) {
+        if (selection.contains(entry.id)) {
+            selection.remove(entry.id)
+            view.setBackgroundColor(MaterialColors.getColor(view, R.attr.colorSurface))
+        }
+        else {
+            selection.add(entry.id)
+            view.setBackgroundColor(MaterialColors.getColor(view, R.attr.colorControlHighlight))
+        }
     }
 
     fun indexOf(item: Int): Int {
@@ -62,10 +77,6 @@ class CollectionContentAdapter(private val viewModel: CollectionDetailsViewModel
     }
 
     fun clearSelection() {
-        selection.clear()
-    }
-
-    fun cancelSelection() {
         val collection = viewModel.getCollection().value as Collection
         selection.forEach {
             val index = collection.content.indexOf(it)

@@ -62,7 +62,9 @@ class CollectionDetailsActivity : AppCompatActivity() {
         contentAdapter = CollectionContentAdapter(viewModel) { action, entry ->
             when (action) {
                 CollectionContentAdapter.Action.Select -> startActivityDictionaryDetails(entry)
-                CollectionContentAdapter.Action.Selection -> updateSelection()
+                CollectionContentAdapter.Action.SelectionStart -> startSelectionMode()
+                CollectionContentAdapter.Action.SelectionUpdate -> updateSelectionMode()
+                CollectionContentAdapter.Action.SelectionEnd -> endSelectionMode()
             }
         }
 
@@ -83,11 +85,14 @@ class CollectionDetailsActivity : AppCompatActivity() {
     override fun onBackPressed() {
         when (state) {
             ActivityState.Default -> finish()
-            ActivityState.Selection -> cancelSelection()
+            ActivityState.Selection -> endSelectionMode()
         }
     }
 
     private fun startActivityDictionaryDetails(entry: DictionaryEntry) {
+        // Cancel selection before starting new activity.
+        endSelectionMode()
+
         val intent = Intent(this, DictionaryDetailsActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         intent.putExtra(DictionaryDetailsActivity.ARGUMENT_ENTRY_ID, entry.id)
@@ -133,16 +138,7 @@ class CollectionDetailsActivity : AppCompatActivity() {
         }.show(supportFragmentManager, ConfirmationDialog::class.simpleName)
     }
 
-    private fun updateSelection() {
-        val selection = contentAdapter.getSelection()
-        if (selection.isEmpty()) {
-            endSelection()
-            return
-        }
-
-        supportActionBar?.title = getString(R.string.collection_details_selection_title)
-        supportActionBar?.subtitle = String.format(getString(R.string.item_count, selection.size))
-
+    private fun startSelectionMode() {
         if (state == ActivityState.Selection)
             return
 
@@ -153,21 +149,23 @@ class CollectionDetailsActivity : AppCompatActivity() {
         buttonStudy.animate().translationYBy(buttonStudy.height.toFloat())
     }
 
-    private fun endSelection() {
+    private fun updateSelectionMode() {
+        val selection = contentAdapter.getSelection()
+        supportActionBar?.title = getString(R.string.collection_details_selection_title)
+        supportActionBar?.subtitle = String.format(getString(R.string.item_count, selection.size))
+    }
+
+    private fun endSelectionMode() {
         if (state == ActivityState.Default)
             return
 
+        contentAdapter.clearSelection()
         state = ActivityState.Default
         activityMenu.setGroupVisible(R.id.group_default, true)
         activityMenu.setGroupVisible(R.id.group_selection, false)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
         buttonStudy.animate().translationYBy(-buttonStudy.height.toFloat())
         updateToolBarTitle()
-    }
-
-    private fun cancelSelection() {
-        contentAdapter.cancelSelection()
-        endSelection()
     }
 
     private fun deleteSelection() {
@@ -178,10 +176,8 @@ class CollectionDetailsActivity : AppCompatActivity() {
             val index = contentAdapter.indexOf(it)
             selectionMap[index] = it
         }
-        // Clear selection.
-        contentAdapter.clearSelection()
         removeContent(selectionMap)
-        endSelection()
+        endSelectionMode()
     }
 
     private fun updateToolBarTitle() {
@@ -221,7 +217,7 @@ class CollectionDetailsActivity : AppCompatActivity() {
             android.R.id.home -> {
                 when (state) {
                     ActivityState.Default -> finish()
-                    ActivityState.Selection -> cancelSelection()
+                    ActivityState.Selection -> endSelectionMode()
                 }
             }
         }

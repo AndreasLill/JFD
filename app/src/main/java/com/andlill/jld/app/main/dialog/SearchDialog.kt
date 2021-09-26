@@ -17,7 +17,6 @@ import com.andlill.jld.R
 import com.andlill.jld.app.main.MainActivityViewModel
 import com.andlill.jld.app.main.adapter.SearchHistoryAdapter
 import com.andlill.jld.utils.AppUtils
-import java.util.*
 
 class SearchDialog(private val viewModel: MainActivityViewModel, private val callback: (String) -> Unit) : DialogFragment() {
 
