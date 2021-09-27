@@ -29,12 +29,10 @@ class SearchDialog(private val viewModel: MainActivityViewModel, private val cal
         val view = inflater.inflate(R.layout.dialog_search, container, false)
 
         // Set status bar to dark if not in night mode.
-        if (!AppUtils.isNightMode(requireActivity())) {
+        if (!AppUtils.isDarkMode(requireActivity())) {
             AppUtils.setStatusBarDark(requireActivity())
         }
 
-        val drawableMic = ContextCompat.getDrawable(requireContext(), R.drawable.ic_mic)
-        val drawableClose = ContextCompat.getDrawable(requireContext(), R.drawable.ic_close)
         buttonBack = view.findViewById<ImageButton>(R.id.button_back).apply { setOnClickListener { closeDialog() } }
         buttonInputAction = view.findViewById<ImageButton>(R.id.button_input_action).apply { setOnClickListener { inputAction() } }
 
@@ -50,8 +48,8 @@ class SearchDialog(private val viewModel: MainActivityViewModel, private val cal
             }
             addTextChangedListener {
                 when {
-                    it.isNullOrEmpty() -> buttonInputAction.setImageDrawable(drawableMic)
-                    it.isNotEmpty()-> buttonInputAction.setImageDrawable(drawableClose)
+                    it.isNullOrEmpty() -> buttonInputAction.setImageResource(R.drawable.ic_mic)
+                    it.isNotEmpty()-> buttonInputAction.setImageResource(R.drawable.ic_close)
                 }
             }
         }
@@ -109,7 +107,7 @@ class SearchDialog(private val viewModel: MainActivityViewModel, private val cal
 
     override fun onStop() {
         // Set status bar back to light if not in night mode.
-        if (!AppUtils.isNightMode(requireActivity())) {
+        if (!AppUtils.isDarkMode(requireActivity())) {
             AppUtils.setStatusBarLight(requireActivity())
         }
 

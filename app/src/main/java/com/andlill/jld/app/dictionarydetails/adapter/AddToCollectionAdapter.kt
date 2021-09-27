@@ -37,7 +37,7 @@ class AddToCollectionAdapter(private val dataSet: List<Collection>, private val 
 
             if (collection.content.contains(entry.id)) {
                 val imageIcon = view.findViewById<ImageView>(R.id.image_icon)
-                imageIcon.setImageDrawable(ContextCompat.getDrawable(view.context, R.drawable.ic_collection_check))
+                imageIcon.setImageResource(R.drawable.ic_collection_check)
                 imageIcon.setColorFilter(MaterialColors.getColor(view, R.attr.colorCheckMark))
             }
         }
@@ -46,11 +46,11 @@ class AddToCollectionAdapter(private val dataSet: List<Collection>, private val 
             val imageIcon = view.findViewById<ImageView>(R.id.image_icon)
 
             if (!collection.content.contains(entry.id)) {
-                imageIcon.setImageDrawable(ContextCompat.getDrawable(view.context, R.drawable.ic_collection_check))
+                imageIcon.setImageResource(R.drawable.ic_collection_check)
                 imageIcon.setColorFilter(MaterialColors.getColor(view, R.attr.colorCheckMark))
             }
             else {
-                imageIcon.setImageDrawable(ContextCompat.getDrawable(view.context, R.drawable.ic_collection_add))
+                imageIcon.setImageResource(R.drawable.ic_collection_add)
                 imageIcon.setColorFilter(MaterialColors.getColor(view, R.attr.colorHint))
             }
         }

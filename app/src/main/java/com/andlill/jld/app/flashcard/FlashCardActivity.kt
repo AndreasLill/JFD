@@ -46,7 +46,7 @@ class FlashCardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_flashcard)
 
         // Set status bar to dark if not in night mode.
-        if (!AppUtils.isNightMode(this)) {
+        if (!AppUtils.isDarkMode(this)) {
             AppUtils.setStatusBarDark(this)
         }
 
@@ -108,7 +108,7 @@ class FlashCardActivity : AppCompatActivity() {
         super.onStop()
 
         // Set status bar back to light if not in night mode.
-        if (!AppUtils.isNightMode(this)) {
+        if (!AppUtils.isDarkMode(this)) {
             AppUtils.setStatusBarLight(this)
         }
     }

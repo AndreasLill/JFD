@@ -9,8 +9,6 @@ object SharedPreferencesRepository {
     private const val PREFERENCES = "com.andlill.jld.Preferences"
     private const val KEY_DARK_MODE = "com.andlill.jld.DarkMode"
 
-    val OPTIONS_DARK_MODE = arrayOf("System", "On", "Off")
-
     private lateinit var preferences: SharedPreferences
 
     private fun getPreferences(context: Context): SharedPreferences {
@@ -18,8 +16,8 @@ object SharedPreferencesRepository {
         else context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
     }
 
-    fun getDarkMode(context: Context): String {
-        return getPreferences(context).getString(KEY_DARK_MODE, OPTIONS_DARK_MODE[0]) as String
+    fun getDarkMode(context: Context, default: String): String {
+        return getPreferences(context).getString(KEY_DARK_MODE, default) as String
     }
 
     fun setDarkMode(context: Context, value: String) {

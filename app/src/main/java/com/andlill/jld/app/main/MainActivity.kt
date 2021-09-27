@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -23,6 +22,7 @@ import com.andlill.jld.R
 import com.andlill.jld.app.main.dialog.SearchDialog
 import com.andlill.jld.app.settings.SettingsActivity
 import com.andlill.jld.io.repository.*
+import com.andlill.jld.utils.AppUtils
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.tabs.TabLayout
@@ -47,13 +47,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         viewModel.initialize(this)
 
-        // Check for night mode.
-        when (SharedPreferencesRepository.getDarkMode(this)) {
-            SharedPreferencesRepository.OPTIONS_DARK_MODE[0] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            SharedPreferencesRepository.OPTIONS_DARK_MODE[1] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            SharedPreferencesRepository.OPTIONS_DARK_MODE[2] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
-
+        AppUtils.setDarkMode(this)
         this.initializeUI()
         this.initializeTabs()
     }

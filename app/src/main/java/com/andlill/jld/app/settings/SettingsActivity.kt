@@ -6,13 +6,12 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.andlill.jld.R
 import com.andlill.jld.app.settings.dialog.SettingsDialog
-import com.andlill.jld.io.repository.SharedPreferencesRepository
+import com.andlill.jld.utils.AppUtils
 import java.util.*
 
 class SettingsActivity : AppCompatActivity() {
@@ -33,7 +32,7 @@ class SettingsActivity : AppCompatActivity() {
         viewModel.initialize(this)
 
         viewModel.getDarkMode().observe(this, { value ->
-            initializeSettingDarkMode(value)
+            settingDarkMode(value)
         })
     }
 
@@ -48,23 +47,19 @@ class SettingsActivity : AppCompatActivity() {
         return this::settingsDialog.isInitialized && settingsDialog.isResumed
     }
 
-    private fun initializeSettingDarkMode(value: String) {
+    private fun settingDarkMode(value: String) {
         findViewById<View>(R.id.setting_dark_mode).apply {
             // Setup views.
-            findViewById<ImageView>(R.id.image_icon).setImageDrawable(ContextCompat.getDrawable(this@SettingsActivity, R.drawable.ic_dark_mode))
+            findViewById<ImageView>(R.id.image_icon).setImageResource(R.drawable.ic_dark_mode)
             findViewById<TextView>(R.id.text_title).text = getString(R.string.dark_mode)
             findViewById<TextView>(R.id.setting_value).text = value
             // Setup click listener for settings dialog.
             setOnClickListener {
                 if (!isDialogVisible()) {
-                    settingsDialog = SettingsDialog(getString(R.string.dark_mode), SharedPreferencesRepository.OPTIONS_DARK_MODE, value) { result ->
+                    settingsDialog = SettingsDialog(getString(R.string.dark_mode), viewModel.OPTIONS_DARK_MODE, value) { result ->
                         // Handle results from settings dialog.
                         viewModel.setDarkMode(this@SettingsActivity, result)
-                        when (result) {
-                            SharedPreferencesRepository.OPTIONS_DARK_MODE[0] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-                            SharedPreferencesRepository.OPTIONS_DARK_MODE[1] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                            SharedPreferencesRepository.OPTIONS_DARK_MODE[2] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                        }
+                        AppUtils.setDarkMode(this@SettingsActivity)
                     }
                     settingsDialog.show(supportFragmentManager, SettingsDialog::class.simpleName)
                 }
