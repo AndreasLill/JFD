@@ -7,7 +7,7 @@ import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.recyclerview.widget.RecyclerView
 import com.andlill.jld.R
 
-class SettingsAdapter(private val dataSet: Array<String>, private val selected: String, private val callback: (String) -> Unit) : RecyclerView.Adapter<SettingsAdapter.ViewHolder>() {
+class SettingsAdapter(private val dataSet: List<String>, private val selected: String, private val callback: (String) -> Unit) : RecyclerView.Adapter<SettingsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.adapter_settings, parent, false))

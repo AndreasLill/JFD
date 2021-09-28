@@ -11,10 +11,8 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.HandlerCompat
 import com.andlill.jld.R
-import com.andlill.jld.io.repository.SharedPreferencesRepository
 import com.google.android.material.snackbar.Snackbar
 
 object AppUtils {
@@ -45,15 +43,6 @@ object AppUtils {
     fun hideSoftInput(activity: Activity, view: View) {
         val inputMethod = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethod.hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_IMPLICIT_ONLY)
-    }
-
-    fun setDarkMode(context: Context) {
-        val options = arrayOf("System", "On", "Off")
-        when (SharedPreferencesRepository.getDarkMode(context, options[0])) {
-            options[0] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            options[1] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            options[2] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
     }
 
     fun isDarkMode(activity: Activity): Boolean {

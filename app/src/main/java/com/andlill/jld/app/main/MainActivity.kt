@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -22,7 +23,7 @@ import com.andlill.jld.R
 import com.andlill.jld.app.main.dialog.SearchDialog
 import com.andlill.jld.app.settings.SettingsActivity
 import com.andlill.jld.io.repository.*
-import com.andlill.jld.utils.AppUtils
+import com.andlill.jld.utils.AppSettings
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.tabs.TabLayout
@@ -47,12 +48,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         viewModel.initialize(this)
 
-        AppUtils.setDarkMode(this)
         this.initializeUI()
         this.initializeTabs()
     }
 
     private fun initializeUI() {
+        // Setup dark mode.
+        AppCompatDelegate.setDefaultNightMode(AppSettings.getDarkMode(this))
+
         // Setup the toolbar drawer toggle button.
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.setOnClickListener { openSearchDialog() }

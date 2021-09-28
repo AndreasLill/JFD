@@ -10,7 +10,6 @@ import com.andlill.jld.io.data.Dictionary
 import com.andlill.jld.io.data.KanjiDictionary
 import com.andlill.jld.io.repository.DictionaryRepository
 import com.andlill.jld.io.repository.SearchHistoryRepository
-import com.andlill.jld.io.repository.SharedPreferencesRepository
 import com.andlill.jld.model.SearchHistory
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking

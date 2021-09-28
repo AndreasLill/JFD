@@ -16,7 +16,7 @@ import com.andlill.jld.app.settings.adapter.SettingsAdapter
 import com.andlill.jld.utils.AppUtils
 import java.util.*
 
-class SettingsDialog(private val title: String, private val settings: Array<String>, private val selected: String, private val callback: (String) -> Unit) : DialogFragment() {
+class SettingsDialog(private val title: String, private val settings: List<String>, private val selected: String, private val callback: (String) -> Unit) : DialogFragment() {
 
     private var value: String = ""
 
