@@ -36,12 +36,11 @@
     <!-- Collection -->
     <string name="collection">Collection</string>
     <string name="collection_content">Content</string>
-    <string name="collection_study">Study</string>
     <string name="collection_import">Import</string>
     <string name="collection_user">User</string>
     <string name="collection_delete">\'%s\' was deleted.</string>
     <string name="collection_share_title">Use the import code to share or backup your collections.</string>
-    <string name="collection_details_study">Study Collection</string>
+    <string name="collection_details_study_flashcards">Flashcards</string>
     <string name="collection_details_selection_title">Selection</string>
     <string name="collection_details_content_removed">%d items removed from collection.</string>
 

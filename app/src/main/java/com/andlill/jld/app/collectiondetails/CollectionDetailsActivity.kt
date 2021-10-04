@@ -146,7 +146,7 @@ class CollectionDetailsActivity : AppCompatActivity() {
         activityMenu.setGroupVisible(R.id.group_default, false)
         activityMenu.setGroupVisible(R.id.group_selection, true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
-        buttonStudy.animate().translationYBy(buttonStudy.height.toFloat())
+        buttonStudy.animate().alpha(0f)
     }
 
     private fun updateSelectionMode() {
@@ -164,7 +164,7 @@ class CollectionDetailsActivity : AppCompatActivity() {
         activityMenu.setGroupVisible(R.id.group_default, true)
         activityMenu.setGroupVisible(R.id.group_selection, false)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
-        buttonStudy.animate().translationYBy(-buttonStudy.height.toFloat())
+        buttonStudy.animate().alpha(1f)
         updateToolBarTitle()
     }
 

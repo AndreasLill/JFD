@@ -31,21 +31,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_appbar"
-            app:layout_constraintBottom_toTopOf="@+id/button_study"/>
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <Button
-            style="@style/AppStyle.FilledButton"
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/button_study"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/collection_details_study"
+            android:layout_margin="16dp"
+            android:text="@string/collection_details_study_flashcards"
             android:textColor="?attr/colorOnPrimary"
-            app:backgroundTint="?attr/colorAccent"
-            app:iconTint="?attr/colorOnPrimary"
             app:icon="@drawable/ic_study"
-            app:iconGravity="textStart"
-            app:cornerRadius="0dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:iconTint="?attr/colorOnPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
