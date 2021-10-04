@@ -35,11 +35,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var viewModel: MainActivityViewModel
 
-    private lateinit var progressBar: LinearProgressIndicator
-    private lateinit var navigationDrawer: NavigationView
     private lateinit var tabs: Array<Int>
+    private lateinit var navigationDrawer: NavigationView
     private lateinit var viewPager: ViewPager2
-    private lateinit var pagerAdapter: PagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,13 +54,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Setup dark mode.
         AppCompatDelegate.setDefaultNightMode(AppSettings.getDarkMode(this))
 
-        // Setup the toolbar drawer toggle button.
+        // Setup the toolbar.
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.setOnClickListener { openSearchDialog() }
         setSupportActionBar(toolbar)
-
-        // Progress bar.
-        progressBar = findViewById(R.id.progress_bar)
 
         // Setup drawer layout.
         val drawerLayout = findViewById<DrawerLayout>(R.id.layout_drawer)
@@ -84,9 +79,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         tabs = arrayOf(R.string.menu_item_dictionary, R.string.menu_item_collections)
 
         // Setup view pager.
-        pagerAdapter = PagerAdapter(this)
         viewPager = findViewById(R.id.pager)
-        viewPager.adapter = pagerAdapter
+        viewPager.adapter = PagerAdapter(this)
 
         // Setup tab layout.
         val tabLayout = findViewById<TabLayout>(R.id.layout_tab).apply {
@@ -176,18 +170,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun openSearchDialog() {
-        val dialog = SearchDialog(viewModel) { result ->
-            if (result.isNotEmpty())
-                searchDictionary(result)
+        // Open search dialog and get search query from callback.
+        val dialog = SearchDialog(viewModel) { query ->
+            if (query.isNotEmpty())
+                searchDictionary(query)
         }
 
+        // Start transaction to open search dialog.
         val transaction = supportFragmentManager.beginTransaction()
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         transaction.add(R.id.layout_drawer, dialog).addToBackStack(null).commit()
     }
 
     private fun isReady(): Boolean {
-        return !progressBar.isIndeterminate
+        return !findViewById<LinearProgressIndicator>(R.id.progress_bar).isIndeterminate
     }
 
     inner class PagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
@@ -212,7 +208,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun showProgressBar() {
-        progressBar.apply {
+        findViewById<LinearProgressIndicator>(R.id.progress_bar).apply {
             visibility = View.INVISIBLE
             isIndeterminate = true
             visibility = View.VISIBLE
@@ -220,7 +216,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun hideProgressBar() {
-        progressBar.apply {
+        findViewById<LinearProgressIndicator>(R.id.progress_bar).apply {
             visibility = View.INVISIBLE
             isIndeterminate = false
             visibility = View.GONE
