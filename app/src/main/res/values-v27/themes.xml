@@ -15,7 +15,6 @@
         <!-- Custom Styles -->
         <item name="android:textCursorDrawable">@drawable/text_cursor</item>
         <item name="android:itemTextAppearance">@style/AppStyle.TextAppearance.MenuItem</item>
-        <item name="searchViewStyle">@style/AppStyle.SearchViewStyle</item>
         <item name="snackbarStyle">@style/AppStyle.Snackbar</item>
         <item name="snackbarButtonStyle">@style/AppStyle.DialogButton</item>
         <item name="snackbarTextViewStyle">@style/AppStyle.SnackbarText</item>
