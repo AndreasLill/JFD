@@ -4,7 +4,6 @@
     android:id="@+id/layout_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorElevatedSurface"
     android:padding="16dp"
     android:orientation="vertical">
 

@@ -18,6 +18,7 @@
         <item name="snackbarStyle">@style/AppStyle.Snackbar</item>
         <item name="snackbarButtonStyle">@style/AppStyle.DialogButton</item>
         <item name="snackbarTextViewStyle">@style/AppStyle.SnackbarText</item>
+        <item name="bottomSheetDialogTheme">@style/AppStyle.ThemeOverlay.Dialog.BottomSheet</item>
         <!-- Default font -->
         <item name="android:fontFamily">@font/roboto_regular</item>
     </style>

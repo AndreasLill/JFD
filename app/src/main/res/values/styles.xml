@@ -75,4 +75,17 @@
     <style name="AppStyle.ToolbarSubtitle" parent="TextAppearance.AppCompat">
         <item name="android:textSize">13sp</item>
     </style>
+
+    <!-- Dialog -->
+    <style name="AppStyle.ThemeOverlay.Dialog.BottomSheet" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppStyle.Dialog.BottomSheet</item>
+    </style>
+    <style name="AppStyle.Dialog.BottomSheet" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="backgroundTint">?attr/colorElevatedSurface</item>
+        <item name="shapeAppearance">@style/AppStyle.ShapeAppearance.Dialog.BottomSheet</item>
+    </style>
+    <style name="AppStyle.ShapeAppearance.Dialog.BottomSheet" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
 </resources>
