@@ -58,14 +58,16 @@
     <string name="menu_item_search">Search</string>
     <string name="menu_item_copy_kanji">Copy Kanji</string>
     <string name="menu_item_copy_kana">Copy Kana</string>
+    <string name="menu_item_collection_create">Create Collection</string>
     <string name="menu_item_collection_add">Add To Collection</string>
     <string name="menu_item_collection_new">New Collection</string>
     <string name="menu_item_collection_rename">Rename Collection</string>
     <string name="menu_item_collection_import">Import Collection</string>
-    <string name="menu_item_export">Export</string>
     <string name="menu_item_delete">Delete</string>
     <string name="menu_item_share">Share</string>
     <string name="menu_item_rename">Rename</string>
+    <string name="menu_item_new">New</string>
+    <string name="menu_item_import">Import</string>
     <string name="context_menu_options_title">Options for \'%s\'</string>
 
     <!-- Dialogs -->
