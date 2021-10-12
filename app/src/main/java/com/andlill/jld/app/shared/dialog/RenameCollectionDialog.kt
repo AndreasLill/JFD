@@ -14,7 +14,7 @@ import com.andlill.jld.utils.AppUtils
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
-class RenameCollectionDialog(private val name: String, private val callback: (String) -> Unit) : DialogFragment(), DialogInterface.OnShowListener {
+class RenameCollectionDialog(private val name: String, private val callback: (String) -> Unit) : DialogFragment() {
 
     private lateinit var inputLayout: TextInputLayout
     private lateinit var input: TextInputEditText
@@ -23,7 +23,6 @@ class RenameCollectionDialog(private val name: String, private val callback: (St
         val layout = requireActivity().layoutInflater.inflate(R.layout.dialog_collection_name, null)
         layout.findViewById<TextView>(R.id.text_title).text = getString(R.string.menu_item_collection_rename)
         val dialog = AlertDialog.Builder(requireContext(), R.style.Theme_MaterialComponents_Dialog_Alert).setView(layout).create()
-        dialog.setOnShowListener(this)
 
         inputLayout = layout.findViewById(R.id.layout_input)
         input = layout.findViewById(R.id.input)
@@ -54,13 +53,14 @@ class RenameCollectionDialog(private val name: String, private val callback: (St
         return dialog
     }
 
-    override fun onShow(dialog: DialogInterface) {
+    override fun onResume() {
+        super.onResume()
         AppUtils.showSoftInput(requireActivity(), input)
     }
 
-    override fun onDismiss(dialog: DialogInterface) {
+    override fun onStop() {
         AppUtils.hideSoftInput(requireActivity(), input)
-        super.onDismiss(dialog)
+        super.onStop()
     }
 
     private fun validateInput(text: String): Boolean {

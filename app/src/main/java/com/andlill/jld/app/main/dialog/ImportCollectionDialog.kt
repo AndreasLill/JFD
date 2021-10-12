@@ -1,6 +1,7 @@
 package com.andlill.jld.app.main.dialog
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import com.andlill.jld.R
 import com.andlill.jld.model.Collection
+import com.andlill.jld.utils.AppUtils
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
@@ -58,6 +60,16 @@ class ImportCollectionDialog(private val callback: (Collection) -> Unit) : Dialo
         }
 
         return dialog
+    }
+
+    override fun onResume() {
+        super.onResume()
+        AppUtils.showSoftInput(requireActivity(), input)
+    }
+
+    override fun onStop() {
+        AppUtils.hideSoftInput(requireActivity(), input)
+        super.onStop()
     }
 
     private fun validateInput(text: String): Boolean {

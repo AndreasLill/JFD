@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import com.andlill.jld.R
 import com.andlill.jld.app.settings.dialog.SettingsDialog
@@ -33,6 +34,14 @@ class SettingsActivity : AppCompatActivity() {
         viewModel.getDarkMode().observe(this, { key ->
             settingDarkMode(key)
         })
+    }
+
+    // Override to add animation when activity is recreated by "AppCompatDelegate.setDefaultNightMode".
+    override fun recreate() {
+        finish()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
