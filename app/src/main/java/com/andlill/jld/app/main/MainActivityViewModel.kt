@@ -40,8 +40,8 @@ class MainActivityViewModel : ViewModel() {
         searchHistoryList.postValue(data)
     }
 
-    fun requireReloadAssets() : Boolean {
-        return Dictionary.isEmpty() || KanjiDictionary.isEmpty()
+    fun isDictionaryReady() : Boolean {
+        return !Dictionary.isEmpty() && !KanjiDictionary.isEmpty()
     }
 
     // Load assets if required, callback when complete.

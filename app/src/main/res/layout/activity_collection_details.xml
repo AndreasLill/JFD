@@ -31,17 +31,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_appbar"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toTopOf="@+id/button_study"/>
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/button_study"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:foreground="@drawable/ripple_rectangle"
             android:text="@string/collection_details_study_flashcards"
-            android:textColor="?attr/colorOnPrimary"
+            android:textColor="?attr/colorAccent"
+            app:elevation="8dp"
+            app:backgroundTint="?attr/colorElevatedSurface"
             app:icon="@drawable/ic_study"
-            app:iconTint="?attr/colorOnPrimary"
+            app:iconTint="?attr/colorAccent"
+            app:iconGravity="textStart"
+            app:cornerRadius="0dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 

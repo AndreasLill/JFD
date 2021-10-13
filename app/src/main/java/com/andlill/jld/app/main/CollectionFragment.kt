@@ -18,7 +18,6 @@ import com.andlill.jld.app.main.dialog.NameCollectionDialog
 import com.andlill.jld.app.shared.ResultActivityFragment
 import com.andlill.jld.app.shared.dialog.RenameCollectionDialog
 import com.andlill.jld.model.Collection
-import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.snackbar.Snackbar
 
 class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) {
@@ -47,7 +46,6 @@ class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) 
         view.findViewById<RecyclerView>(R.id.recycler_collection).apply {
             layoutManager = LinearLayoutManager(requireContext())
             addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-            setHasFixedSize(true)
             adapter = collectionAdapter
         }
 
@@ -70,11 +68,8 @@ class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) 
     }
 
     private fun openCollection(collection: Collection) {
-        // Get progress bar from MainActivity.
-        val progress = requireActivity().findViewById<LinearProgressIndicator>(R.id.progress_bar)
-
         // Check if dictionary is finished loading.
-        if (progress.isIndeterminate) {
+        if (!viewModel.isDictionaryReady()) {
             Snackbar.make(requireActivity().findViewById(R.id.layout_root), getString(R.string.dictionary_wait), 1500).show()
             return
         }

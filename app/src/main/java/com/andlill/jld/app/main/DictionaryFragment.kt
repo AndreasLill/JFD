@@ -25,7 +25,6 @@ class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
     private lateinit var viewModel: DictionaryFragmentViewModel
     private lateinit var dictionaryAdapter: DictionaryAdapter
     private lateinit var dictionaryRecycler: RecyclerView
-    private lateinit var dictionaryInfoText: TextView
 
     private var query = ""
 
@@ -50,25 +49,20 @@ class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
             adapter = dictionaryAdapter
         }
 
-        dictionaryInfoText = view.findViewById(R.id.text_dictionary_info)
-
         // Handle saved states.
         if (savedState.containsKey(STATE_RECYCLER_DICTIONARY)) {
             dictionaryRecycler.layoutManager?.onRestoreInstanceState(savedState.getParcelable(STATE_RECYCLER_DICTIONARY))
         }
         if (savedState.containsKey(STATE_DATA_DICTIONARY)) {
-            dictionaryInfoText.visibility = View.INVISIBLE
             dictionaryAdapter.update(savedState.getSerializable(STATE_DATA_DICTIONARY) as ArrayList<DictionaryEntry>)
         }
 
         viewModel.getDictionaryResult().observe(viewLifecycleOwner, { dictionaryResult ->
-            if (dictionaryResult.isEmpty()) {
-                dictionaryInfoText.visibility = View.VISIBLE
-                dictionaryInfoText.text = String.format(getString(R.string.dictionary_no_results), query)
+            when {
+                dictionaryResult.isEmpty() -> view.findViewById<TextView>(R.id.text_result).text = String.format(getString(R.string.dictionary_no_results), query)
+                dictionaryResult.isNotEmpty() -> view.findViewById<TextView>(R.id.text_result).text = ""
             }
-            else {
-                dictionaryInfoText.visibility = View.INVISIBLE
-            }
+
             requireView().findViewById<RecyclerView>(R.id.recycler_dictionary)?.scrollToPosition(0)
             dictionaryAdapter.update(dictionaryResult)
         })

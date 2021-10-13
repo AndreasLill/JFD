@@ -40,15 +40,6 @@
         <item name="android:foreground">@drawable/ripple_round</item>
         <item name="android:tint">?attr/colorTextPrimary</item>
     </style>
-    <style name="AppStyle.FilledButton" parent="Widget.MaterialComponents.Button.Icon">
-        <item name="android:insetTop">0dp</item>
-        <item name="android:insetBottom">0dp</item>
-        <item name="android:paddingStart">16dp</item>
-        <item name="android:paddingEnd">16dp</item>
-        <item name="android:textColor">?attr/colorOnPrimary</item>
-        <item name="android:textSize">13sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
 
     <!-- Snackbar -->
     <style name="AppStyle.Snackbar" parent="Widget.MaterialComponents.Snackbar">

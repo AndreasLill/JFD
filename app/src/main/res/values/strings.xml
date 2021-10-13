@@ -24,9 +24,6 @@
     <string name="copy_to_clipboard">Copied \'%s\' to clipboard.</string>
 
     <!-- Dictionary -->
-    <string name="dictionary_ready">Ready</string>
-    <string name="dictionary_common">Common</string>
-    <string name="dictionary_info_default">Press the search icon above to search the dictionary.</string>
     <string name="dictionary_no_results">No results found \'%s\'.</string>
     <string name="dictionary_wait">Please wait until dictionary is finished loading.</string>
     <string name="dictionary_details_translation">Translation</string>

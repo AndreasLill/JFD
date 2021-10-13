@@ -26,6 +26,7 @@ import com.andlill.jld.io.repository.*
 import com.andlill.jld.utils.AppSettings
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.progressindicator.LinearProgressIndicator
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.*
@@ -104,7 +105,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onResume()
 
         // Check if assets require reloading into memory.
-        if (viewModel.requireReloadAssets()) {
+        if (!viewModel.isDictionaryReady()) {
             this.showProgressBar()
 
             // Load required assets and callback when complete.
@@ -170,6 +171,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun openSearchDialog() {
+        if (!viewModel.isDictionaryReady()) {
+            Snackbar.make(findViewById(R.id.layout_root), getString(R.string.dictionary_wait), 1500).show()
+            return
+        }
+
         // Open search dialog and get search query from callback.
         val dialog = SearchDialog(viewModel) { query ->
             if (query.isNotEmpty())
@@ -180,10 +186,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val transaction = supportFragmentManager.beginTransaction()
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         transaction.add(R.id.layout_drawer, dialog).addToBackStack(null).commit()
-    }
-
-    private fun isReady(): Boolean {
-        return !findViewById<LinearProgressIndicator>(R.id.progress_bar).isIndeterminate
     }
 
     inner class PagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
@@ -224,10 +226,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun searchDictionary(query: String) {
-        // Check if dictionary is ready.
-        if (!isReady())
-            return
-
         // Scroll to dictionary fragment in view pager.
         viewPager.setCurrentItem(0, false)
         val fragment = supportFragmentManager.findFragmentByTag("f" + viewPager.currentItem) as DictionaryFragment
