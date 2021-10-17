@@ -37,7 +37,7 @@
                     android:indeterminate="false"
                     android:visibility="gone"
                     android:elevation="4dp"
-                    app:indicatorColor="?attr/colorAccent"
+                    app:indicatorColor="?attr/colorProgress"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
