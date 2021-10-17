@@ -51,13 +51,16 @@ class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
 
         // Handle saved states.
         if (savedState.containsKey(STATE_RECYCLER_DICTIONARY)) {
+            view.findViewById<View>(R.id.text_hint).visibility = View.INVISIBLE
             dictionaryRecycler.layoutManager?.onRestoreInstanceState(savedState.getParcelable(STATE_RECYCLER_DICTIONARY))
         }
         if (savedState.containsKey(STATE_DATA_DICTIONARY)) {
+            view.findViewById<View>(R.id.text_hint).visibility = View.INVISIBLE
             dictionaryAdapter.update(savedState.getSerializable(STATE_DATA_DICTIONARY) as ArrayList<DictionaryEntry>)
         }
 
         viewModel.getDictionaryResult().observe(viewLifecycleOwner, { dictionaryResult ->
+            view.findViewById<View>(R.id.text_hint).visibility = View.INVISIBLE
             when {
                 dictionaryResult.isEmpty() -> view.findViewById<TextView>(R.id.text_result).text = String.format(getString(R.string.dictionary_no_results), query)
                 dictionaryResult.isNotEmpty() -> view.findViewById<TextView>(R.id.text_result).text = ""
