@@ -12,6 +12,7 @@ class FlashCardViewModel : ViewModel() {
     private val flashCards = ArrayList<DictionaryEntry>()
     private val flashCardsDone = ArrayList<DictionaryEntry>()
     var canFlip = false
+    var stage = 1
 
     fun initialize(collection: Collection) = runBlocking {
         collection.content.forEach { id ->

@@ -11,6 +11,7 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="copy">Copy</string>
+    <string name="restart">Restart</string>
     <string name="undo">Undo</string>
     <string name="delete">Delete</string>
     <string name="history">History</string>

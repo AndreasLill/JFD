@@ -3,13 +3,10 @@ package com.andlill.jld.app.flashcard
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.TypedValue
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.andlill.jld.R
@@ -36,7 +33,6 @@ class FlashCardActivity : AppCompatActivity() {
     private lateinit var backgroundCard: View
     private lateinit var backgroundCardText: TextView
     private lateinit var textToSpeech: TextToSpeech
-    private lateinit var menuItemSound: MenuItem
 
     // Variables
     private var soundMuted = false
@@ -57,13 +53,6 @@ class FlashCardActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(FlashCardViewModel::class.java)
         viewModel.initialize(collection)
 
-        // Setup toolbar.
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.drawable.ic_close))
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-
         // Setup views.
         progressText = findViewById(R.id.text_progress)
         progressBar = findViewById(R.id.progress_bar)
@@ -71,23 +60,11 @@ class FlashCardActivity : AppCompatActivity() {
         backgroundCardText = findViewById(R.id.text_background)
         restartButton = findViewById<View>(R.id.button_restart).apply { setOnClickListener { viewModel.restart(); this@FlashCardActivity.drawCard() } }
         undoButton = findViewById<View>(R.id.button_undo).apply { setOnClickListener { viewModel.undoCard(); this@FlashCardActivity.drawCard() } }
+        findViewById<ImageButton>(R.id.button_sound).apply { setOnClickListener { toggleSound(this) } }
+        findViewById<ImageButton>(R.id.button_back).apply { setOnClickListener { finish() } }
 
         viewModel.restart()
         this.drawCard()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_activity_study_flashcard, menu)
-        menuItemSound = menu?.findItem(R.id.menu_item_sound) as MenuItem
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_item_sound -> toggleSound()
-            android.R.id.home -> finish()
-        }
-        return true
     }
 
     override fun onResume() {
@@ -167,7 +144,7 @@ class FlashCardActivity : AppCompatActivity() {
 
     private fun updateRestartButton(size: Int) {
         if (size > 0) {
-            restartButton.visibility = View.GONE
+            restartButton.visibility = View.INVISIBLE
         }
         else {
             restartButton.visibility = View.VISIBLE
@@ -194,12 +171,12 @@ class FlashCardActivity : AppCompatActivity() {
         backgroundCardText.text = text
     }
 
-    private fun toggleSound() {
+    private fun toggleSound(button: ImageButton) {
         soundMuted = !soundMuted
         if (!soundMuted)
-            menuItemSound.icon = ContextCompat.getDrawable(this, R.drawable.ic_volume)
+            button.setImageResource(R.drawable.ic_volume)
         else
-            menuItemSound.icon = ContextCompat.getDrawable(this, R.drawable.ic_volume_off)
+            button.setImageResource(R.drawable.ic_volume_off)
     }
 
     private fun handleCardAction(action: FlashCardFragment.Action, direction: Int) {
