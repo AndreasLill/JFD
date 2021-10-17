@@ -5,6 +5,7 @@
     <string name="app_version">1.0</string>
     <string name="empty">Empty</string>
     <string name="item_count">%d items</string>
+    <string name="done">Done</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="open">Open</string>
@@ -75,7 +76,7 @@
     <string name="dialog_confirm_collection_delete_body">Are you sure you wish to delete this collection?</string>
 
     <!-- Error messages -->
-    <string name="validation_error_collection_name">Only letters and numbers are allowed.</string>
+    <string name="validation_error_collection_name">This name is invalid.</string>
     <string name="validation_error_collection_select">A collection must be selected.</string>
     <string name="validation_error_collection_import">Import code is invalid.</string>
 </resources>

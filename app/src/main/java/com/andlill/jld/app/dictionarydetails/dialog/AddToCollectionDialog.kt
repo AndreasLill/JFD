@@ -28,7 +28,6 @@ class AddToCollectionDialog(private val viewModel: DictionaryDetailsViewModel) :
 
         layout.findViewById<RecyclerView>(R.id.recycler_collection).apply {
             layoutManager = LinearLayoutManager(requireContext())
-            addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
             adapter = AddToCollectionAdapter(collections, entry) { collection ->
                 if (!collection.content.contains(entry.id)) {
                     collection.content.add(entry.id)
