@@ -31,6 +31,8 @@
     <string name="dictionary_details_translation">Translation</string>
     <string name="dictionary_details_reading">Alternative Readings</string>
     <string name="dictionary_details_kanji">Kanji</string>
+    <string name="dictionary_add_to_collection">Added \'%s\' to \'%s\'.</string>
+    <string name="dictionary_remove_from_collection">Removed \'%s\' from \'%s\'.</string>
 
     <!-- Collection -->
     <string name="collection">Collection</string>
