@@ -3,6 +3,7 @@ package com.andlill.jld.app.main
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Base64
 import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +20,7 @@ import com.andlill.jld.app.shared.ResultActivityFragment
 import com.andlill.jld.app.shared.dialog.RenameCollectionDialog
 import com.andlill.jld.model.Collection
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 
 class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) {
 
@@ -34,6 +36,7 @@ class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) 
         collectionAdapter = CollectionAdapter { action, collection->
             when (action) {
                 CollectionAdapter.Action.Select -> openCollection(collection)
+                CollectionAdapter.Action.Share -> shareCollection(collection)
                 CollectionAdapter.Action.Rename -> renameCollection(collection)
                 CollectionAdapter.Action.Delete -> deleteCollection(collection)
             }
@@ -79,6 +82,18 @@ class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) 
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         intent.putExtra(CollectionDetailsActivity.ARGUMENT_COLLECTION_ID, collection.id)
         activityLauncher.launch(intent)
+    }
+
+    private fun shareCollection(collection: Collection) {
+        val json = Gson().toJson(collection)
+        val base64 = Base64.encodeToString(json.toByteArray(), Base64.NO_WRAP)
+        val share = Intent.createChooser(Intent().apply {
+            action = Intent.ACTION_SEND
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, base64)
+            putExtra(Intent.EXTRA_TITLE, getString(R.string.collection_share_title))
+        }, null)
+        startActivity(share)
     }
 
     private fun renameCollection(collection: Collection) {

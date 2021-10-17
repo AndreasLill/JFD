@@ -16,6 +16,7 @@ class CollectionAdapter(private val callback: (Action, Collection) -> Unit) : Li
 
     enum class Action {
         Select,
+        Share,
         Rename,
         Delete
     }
@@ -47,6 +48,7 @@ class CollectionAdapter(private val callback: (Action, Collection) -> Unit) : Li
                     inflate(R.menu.menu_adapter_collection)
                     setOnMenuItemClickListener { menuItem ->
                         when (menuItem.itemId) {
+                            R.id.menu_item_share -> callback(Action.Share, collection)
                             R.id.menu_item_rename -> callback(Action.Rename, collection)
                             R.id.menu_item_delete -> callback(Action.Delete, collection)
                         }
