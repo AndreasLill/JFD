@@ -59,8 +59,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:letterSpacing="0.05"
             android:text="@string/menu_item_import"
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:textColor="?attr/colorTextSecondary"/>
 
     </LinearLayout>
@@ -93,8 +94,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:letterSpacing="0.05"
             android:text="@string/menu_item_new"
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:textColor="?attr/colorTextSecondary"/>
 
     </LinearLayout>

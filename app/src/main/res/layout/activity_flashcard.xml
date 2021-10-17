@@ -117,10 +117,10 @@
             android:id="@+id/button_undo"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_margin="32dp"
+            android:layout_margin="42dp"
             android:src="@drawable/ic_undo"
             android:contentDescription="@string/undo"
-            app:layout_constraintEnd_toStartOf="@+id/button_restart"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <ImageButton
@@ -128,11 +128,9 @@
             android:id="@+id/button_restart"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_margin="32dp"
-            android:visibility="invisible"
+            android:layout_margin="42dp"
             android:src="@drawable/ic_refresh"
             android:contentDescription="@string/restart"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 

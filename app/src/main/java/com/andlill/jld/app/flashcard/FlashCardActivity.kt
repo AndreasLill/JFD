@@ -144,10 +144,12 @@ class FlashCardActivity : AppCompatActivity() {
 
     private fun updateRestartButton(size: Int) {
         if (size > 0) {
-            restartButton.visibility = View.INVISIBLE
+            restartButton.alpha = 0.5f
+            restartButton.isEnabled = false
         }
         else {
-            restartButton.visibility = View.VISIBLE
+            restartButton.alpha = 1f
+            restartButton.isEnabled = true
         }
     }
 
@@ -157,7 +159,7 @@ class FlashCardActivity : AppCompatActivity() {
             undoButton.isEnabled = true
         }
         else {
-            undoButton.alpha = 0.6f
+            undoButton.alpha = 0.5f
             undoButton.isEnabled = false
         }
     }
