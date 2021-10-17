@@ -40,6 +40,7 @@
         <item name="colorPrimarySurface">?attr/colorSurface</item>
         <item name="colorOnSurface">?attr/colorTextPrimary</item>
         <!-- Custom attributes. -->
+        <item name="colorProgress">@color/deep_purple_300</item>
         <item name="colorHint">@color/gray_600</item>
         <item name="colorTextPrimary">@color/blue_gray_100</item>
         <item name="colorTextSecondary">@color/gray_500</item>
