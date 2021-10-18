@@ -41,11 +41,6 @@ class FlashCardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_flashcard)
 
-        // Set status bar to dark if not in night mode.
-        if (!AppUtils.isDarkMode(this)) {
-            AppUtils.setStatusBarDark(this)
-        }
-
         // Get intent extras.
         val collection = intent.getSerializableExtra(ARGUMENT_COLLECTION) as Collection
 
@@ -73,6 +68,11 @@ class FlashCardActivity : AppCompatActivity() {
             if (status == TextToSpeech.SUCCESS) {
                 textToSpeech.language = Locale.JAPANESE
             }
+        }
+
+        // Set status bar to dark if not in night mode.
+        if (!AppUtils.isDarkMode(this)) {
+            AppUtils.setStatusBarDark(this)
         }
     }
 
