@@ -3,7 +3,6 @@ package com.andlill.jld.app.main
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Base64
 import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.lifecycle.ViewModelProvider
@@ -19,7 +18,6 @@ import com.andlill.jld.app.main.dialog.NameCollectionDialog
 import com.andlill.jld.app.shared.ResultActivityFragment
 import com.andlill.jld.model.Collection
 import com.google.android.material.snackbar.Snackbar
-import com.google.gson.Gson
 
 class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) {
 
