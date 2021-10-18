@@ -34,13 +34,6 @@ class CollectionFragmentViewModel : ViewModel() {
         return collectionList
     }
 
-    fun updateCollection(context: Context, collection: Collection) = viewModelScope.launch {
-        CollectionRepository.update(context, collection)
-
-        val data = CollectionRepository.getAll(context)
-        collectionList.postValue(data)
-    }
-
     fun createCollection(context: Context, name: String) = viewModelScope.launch {
         val collection = Collection()
         collection.name = name.trim()

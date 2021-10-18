@@ -17,7 +17,6 @@ import com.andlill.jld.app.main.dialog.CollectionOptionsDialog
 import com.andlill.jld.app.main.dialog.ImportCollectionDialog
 import com.andlill.jld.app.main.dialog.NameCollectionDialog
 import com.andlill.jld.app.shared.ResultActivityFragment
-import com.andlill.jld.app.shared.dialog.RenameCollectionDialog
 import com.andlill.jld.model.Collection
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
@@ -37,8 +36,6 @@ class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) 
             when (action) {
                 CollectionAdapter.Action.Select -> openCollection(collection)
                 CollectionAdapter.Action.Share -> shareCollection(collection)
-                CollectionAdapter.Action.Rename -> renameCollection(collection)
-                CollectionAdapter.Action.Delete -> deleteCollection(collection)
             }
         }
 
@@ -94,13 +91,6 @@ class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) 
             putExtra(Intent.EXTRA_TITLE, getString(R.string.collection_share_title))
         }, null)
         startActivity(share)
-    }
-
-    private fun renameCollection(collection: Collection) {
-        RenameCollectionDialog(collection.name) { name ->
-            collection.name = name
-            viewModel.updateCollection(requireContext(), collection)
-        }.show(requireActivity().supportFragmentManager, RenameCollectionDialog::class.simpleName)
     }
 
     private fun deleteCollection(collection: Collection) {
