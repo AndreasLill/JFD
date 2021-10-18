@@ -32,11 +32,8 @@ class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) 
 
         viewModel = ViewModelProvider(this).get(CollectionFragmentViewModel::class.java)
 
-        collectionAdapter = CollectionAdapter { action, collection->
-            when (action) {
-                CollectionAdapter.Action.Select -> openCollection(collection)
-                CollectionAdapter.Action.Share -> shareCollection(collection)
-            }
+        collectionAdapter = CollectionAdapter { collection->
+            openCollection(collection)
         }
 
         viewModel.getCollections().observe(viewLifecycleOwner, { collection ->
@@ -79,18 +76,6 @@ class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) 
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         intent.putExtra(CollectionDetailsActivity.ARGUMENT_COLLECTION_ID, collection.id)
         activityLauncher.launch(intent)
-    }
-
-    private fun shareCollection(collection: Collection) {
-        val json = Gson().toJson(collection)
-        val base64 = Base64.encodeToString(json.toByteArray(), Base64.NO_WRAP)
-        val share = Intent.createChooser(Intent().apply {
-            action = Intent.ACTION_SEND
-            type = "text/plain"
-            putExtra(Intent.EXTRA_TEXT, base64)
-            putExtra(Intent.EXTRA_TITLE, getString(R.string.collection_share_title))
-        }, null)
-        startActivity(share)
     }
 
     private fun deleteCollection(collection: Collection) {

@@ -12,12 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andlill.jld.R
 import com.andlill.jld.model.Collection
 
-class CollectionAdapter(private val callback: (Action, Collection) -> Unit) : ListAdapter<Collection, CollectionAdapter.ViewHolder>(DiffCallback()) {
-
-    enum class Action {
-        Select,
-        Share,
-    }
+class CollectionAdapter(private val callback: (Collection) -> Unit) : ListAdapter<Collection, CollectionAdapter.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.adapter_collection, parent, false))
@@ -27,7 +22,7 @@ class CollectionAdapter(private val callback: (Action, Collection) -> Unit) : Li
         val item = getItem(position)
         holder.bind(item)
         holder.itemView.setOnClickListener {
-            callback(Action.Select, item)
+            callback(item)
         }
     }
 
@@ -40,8 +35,6 @@ class CollectionAdapter(private val callback: (Action, Collection) -> Unit) : Li
                 view.findViewById<TextView>(R.id.text_subtitle).text = String.format(view.context.getString(R.string.item_count), collection.content.size)
             else
                 view.findViewById<TextView>(R.id.text_subtitle).text = view.context.getString(R.string.empty)
-
-            view.findViewById<View>(R.id.button_menu).setOnClickListener { callback(Action.Share, collection) }
         }
     }
 
