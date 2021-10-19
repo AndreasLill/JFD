@@ -50,6 +50,8 @@
     <string name="study_correct">Got it!</string>
     <string name="study_incorrect">Try again!</string>
     <string name="study_flashcards">Flashcards</string>
+    <string name="study_next_stage">Next Stage</string>
+    <string name="study_stage">Stage %s</string>
 
     <!-- Menu -->
     <string name="menu_item_dictionary">Dictionary</string>

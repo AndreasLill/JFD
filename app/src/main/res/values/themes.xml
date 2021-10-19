@@ -25,7 +25,6 @@
     <style name="AppTheme.Default" parent="AppTheme.Base">
         <!-- Primary colors -->
         <item name="colorPrimary">@color/red_700</item>
-        <item name="colorPrimaryDark">@color/red_700</item>
         <item name="colorAccent">@color/red_A200</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary colors -->
@@ -47,7 +46,7 @@
         <item name="colorCheckMark">@color/green_500</item>
         <item name="colorDictionaryCommonTag">@color/green_400</item>
         <item name="colorDictionaryCommonHint">@color/teal_50</item>
-        <item name="colorCardCorrect">@color/green_400</item>
-        <item name="colorCardIncorrect">@color/amber_500</item>
+        <item name="colorFlashCardCorrect">@color/green_400</item>
+        <item name="colorFlashCardIncorrect">@color/amber_500</item>
     </style>
 </resources>

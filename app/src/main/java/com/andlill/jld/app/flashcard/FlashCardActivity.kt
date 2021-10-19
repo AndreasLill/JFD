@@ -26,8 +26,9 @@ class FlashCardActivity : AppCompatActivity() {
     private lateinit var viewModel: FlashCardViewModel
 
     // Views
-    private lateinit var undoButton: View
     private lateinit var restartButton: View
+    private lateinit var nextStageButton: View
+    private lateinit var stageText: TextView
     private lateinit var progressText: TextView
     private lateinit var progressBar: LinearProgressIndicator
     private lateinit var backgroundCard: View
@@ -49,16 +50,25 @@ class FlashCardActivity : AppCompatActivity() {
         viewModel.initialize(collection)
 
         // Setup views.
+        stageText = findViewById(R.id.text_stage)
         progressText = findViewById(R.id.text_progress)
         progressBar = findViewById(R.id.progress_bar)
         backgroundCard = findViewById(R.id.card_background)
         backgroundCardText = findViewById(R.id.text_background)
-        restartButton = findViewById<View>(R.id.button_restart).apply { setOnClickListener { viewModel.restart(); this@FlashCardActivity.drawCard() } }
-        undoButton = findViewById<View>(R.id.button_undo).apply { setOnClickListener { viewModel.undoCard(); this@FlashCardActivity.drawCard() } }
+        restartButton = findViewById<View>(R.id.button_restart).apply { setOnClickListener { restart(collection) } }
+        nextStageButton = findViewById<View>(R.id.button_next_stage).apply { setOnClickListener { nextStage() } }
         findViewById<ImageButton>(R.id.button_sound).apply { setOnClickListener { toggleSound(this) } }
         findViewById<ImageButton>(R.id.button_back).apply { setOnClickListener { finish() } }
 
-        viewModel.restart()
+        viewModel.getFlashCards().observe(this, { cards ->
+            updateProgress()
+            updateRestartButton(cards.size, viewModel.getStageSize())
+            updateNextStageButton(cards.size, viewModel.getStageSize())
+        })
+        viewModel.getStage().observe(this, { stage ->
+            stageText.text = String.format(getString(R.string.study_stage), stage)
+        })
+
         this.drawCard()
     }
 
@@ -136,31 +146,30 @@ class FlashCardActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateProgress(text: String, progress: Int) {
-        // Update progress.
-        progressText.text = text
-        progressBar.setProgressCompat(progress, true)
+    private fun updateProgress() {
+        progressText.text = viewModel.getProgressText()
+        progressBar.setProgressCompat(viewModel.getProgressAmount(), true)
     }
 
-    private fun updateRestartButton(size: Int) {
-        if (size > 0) {
-            restartButton.alpha = 0.5f
-            restartButton.isEnabled = false
-        }
-        else {
+    private fun updateRestartButton(size: Int, stageSize: Int) {
+        if(size == 0 && stageSize == 0) {
             restartButton.alpha = 1f
             restartButton.isEnabled = true
         }
+        else {
+            restartButton.alpha = 0.5f
+            restartButton.isEnabled = false
+        }
     }
 
-    private fun updateUndoButton(size: Int) {
-        if (size > 0) {
-            undoButton.alpha = 1f
-            undoButton.isEnabled = true
+    private fun updateNextStageButton(size: Int, stageSize: Int) {
+        if(size == 0 && stageSize > 0) {
+            nextStageButton.alpha = 1f
+            nextStageButton.isEnabled = true
         }
         else {
-            undoButton.alpha = 0.5f
-            undoButton.isEnabled = false
+            nextStageButton.alpha = 0.5f
+            nextStageButton.isEnabled = false
         }
     }
 
@@ -189,7 +198,7 @@ class FlashCardActivity : AppCompatActivity() {
             FlashCardFragment.Action.Dismiss -> {
                 when (direction) {
                     DraggableCardView.DIRECTION_LEFT -> {
-                        viewModel.redoCard()
+                        viewModel.stageCard()
                     }
                     DraggableCardView.DIRECTION_RIGHT -> {
                         viewModel.dismissCard()
@@ -200,19 +209,20 @@ class FlashCardActivity : AppCompatActivity() {
         }
     }
 
+    private fun restart(collection: Collection) {
+        viewModel.initialize(collection)
+        drawCard()
+    }
+
+    private fun nextStage() {
+        viewModel.nextStage()
+        drawCard()
+    }
+
     private fun drawCard() {
         this.removeFragments()
 
-        // Get cards from view model.
-        val flashCards = viewModel.getFlashCards()
-        val flashCardsDone = viewModel.getFlashCardsDone()
-
-        val progressText = String.format("%d / %d", flashCardsDone.size, flashCardsDone.size + flashCards.size)
-        val progress = flashCardsDone.size.toFloat() / (flashCardsDone.size + flashCards.size).toFloat() * 100f
-        updateProgress(progressText, progress.toInt())
-        updateRestartButton(flashCards.size)
-        updateUndoButton(flashCardsDone.size)
-
+        val flashCards = viewModel.getFlashCards().value as ArrayList
         if (flashCards.isEmpty())
             return
 
@@ -229,8 +239,7 @@ class FlashCardActivity : AppCompatActivity() {
         if (!viewModel.canFlip)
             return
 
-        // Get cards from view model.
-        val flashCards = viewModel.getFlashCards()
+        val flashCards = viewModel.getFlashCards().value as ArrayList
         createBackCardFragment(flashCards[0])
         viewModel.canFlip = false
     }

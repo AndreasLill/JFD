@@ -30,7 +30,7 @@
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="?attr/colorOnPrimary"
-            android:background="?attr/colorCardCorrect"/>
+            android:background="?attr/colorFlashCardCorrect"/>
 
         <TextView
             android:id="@+id/text_status_incorrect"
@@ -44,7 +44,7 @@
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="?attr/colorOnPrimary"
-            android:background="?attr/colorCardIncorrect"/>
+            android:background="?attr/colorFlashCardIncorrect"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

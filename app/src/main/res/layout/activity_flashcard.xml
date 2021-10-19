@@ -28,7 +28,7 @@
                 android:id="@+id/progress_bar"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:alpha="0.4"
+                android:alpha="0.5"
                 app:trackThickness="?attr/actionBarSize"
                 app:trackColor="@color/transparent"
                 app:indicatorColor="?attr/colorAccent"
@@ -38,17 +38,34 @@
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
 
-            <TextView
-                android:id="@+id/text_progress"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:textColor="?attr/colorTextPrimary"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:id="@+id/text_stage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.05"
+                    android:textAllCaps="true"
+                    android:textSize="12sp"
+                    android:textColor="?attr/colorTextPrimary"/>
+
+                <TextView
+                    android:id="@+id/text_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="?attr/colorTextPrimary" />
+
+            </LinearLayout>
 
             <ImageButton
                 style="@style/AppStyle.RoundButton.Transparent"
@@ -114,23 +131,23 @@
 
         <ImageButton
             style="@style/AppStyle.RoundButton"
-            android:id="@+id/button_undo"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_margin="32dp"
-            android:src="@drawable/ic_undo"
-            android:contentDescription="@string/undo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <ImageButton
-            style="@style/AppStyle.RoundButton"
             android:id="@+id/button_restart"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_margin="32dp"
             android:src="@drawable/ic_refresh"
             android:contentDescription="@string/restart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageButton
+            style="@style/AppStyle.RoundButton"
+            android:id="@+id/button_next_stage"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_margin="32dp"
+            android:src="@drawable/ic_redo"
+            android:contentDescription="@string/study_next_stage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
