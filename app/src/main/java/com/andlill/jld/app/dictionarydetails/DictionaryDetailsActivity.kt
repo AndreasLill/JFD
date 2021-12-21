@@ -18,6 +18,7 @@ import com.andlill.jld.app.dictionarydetails.adapter.ReadingAdapter
 import com.andlill.jld.app.dictionarydetails.adapter.TranslationAdapter
 import com.andlill.jld.app.dictionarydetails.dialog.AddToCollectionDialog
 import com.andlill.jld.model.DictionaryEntry
+import com.andlill.jld.utils.AppUtils
 import java.util.*
 
 class DictionaryDetailsActivity : AppCompatActivity() {
@@ -109,6 +110,20 @@ class DictionaryDetailsActivity : AppCompatActivity() {
             if (status == TextToSpeech.SUCCESS) {
                 textToSpeech.language = Locale.JAPANESE
             }
+        }
+
+        // Set status bar to dark if not in night mode.
+        if (!AppUtils.isDarkMode(this)) {
+            AppUtils.setStatusBarDark(this)
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        // Set status bar back to light if not in night mode.
+        if (!AppUtils.isDarkMode(this)) {
+            AppUtils.setStatusBarLight(this)
         }
     }
 
