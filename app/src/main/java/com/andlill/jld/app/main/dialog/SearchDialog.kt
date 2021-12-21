@@ -22,14 +22,14 @@ class SearchDialog(private val viewModel: MainActivityViewModel, private val cal
 
     private lateinit var input: EditText
     private lateinit var buttonBack: ImageButton
-    private lateinit var buttonInputAction: ImageButton
+    private lateinit var buttonInputClear: ImageButton
     private lateinit var searchHistoryAdapter: SearchHistoryAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.dialog_search, container, false)
 
         buttonBack = view.findViewById<ImageButton>(R.id.button_back).apply { setOnClickListener { closeDialog() } }
-        buttonInputAction = view.findViewById<ImageButton>(R.id.button_input_action).apply { setOnClickListener { inputAction() } }
+        buttonInputClear = view.findViewById<ImageButton>(R.id.button_input_clear).apply { setOnClickListener { input.setText("") } }
 
         // Setup edit text input.
         input = view.findViewById<EditText>(R.id.edit_text_search).apply {
@@ -43,8 +43,8 @@ class SearchDialog(private val viewModel: MainActivityViewModel, private val cal
             }
             addTextChangedListener {
                 when {
-                    it.isNullOrEmpty() -> buttonInputAction.setImageResource(R.drawable.ic_mic)
-                    it.isNotEmpty()-> buttonInputAction.setImageResource(R.drawable.ic_close)
+                    it.isNullOrEmpty() -> buttonInputClear.visibility = View.INVISIBLE
+                    it.isNotEmpty()-> buttonInputClear.visibility = View.VISIBLE
                 }
             }
         }
@@ -81,13 +81,6 @@ class SearchDialog(private val viewModel: MainActivityViewModel, private val cal
         // Callback to activity and close.
         callback(query.trim())
         closeDialog()
-    }
-
-    private fun inputAction() {
-        when {
-            input.text.isEmpty() -> println("mic open")
-            input.text.isNotEmpty() -> input.setText("")
-        }
     }
 
     private fun closeDialog() {

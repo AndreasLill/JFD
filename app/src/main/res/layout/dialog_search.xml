@@ -58,18 +58,19 @@
                         android:inputType="text"
                         android:importantForAutofill="no"
                         app:layout_constraintStart_toEndOf="@+id/button_back"
-                        app:layout_constraintEnd_toStartOf="@+id/button_input_action"
+                        app:layout_constraintEnd_toStartOf="@+id/button_input_clear"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
 
                     <ImageButton
                         style="@style/AppStyle.RoundButton.Transparent"
-                        android:id="@+id/button_input_action"
+                        android:id="@+id/button_input_clear"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
-                        android:src="@drawable/ic_mic"
+                        android:src="@drawable/ic_close"
                         android:contentDescription="@null"
+                        android:visibility="invisible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
