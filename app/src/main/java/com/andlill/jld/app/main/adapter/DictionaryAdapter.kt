@@ -1,5 +1,6 @@
 package com.andlill.jld.app.main.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
@@ -52,18 +53,13 @@ class DictionaryAdapter(private val callback: (DictionaryEntry) -> Unit) : Recyc
 
         fun bind(entry: DictionaryEntry) {
 
-            val layoutRoot = view.findViewById<View>(R.id.layout_root)
             val viewLabel = view.findViewById<View>(R.id.view_label)
 
             if (entry.isCommon()) {
-                layoutRoot.alpha = 1f
-                layoutRoot.setBackgroundColor(MaterialColors.getColor(layoutRoot, R.attr.colorDictionaryCommonHint))
                 viewLabel.setBackgroundColor(MaterialColors.getColor(viewLabel, R.attr.colorDictionaryCommonTag))
             }
             else {
-                layoutRoot.alpha = 0.7f
-                layoutRoot.setBackgroundColor(MaterialColors.getColor(layoutRoot, R.attr.colorSurface))
-                viewLabel.setBackgroundColor(MaterialColors.getColor(viewLabel, R.attr.colorSurface))
+                viewLabel.setBackgroundColor(Color.TRANSPARENT)
             }
 
             if (entry.reading[0].kanji.isNotEmpty()) {

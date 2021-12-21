@@ -6,7 +6,7 @@
     android:layout_height="48dp"
     android:paddingStart="8dp"
     android:paddingEnd="8dp"
-    android:background="?attr/colorSurface"
+    android:background="@color/transparent"
     android:foreground="@drawable/ripple_rectangle"
     android:clickable="true"
     android:focusable="true">

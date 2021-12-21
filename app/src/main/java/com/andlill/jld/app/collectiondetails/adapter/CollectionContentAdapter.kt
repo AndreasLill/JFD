@@ -1,5 +1,6 @@
 package com.andlill.jld.app.collectiondetails.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,7 +60,7 @@ class CollectionContentAdapter(private val viewModel: CollectionDetailsViewModel
     private fun updateSelection(view: View, entry: DictionaryEntry) {
         if (selection.contains(entry.id)) {
             selection.remove(entry.id)
-            view.setBackgroundColor(MaterialColors.getColor(view, R.attr.colorSurface))
+            view.setBackgroundColor(Color.TRANSPARENT)
         }
         else {
             selection.add(entry.id)
@@ -88,7 +89,7 @@ class CollectionContentAdapter(private val viewModel: CollectionDetailsViewModel
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(index: Int, entry: DictionaryEntry) {
-            view.setBackgroundColor(MaterialColors.getColor(view, R.attr.colorSurface))
+            view.setBackgroundColor(Color.TRANSPARENT)
             view.findViewById<TextView>(R.id.text_index).text = String.format("%d.", index + 1)
 
             if (entry.reading[0].kanji.isNotEmpty()) {

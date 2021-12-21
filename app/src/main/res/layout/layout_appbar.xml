@@ -6,15 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <!-- How to use no elevation shadow:
-    android:background="@android:color/transparent"
-    android:elevation="0dp"  -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="8dp"
+        android:background="@color/transparent"
+        android:elevation="0dp"
         app:titleTextAppearance="@style/AppStyle.ToolbarTitle"
         app:subtitleTextAppearance="@style/AppStyle.ToolbarSubtitle"
         style="@style/Widget.MaterialComponents.Toolbar.Primary"/>

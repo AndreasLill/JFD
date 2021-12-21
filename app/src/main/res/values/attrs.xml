@@ -8,7 +8,6 @@
     <attr name="colorTextSecondary" format="color"/>
     <attr name="colorCheckMark" format="color"/>
     <attr name="colorDictionaryCommonTag" format="color"/>
-    <attr name="colorDictionaryCommonHint" format="color"/>
     <attr name="colorFlashCardCorrect" format="color"/>
     <attr name="colorFlashCardIncorrect" format="color"/>
 </resources>
