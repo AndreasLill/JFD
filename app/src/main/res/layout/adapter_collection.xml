@@ -5,8 +5,8 @@
     android:id="@+id/layout_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorSurface"
-    android:foreground="@drawable/ripple_rectangle">
+    android:background="@color/transparent"
+    android:foreground="@drawable/ripple_rectangle_corners">
 
     <ImageView
         android:id="@+id/image_icon"

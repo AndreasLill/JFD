@@ -40,7 +40,6 @@ class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) 
 
         view.findViewById<RecyclerView>(R.id.recycler_collection).apply {
             layoutManager = LinearLayoutManager(requireContext())
-            addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
             adapter = collectionAdapter
         }
 
