@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -48,11 +47,6 @@ class DictionaryDetailsActivity : AppCompatActivity() {
 
         val entry = viewModel.getDictionaryEntry().value as DictionaryEntry
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-
         viewModel.getCollections().observe(this, { collections ->
             existsInCollection = false
             collections.forEach { collection ->
@@ -63,6 +57,8 @@ class DictionaryDetailsActivity : AppCompatActivity() {
             }
             updateMenuItemCollection()
         })
+
+        findViewById<View>(R.id.button_back).setOnClickListener { finish() }
 
         // Set top primary reading.
         if (entry.reading[0].kanji.isNotEmpty()) {

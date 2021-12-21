@@ -15,8 +15,6 @@
         android:layout_height="match_parent"
         android:background="?attr/colorBackground">
 
-        <include layout="@layout/layout_appbar"/>
-
         <!-- Main layout for dictionary details. -->
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -37,10 +35,23 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/colorSurface">
 
+                    <ImageButton
+                        style="@style/AppStyle.RoundButton.Transparent"
+                        android:id="@+id/button_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_arrow_back"
+                        android:contentDescription="@null"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
+                        android:layout_marginTop="32dp"
                         android:padding="8dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -51,8 +62,6 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:fontFamily="@font/sawarabi_gothic"
-                            android:ellipsize="end"
-                            android:singleLine="true"
                             android:textColor="?attr/colorAccent"
                             android:textSize="18sp"/>
 
@@ -62,10 +71,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:fontFamily="@font/sawarabi_gothic"
-                            android:textSize="32sp"
-                            android:textColor="?attr/colorTextPrimary"
-                            android:ellipsize="end"
-                            android:singleLine="true"/>
+                            android:textSize="28sp"
+                            android:textColor="?attr/colorTextPrimary"/>
 
                     </LinearLayout>
 

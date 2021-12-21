@@ -27,7 +27,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorElevatedSurface"
-                android:elevation="8dp"
                 app:contentInsetStart="8dp"
                 app:contentInsetEnd="8dp">
 
