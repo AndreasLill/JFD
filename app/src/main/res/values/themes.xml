@@ -45,6 +45,7 @@
         <item name="colorTextSecondary">@color/gray_700</item>
         <item name="colorCheckMark">@color/green_500</item>
         <item name="colorDictionaryCommonTag">@color/green_400</item>
+        <item name="colorDictionaryCommonBackground">@color/teal_50</item>
         <item name="colorFlashCardCorrect">@color/green_400</item>
         <item name="colorFlashCardIncorrect">@color/amber_500</item>
     </style>
