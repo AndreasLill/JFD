@@ -158,26 +158,34 @@ class FlashCardActivity : AppCompatActivity() {
     private fun updateRestartButton(size: Int, stageSize: Int) {
         if(size == 0 && stageSize == 0) {
             restartText.animate().setDuration(100).alpha(1f).start()
-            restartButton.animate().setDuration(100).alpha(1f).start()
-            restartButton.isEnabled = true
+            restartButton.animate().setDuration(100).alpha(1f).withStartAction {
+                restartButton.isEnabled = true
+                restartButton.visibility = View.VISIBLE
+            }.start()
         }
         else {
             restartText.animate().setDuration(100).alpha(0f).start()
-            restartButton.animate().setDuration(100).alpha(0f).start()
-            restartButton.isEnabled = false
+            restartButton.animate().setDuration(100).alpha(0f).withEndAction {
+                restartButton.isEnabled = false
+                restartButton.visibility = View.INVISIBLE
+            }.start()
         }
     }
 
     private fun updateNextStageButton(size: Int, stageSize: Int) {
         if(size == 0 && stageSize > 0) {
             nextStageText.animate().setDuration(100).alpha(1f).start()
-            nextStageButton.animate().setDuration(100).alpha(1f).start()
-            nextStageButton.isEnabled = true
+            nextStageButton.animate().setDuration(100).alpha(1f).withStartAction {
+                nextStageButton.isEnabled = true
+                nextStageButton.visibility = View.VISIBLE
+            }.start()
         }
         else {
             nextStageText.animate().setDuration(100).alpha(0f).start()
-            nextStageButton.animate().setDuration(100).alpha(0f).start()
-            nextStageButton.isEnabled = false
+            nextStageButton.animate().setDuration(100).alpha(0f).withEndAction {
+                nextStageButton.isEnabled = false
+                nextStageButton.visibility = View.INVISIBLE
+            }.start()
         }
     }
 

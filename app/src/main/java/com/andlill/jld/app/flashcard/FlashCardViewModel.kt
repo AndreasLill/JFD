@@ -48,14 +48,14 @@ class FlashCardViewModel : ViewModel() {
     fun getProgressText(): String {
         val format = "%d / %d"
         flashCards.value?.let {
-            return String.format(format, flashCardsDismissed.size, flashCardsDismissed.size + it.size)
+            return String.format(format, flashCardsDismissed.size + flashCardsStaged.size, flashCardsDismissed.size + flashCardsStaged.size + it.size)
         }
         return String.format(format, 0, 0)
     }
 
     fun getProgressAmount(): Int {
         flashCards.value?.let {
-            return (flashCardsDismissed.size.toFloat() / (flashCardsDismissed.size + it.size).toFloat() * 100f).toInt()
+            return ((flashCardsDismissed.size + flashCardsStaged.size).toFloat() / (flashCardsDismissed.size + flashCardsStaged.size + it.size).toFloat() * 100f).toInt()
         }
         return 0
     }
