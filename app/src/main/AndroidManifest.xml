@@ -17,32 +17,35 @@
         <activity
             android:name="com.andlill.jld.app.main.MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".app.settings.SettingsActivity"
+            android:name="com.andlill.jld.app.settings.SettingsActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:launchMode="singleTop"/>
         <activity
-            android:name=".app.dictionarydetails.DictionaryDetailsActivity"
+            android:name="com.andlill.jld.app.dictionarydetails.DictionaryDetailsActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.TTS_SERVICE" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".app.collectiondetails.CollectionDetailsActivity"
+            android:name="com.andlill.jld.app.collectiondetails.CollectionDetailsActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:launchMode="singleTop"/>
         <activity
             android:name="com.andlill.jld.app.flashcard.FlashCardActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.TTS_SERVICE" />
             </intent-filter>

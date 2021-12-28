@@ -95,10 +95,12 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container"
-            android:layout_width="320dp"
-            android:layout_height="480dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:clipChildren="false"
             android:elevation="4dp"
+            app:layout_constraintWidth_percent="0.85"
+            app:layout_constraintHeight_percent="0.65"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -106,13 +108,15 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_background"
-            android:layout_width="320dp"
-            android:layout_height="480dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:cardBackgroundColor="?attr/colorSurface"
             app:cardElevation="3dp"
             app:cardCornerRadius="8dp"
+            app:layout_constraintWidth_percent="0.85"
+            app:layout_constraintHeight_percent="0.65"
             app:layout_constraintStart_toStartOf="@id/fragment_container"
             app:layout_constraintTop_toTopOf="@id/fragment_container">
 
