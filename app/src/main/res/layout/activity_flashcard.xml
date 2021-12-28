@@ -18,25 +18,12 @@
         android:clipChildren="false">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/action_bar"
             android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/progress_bar"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:alpha="0.5"
-                app:trackThickness="?attr/actionBarSize"
-                app:trackColor="@color/transparent"
-                app:indicatorColor="?attr/colorAccent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -54,8 +41,9 @@
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.05"
                     android:textAllCaps="true"
-                    android:textSize="12sp"
-                    android:textColor="?attr/colorTextPrimary"/>
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorAccent"/>
 
                 <TextView
                     android:id="@+id/text_progress"
@@ -95,6 +83,16 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:trackThickness="4dp"
+            app:indicatorColor="?attr/colorAccent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/action_bar"/>
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container"
             android:layout_width="320dp"
@@ -129,16 +127,47 @@
 
         </androidx.cardview.widget.CardView>
 
+        <TextView
+            android:id="@+id/text_restart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:alpha="0"
+            android:textAlignment="center"
+            android:text="@string/study_restart"
+            android:textSize="14sp"
+            android:textColor="?attr/colorTextPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/button_restart"/>
+
         <ImageButton
             style="@style/AppStyle.RoundButton"
             android:id="@+id/button_restart"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_margin="32dp"
+            android:alpha="0"
             android:src="@drawable/ic_refresh"
             android:contentDescription="@string/restart"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/text_next_stage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:alpha="0"
+            android:textAlignment="center"
+            android:text="@string/study_next_stage"
+            android:textSize="14sp"
+            android:textColor="?attr/colorTextPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/button_next_stage"/>
 
         <ImageButton
             style="@style/AppStyle.RoundButton"
@@ -146,8 +175,10 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_margin="32dp"
+            android:alpha="0"
             android:src="@drawable/ic_redo"
             android:contentDescription="@string/study_next_stage"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 

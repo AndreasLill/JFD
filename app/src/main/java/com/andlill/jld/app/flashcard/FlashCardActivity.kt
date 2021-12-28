@@ -28,6 +28,8 @@ class FlashCardActivity : AppCompatActivity() {
     // Views
     private lateinit var restartButton: View
     private lateinit var nextStageButton: View
+    private lateinit var restartText: TextView
+    private lateinit var nextStageText: TextView
     private lateinit var stageText: TextView
     private lateinit var progressText: TextView
     private lateinit var progressBar: LinearProgressIndicator
@@ -55,6 +57,8 @@ class FlashCardActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progress_bar)
         backgroundCard = findViewById(R.id.card_background)
         backgroundCardText = findViewById(R.id.text_background)
+        restartText = findViewById(R.id.text_restart)
+        nextStageText = findViewById(R.id.text_next_stage)
         restartButton = findViewById<View>(R.id.button_restart).apply { setOnClickListener { restart(collection) } }
         nextStageButton = findViewById<View>(R.id.button_next_stage).apply { setOnClickListener { nextStage() } }
         findViewById<ImageButton>(R.id.button_sound).apply { setOnClickListener { toggleSound(this) } }
@@ -153,22 +157,26 @@ class FlashCardActivity : AppCompatActivity() {
 
     private fun updateRestartButton(size: Int, stageSize: Int) {
         if(size == 0 && stageSize == 0) {
-            restartButton.alpha = 1f
+            restartText.animate().setDuration(100).alpha(1f).start()
+            restartButton.animate().setDuration(100).alpha(1f).start()
             restartButton.isEnabled = true
         }
         else {
-            restartButton.alpha = 0.5f
+            restartText.animate().setDuration(100).alpha(0f).start()
+            restartButton.animate().setDuration(100).alpha(0f).start()
             restartButton.isEnabled = false
         }
     }
 
     private fun updateNextStageButton(size: Int, stageSize: Int) {
         if(size == 0 && stageSize > 0) {
-            nextStageButton.alpha = 1f
+            nextStageText.animate().setDuration(100).alpha(1f).start()
+            nextStageButton.animate().setDuration(100).alpha(1f).start()
             nextStageButton.isEnabled = true
         }
         else {
-            nextStageButton.alpha = 0.5f
+            nextStageText.animate().setDuration(100).alpha(0f).start()
+            nextStageButton.animate().setDuration(100).alpha(0f).start()
             nextStageButton.isEnabled = false
         }
     }

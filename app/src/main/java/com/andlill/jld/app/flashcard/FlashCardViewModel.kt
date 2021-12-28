@@ -77,7 +77,6 @@ class FlashCardViewModel : ViewModel() {
         // Stage the card to study again in the next stage.
         flashCards.value?.let {
             val card = it.removeFirst()
-            it.add(card)
             flashCardsStaged.add(card)
             flashCards.value = it
         }
