@@ -100,10 +100,10 @@
             android:clipChildren="false"
             android:elevation="4dp"
             app:layout_constraintWidth_percent="0.85"
-            app:layout_constraintHeight_percent="0.65"
+            app:layout_constraintHeight_percent="0.7"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/action_bar"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <androidx.cardview.widget.CardView
@@ -116,7 +116,7 @@
             app:cardElevation="3dp"
             app:cardCornerRadius="8dp"
             app:layout_constraintWidth_percent="0.85"
-            app:layout_constraintHeight_percent="0.65"
+            app:layout_constraintHeight_percent="0.7"
             app:layout_constraintStart_toStartOf="@id/fragment_container"
             app:layout_constraintTop_toTopOf="@id/fragment_container">
 
@@ -156,7 +156,7 @@
             android:contentDescription="@string/restart"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/action_bar"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
@@ -184,7 +184,7 @@
             android:contentDescription="@string/study_next_stage"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/action_bar"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
