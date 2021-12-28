@@ -2,12 +2,9 @@ package com.andlill.jld.app.dictionarydetails
 
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,9 +28,7 @@ class DictionaryDetailsActivity : AppCompatActivity() {
     private lateinit var viewModel: DictionaryDetailsViewModel
 
     private lateinit var textToSpeech: TextToSpeech
-    private var menuItemCollection: MenuItem? = null
     private var calledFromExternal = false
-    private var existsInCollection = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,17 +43,13 @@ class DictionaryDetailsActivity : AppCompatActivity() {
 
         val entry = viewModel.getDictionaryEntry().value as DictionaryEntry
 
-        viewModel.getCollections().observe(this, { collections ->
-            existsInCollection = false
-            collections.forEach { collection ->
-                if (collection.content.contains(entry.id)) {
-                    existsInCollection = true
-                    return@forEach
-                }
-            }
-            updateMenuItemCollection()
-        })
+        findViewById<View>(R.id.button_add_to_collection).apply {
+            // Hide if called from external collection.
+            if (calledFromExternal)
+                visibility = View.INVISIBLE
 
+            setOnClickListener { AddToCollectionDialog(viewModel).show(supportFragmentManager, AddToCollectionDialog::class.simpleName) }
+        }
         findViewById<View>(R.id.button_back).setOnClickListener { finish() }
 
         // Set top primary reading.
@@ -135,33 +126,5 @@ class DictionaryDetailsActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         textToSpeech.shutdown()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_item_collection_add -> AddToCollectionDialog(viewModel).show(supportFragmentManager, AddToCollectionDialog::class.simpleName)
-            android.R.id.home -> finish()
-        }
-        return true
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_activity_dictionary_details, menu)
-        menuItemCollection = menu?.findItem(R.id.menu_item_collection_add) as MenuItem
-
-        if (calledFromExternal) {
-            menu.setGroupVisible(R.id.group_default, false)
-        }
-
-        updateMenuItemCollection()
-        return true
-    }
-
-    private fun updateMenuItemCollection() {
-        if (existsInCollection) {
-            menuItemCollection?.icon = ContextCompat.getDrawable(this, R.drawable.ic_collection_check)
-        } else {
-            menuItemCollection?.icon = ContextCompat.getDrawable(this, R.drawable.ic_collection_add)
-        }
     }
 }
