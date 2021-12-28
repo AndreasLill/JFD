@@ -135,7 +135,7 @@
             android:alpha="0"
             android:textAlignment="center"
             android:text="@string/study_restart"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:textColor="?attr/colorTextPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -152,6 +152,7 @@
             android:contentDescription="@string/restart"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
@@ -162,7 +163,7 @@
             android:alpha="0"
             android:textAlignment="center"
             android:text="@string/study_next_stage"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:textColor="?attr/colorTextPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -179,6 +180,7 @@
             android:contentDescription="@string/study_next_stage"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
