@@ -14,72 +14,61 @@
         android:clipChildren="false"
         android:background="?attr/colorBackground">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/layout_appbar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/action_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="4dp"
+            android:background="?attr/colorElevatedSurface"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorElevatedSurface"
-                app:contentInsetStart="8dp"
-                app:contentInsetEnd="8dp">
+            <ImageButton
+                style="@style/AppStyle.RoundButton.Transparent"
+                android:id="@+id/button_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_arrow_back"
+                android:contentDescription="@null"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+            <EditText
+                android:id="@+id/edit_text_search"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/transparent"
+                android:backgroundTint="@color/transparent"
+                android:textSize="16sp"
+                android:hint="@string/menu_item_search"
+                android:inputType="text"
+                android:importantForAutofill="no"
+                app:layout_constraintStart_toEndOf="@+id/button_back"
+                app:layout_constraintEnd_toStartOf="@+id/button_input_clear"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-                    <ImageButton
-                        style="@style/AppStyle.RoundButton.Transparent"
-                        android:id="@+id/button_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:src="@drawable/ic_arrow_back"
-                        android:contentDescription="@null"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+            <ImageButton
+                style="@style/AppStyle.RoundButton.Transparent"
+                android:id="@+id/button_input_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_close"
+                android:contentDescription="@null"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-                    <EditText
-                        android:id="@+id/edit_text_search"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="16dp"
-                        android:background="@color/transparent"
-                        android:backgroundTint="@color/transparent"
-                        android:textSize="16sp"
-                        android:hint="@string/menu_item_search"
-                        android:inputType="text"
-                        android:importantForAutofill="no"
-                        app:layout_constraintStart_toEndOf="@+id/button_back"
-                        app:layout_constraintEnd_toStartOf="@+id/button_input_clear"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-
-                    <ImageButton
-                        style="@style/AppStyle.RoundButton.Transparent"
-                        android:id="@+id/button_input_clear"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:src="@drawable/ic_close"
-                        android:contentDescription="@null"
-                        android:visibility="invisible"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.appbar.MaterialToolbar>
-
-        </com.google.android.material.appbar.AppBarLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_history"
@@ -88,7 +77,7 @@
             android:scrollbars="vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_appbar"
+            app:layout_constraintTop_toBottomOf="@+id/action_bar"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

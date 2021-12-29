@@ -2,10 +2,7 @@ package com.andlill.jld.io.data
 
 import com.andlill.jld.model.DictionaryEntry
 import com.andlill.jld.utils.LanguageUtils.containsKanji
-import com.andlill.jld.utils.LanguageUtils.isHiragana
 import com.andlill.jld.utils.LanguageUtils.isKana
-import com.andlill.jld.utils.LanguageUtils.toHiragana
-import com.andlill.jld.utils.LanguageUtils.toKatakana
 import kotlin.collections.HashMap
 
 object Dictionary {
@@ -43,10 +40,8 @@ object Dictionary {
     }
 
     private fun searchByKana(query: String): ArrayList<DictionaryEntry> {
-        val converted = if (query.isHiragana()) query.toKatakana() else query.toHiragana()
         val filteredMap = data.filterValues{ entity ->
-            entity.reading[0].kana.startsWith(query) ||
-            entity.reading[0].kana.startsWith(converted)
+            entity.reading[0].kana.startsWith(query)
         }
         val sortedList = filteredMap.values.toList().sortedWith(compareBy<DictionaryEntry>{ it.commonScore }.thenBy{ it.reading[0].kana.length })
         return ArrayList(sortedList)
