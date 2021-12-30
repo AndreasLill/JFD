@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
@@ -33,6 +34,10 @@ class SettingsActivity : AppCompatActivity() {
 
         viewModel.getDarkMode().observe(this, { key ->
             settingDarkMode(key)
+        })
+
+        viewModel.getTextToSpeech().observe(this, { value ->
+            settingTextToSpeech(value)
         })
     }
 
@@ -71,6 +76,18 @@ class SettingsActivity : AppCompatActivity() {
                     }
                     settingsDialog.show(supportFragmentManager, SettingsDialog::class.simpleName)
                 }
+            }
+        }
+    }
+
+    private fun settingTextToSpeech(value: Boolean) {
+        findViewById<View>(R.id.setting_text_to_speech).apply {
+            findViewById<ImageView>(R.id.image_icon).setImageResource(R.drawable.ic_volume)
+            findViewById<TextView>(R.id.text_title).text = getString(R.string.text_to_speech)
+            findViewById<SwitchCompat>(R.id.setting_switch).isChecked = value
+            setOnClickListener {
+                findViewById<SwitchCompat>(R.id.setting_switch).isChecked = !value
+                viewModel.setTextToSpeech(!value)
             }
         }
     }

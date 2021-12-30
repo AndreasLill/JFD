@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.andlill.jld.R
 import com.andlill.jld.model.Collection
 import com.andlill.jld.model.DictionaryEntry
+import com.andlill.jld.utils.AppSettings
 import com.andlill.jld.utils.AppUtils
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import java.util.*
@@ -37,12 +38,14 @@ class FlashCardActivity : AppCompatActivity() {
     private lateinit var backgroundCardText: TextView
     private lateinit var textToSpeech: TextToSpeech
 
-    // Variables
-    private var soundMuted = false
+    private var textToSpeechEnabled = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_flashcard)
+
+        // Get settings.
+        textToSpeechEnabled = AppSettings.getTextToSpeech(this)
 
         // Get intent extras.
         val collection = intent.getSerializableExtra(ARGUMENT_COLLECTION) as Collection
@@ -61,7 +64,6 @@ class FlashCardActivity : AppCompatActivity() {
         nextStageText = findViewById(R.id.text_next_stage)
         restartButton = findViewById<View>(R.id.button_restart).apply { setOnClickListener { restart(collection) } }
         nextStageButton = findViewById<View>(R.id.button_next_stage).apply { setOnClickListener { nextStage() } }
-        findViewById<ImageButton>(R.id.button_sound).apply { setOnClickListener { toggleSound(this) } }
         findViewById<ImageButton>(R.id.button_back).apply { setOnClickListener { finish() } }
 
         viewModel.getFlashCards().observe(this, { cards ->
@@ -143,7 +145,7 @@ class FlashCardActivity : AppCompatActivity() {
                 .addToBackStack(null)
                 .commit()
 
-        if (!soundMuted) {
+        if (textToSpeechEnabled) {
             cardFragment.lifecycleScope.launchWhenResumed {
                 textToSpeech.speak(dictionaryEntry.reading[0].kana, TextToSpeech.QUEUE_FLUSH, null, null)
             }
@@ -196,14 +198,6 @@ class FlashCardActivity : AppCompatActivity() {
         }
         backgroundCard.visibility = visibility
         backgroundCardText.text = text
-    }
-
-    private fun toggleSound(button: ImageButton) {
-        soundMuted = !soundMuted
-        if (!soundMuted)
-            button.setImageResource(R.drawable.ic_volume)
-        else
-            button.setImageResource(R.drawable.ic_volume_off)
     }
 
     private fun handleCardAction(action: FlashCardFragment.Action, direction: Int) {

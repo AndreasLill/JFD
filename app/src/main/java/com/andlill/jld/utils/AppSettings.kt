@@ -16,4 +16,8 @@ object AppSettings {
     fun getDarkMode(context: Context): Int {
         return getPreferences(context).getInt(AppConstants.KEY_DARK_MODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
     }
+
+    fun getTextToSpeech(context: Context): Boolean {
+        return getPreferences(context).getBoolean(AppConstants.KEY_TEXT_TO_SPEECH, true)
+    }
  }

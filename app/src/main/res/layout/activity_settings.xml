@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Dark Mode -->
+                <!-- Theme -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -41,6 +41,17 @@
                 <include
                     android:id="@+id/setting_dark_mode"
                     layout="@layout/layout_setting_choice"/>
+
+                <!-- Audio -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textAppearance="@style/AppStyle.TextAppearance.Title"
+                    android:text="@string/audio" />
+                <include
+                    android:id="@+id/setting_text_to_speech"
+                    layout="@layout/layout_setting_switch"/>
 
             </LinearLayout>
 

@@ -26,6 +26,7 @@
         android:id="@+id/text_translation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textIsSelectable="true"
         android:textSize="13sp"
         android:textColor="?attr/colorTextPrimary"
         app:layout_constraintStart_toStartOf="@+id/text_type"

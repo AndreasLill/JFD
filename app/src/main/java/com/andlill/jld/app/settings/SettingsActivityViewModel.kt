@@ -20,14 +20,20 @@ class SettingsActivityViewModel : ViewModel() {
     )
 
     private val darkMode = MutableLiveData<String>()
+    private val textToSpeech = MutableLiveData<Boolean>()
 
     fun initialize(context: Context) {
         sharedPreferences = context.getSharedPreferences(AppConstants.SHARED_PREFERENCES, Context.MODE_PRIVATE)
         darkMode.value = optionsDarkMode.filterValues { it == sharedPreferences.getInt(AppConstants.KEY_DARK_MODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) }.keys.first()
+        textToSpeech.value = sharedPreferences.getBoolean(AppConstants.KEY_TEXT_TO_SPEECH, true)
     }
 
     fun getDarkMode(): LiveData<String> {
         return darkMode
+    }
+
+    fun getTextToSpeech(): LiveData<Boolean> {
+        return textToSpeech
     }
 
     fun setDarkMode(selected: String) {
@@ -37,5 +43,13 @@ class SettingsActivityViewModel : ViewModel() {
             commit()
         }
         darkMode.postValue(selected)
+    }
+
+    fun setTextToSpeech(value: Boolean) {
+        sharedPreferences.edit {
+            putBoolean(AppConstants.KEY_TEXT_TO_SPEECH, value)
+            commit()
+        }
+        textToSpeech.postValue(value)
     }
 }
