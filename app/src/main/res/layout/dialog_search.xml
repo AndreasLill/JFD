@@ -48,6 +48,8 @@
                 android:textSize="16sp"
                 android:hint="@string/menu_item_search"
                 android:inputType="text"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:importantForAutofill="no"
                 app:layout_constraintStart_toEndOf="@+id/button_back"
                 app:layout_constraintEnd_toStartOf="@+id/button_input_clear"
