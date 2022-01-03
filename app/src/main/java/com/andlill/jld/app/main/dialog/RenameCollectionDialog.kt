@@ -1,8 +1,8 @@
-package com.andlill.jld.app.shared.dialog
+package com.andlill.jld.app.main.dialog
 
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
@@ -28,8 +28,8 @@ class RenameCollectionDialog(private val name: String, private val callback: (St
         input = layout.findViewById(R.id.input)
         input.append(name)
         input.addTextChangedListener { text -> validateInput(text.toString()) }
-        input.setOnEditorActionListener { _, action, _ ->
-            if (action == EditorInfo.IME_ACTION_GO || action == EditorInfo.IME_ACTION_DONE) {
+        input.setOnEditorActionListener { _, action, event ->
+            if (action == EditorInfo.IME_ACTION_GO || action == EditorInfo.IME_ACTION_DONE || event.keyCode == KeyEvent.KEYCODE_ENTER) {
                 if (validateInput(input.text.toString())) {
                     callback(input.text.toString().trim())
                     dismiss()

@@ -1,6 +1,7 @@
 package com.andlill.jld.app.main.dialog
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,8 +34,8 @@ class SearchDialog(private val viewModel: MainActivityViewModel, private val cal
 
         // Setup edit text input.
         input = view.findViewById<EditText>(R.id.edit_text_search).apply {
-            setOnEditorActionListener { _, action, _ ->
-                if (action == EditorInfo.IME_ACTION_GO || action == EditorInfo.IME_ACTION_DONE) {
+            setOnEditorActionListener { _, action, event ->
+                if (action == EditorInfo.IME_ACTION_GO || action == EditorInfo.IME_ACTION_DONE || event.keyCode == KeyEvent.KEYCODE_ENTER) {
                     AppUtils.postDelayed(100) {
                         search(input.text.toString())
                     }

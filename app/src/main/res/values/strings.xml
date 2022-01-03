@@ -46,6 +46,7 @@
     <string name="collection_details_study_flashcards">Flashcards</string>
     <string name="collection_details_selection_title">Selection</string>
     <string name="collection_details_content_removed">%d items removed from collection.</string>
+    <string name="collection_details_study_no_content">The collection is empty.\nAdd words from the dictionary to begin.</string>
 
     <!-- Study -->
     <string name="study_correct">Got it!</string>

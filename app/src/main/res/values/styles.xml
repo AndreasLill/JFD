@@ -6,7 +6,7 @@
         <item name="android:textSize">15sp</item>
     </style>
     <style name="AppStyle.TextAppearance.Title" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">?attr/colorHint</item>
+        <item name="android:textColor">?attr/colorTextSecondary</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:letterSpacing">0.05</item>

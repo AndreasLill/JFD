@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="@drawable/ripple_rectangle"
-    android:padding="8dp">
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_horizontal_50"
@@ -19,7 +20,6 @@
         android:id="@+id/image_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:src="@drawable/ic_collection_add"
         android:contentDescription="@string/menu_item_collection_add"
         app:tint="?attr/colorHint"
@@ -31,9 +31,9 @@
         android:id="@+id/text_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:textColor="?attr/colorTextPrimary"
-        android:textSize="13sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/image_icon"
         app:layout_constraintTop_toTopOf="@id/guideline_horizontal_50"
         app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal_50" />

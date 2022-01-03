@@ -43,8 +43,6 @@ class AddToCollectionDialog(private val viewModel: DictionaryDetailsViewModel) :
             }
         }
 
-        layout.findViewById<View>(R.id.button_close).setOnClickListener { dismiss() }
-
         return dialog
     }
 }

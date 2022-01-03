@@ -57,7 +57,7 @@
 
             <ImageButton
                 style="@style/AppStyle.RoundButton.Transparent"
-                android:id="@+id/button_back"
+                android:id="@+id/button_action_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -65,6 +65,19 @@
                 android:src="@drawable/ic_arrow_back"
                 android:contentDescription="@null"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageButton
+                style="@style/AppStyle.RoundButton.Transparent"
+                android:id="@+id/button_action_restart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_refresh"
+                android:contentDescription="@null"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 

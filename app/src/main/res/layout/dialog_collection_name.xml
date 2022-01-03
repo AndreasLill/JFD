@@ -41,9 +41,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:inputType="textShortMessage"
+                android:inputType="text"
                 android:singleLine="true"
                 android:maxLength="30"
+                android:imeOptions="actionDone"
                 android:textColor="?attr/colorTextPrimary" />
 
         </com.google.android.material.textfield.TextInputLayout>

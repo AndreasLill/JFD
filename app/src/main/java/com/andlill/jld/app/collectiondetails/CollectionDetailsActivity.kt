@@ -18,7 +18,7 @@ import com.andlill.jld.app.collectiondetails.adapter.CollectionContentAdapter
 import com.andlill.jld.app.dictionarydetails.DictionaryDetailsActivity
 import com.andlill.jld.app.flashcard.FlashCardActivity
 import com.andlill.jld.app.shared.dialog.ConfirmationDialog
-import com.andlill.jld.app.shared.dialog.RenameCollectionDialog
+import com.andlill.jld.app.main.dialog.RenameCollectionDialog
 import com.andlill.jld.model.Collection
 import com.andlill.jld.model.DictionaryEntry
 import com.google.android.material.snackbar.Snackbar
@@ -102,6 +102,12 @@ class CollectionDetailsActivity : AppCompatActivity() {
 
     private fun study() {
         val collection = viewModel.getCollection().value as Collection
+
+        if (collection.content.isEmpty()) {
+            Snackbar.make(findViewById(R.id.layout_root), getString(R.string.collection_details_study_no_content), 3000).show()
+            return
+        }
+
         val intent = Intent(this, FlashCardActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         intent.putExtra(FlashCardActivity.ARGUMENT_COLLECTION, collection)
