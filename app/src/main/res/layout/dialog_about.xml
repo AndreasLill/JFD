@@ -29,7 +29,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/about"
+                    android:text="@string/app_name_full"
                     android:textAppearance="@style/AppStyle.TextAppearance.Title" />
 
                 <LinearLayout
@@ -37,13 +37,6 @@
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="?attr/colorAccent"
-                        android:textSize="13sp"
-                        android:text="@string/app_name_full"/>
 
                     <TextView
                         android:layout_width="wrap_content"
