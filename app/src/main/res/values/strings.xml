@@ -2,6 +2,7 @@
 <resources>
     <!-- App -->
     <string name="app_name">JLD</string>
+    <string name="app_name_full">JLD - Japanese Language Dictionary</string>
     <string name="app_version">App: v1.0</string>
     <string name="app_db_version">Database: v2</string>
 
@@ -27,6 +28,7 @@
     <string name="menu">Menu</string>
     <string name="text_to_speech">Text-To-Speech</string>
     <string name="sound">Sound</string>
+    <string name="about">About</string>
     <string name="copy_to_clipboard">Copied \'%s\' to clipboard.</string>
 
     <!-- Dictionary -->
@@ -90,4 +92,9 @@
     <string name="validation_error_collection_name">This name is invalid.</string>
     <string name="validation_error_collection_select">A collection must be selected.</string>
     <string name="validation_error_collection_import">Import code is invalid.</string>
+
+    <!-- Legal -->
+    <string name="copyright">Copyright © 2022 - Andreas Lill</string>
+    <string name="edict">EDICT</string>
+    <string name="legal_edict">This package uses the &lt;a href=\'http://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project\'&gt;JMdict/EDICT&lt;/a&gt; and &lt;a href=\'http://www.edrdg.org/wiki/index.php/KANJIDIC_Project\'&gt;KANJIDIC&lt;/a&gt; dictionary files. These files are the property of the &lt;a href=\'http://www.edrdg.org/\'&gt;Electronic Dictionary Research and Development Group&lt;/a&gt;, and are used in conformance with the Group\'s &lt;a href=\'http://www.edrdg.org/edrdg/licence.html\'&gt;licence&lt;/a&gt;.</string>
 </resources>

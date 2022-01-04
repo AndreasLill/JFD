@@ -18,6 +18,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.andlill.jld.R
+import com.andlill.jld.app.main.dialog.AboutDialog
+import com.andlill.jld.app.main.dialog.ImportCollectionDialog
 import com.andlill.jld.app.main.dialog.SearchDialog
 import com.andlill.jld.app.settings.SettingsActivity
 import com.andlill.jld.io.repository.*
@@ -124,17 +126,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val drawer = findViewById<DrawerLayout>(R.id.layout_drawer)
+
         when (item.itemId) {
-            R.id.menu_item_dictionary -> viewPager.setCurrentItem(0, true)
-            R.id.menu_item_collections -> viewPager.setCurrentItem(1, true)
+            R.id.menu_item_dictionary -> {
+                viewPager.setCurrentItem(0, true)
+                drawer.closeDrawer(GravityCompat.START)
+            }
+            R.id.menu_item_collections -> {
+                viewPager.setCurrentItem(1, true)
+                drawer.closeDrawer(GravityCompat.START)
+            }
             R.id.menu_item_settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
+                drawer.closeDrawer(GravityCompat.START)
+            }
+            R.id.menu_item_about -> {
+                AboutDialog().show(supportFragmentManager, AboutDialog::class.simpleName)
             }
         }
 
-        findViewById<DrawerLayout>(R.id.layout_drawer).closeDrawer(GravityCompat.START)
         return true
     }
 
