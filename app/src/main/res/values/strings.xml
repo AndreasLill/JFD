@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- General -->
+    <!-- App -->
     <string name="app_name">JLD</string>
-    <string name="app_version">1.0</string>
+    <string name="app_version">App: v1.0</string>
+    <string name="app_db_version">Database: v2</string>
+
+    <!-- General -->
     <string name="empty">Empty</string>
     <string name="item_count">%d items</string>
     <string name="done">Done</string>

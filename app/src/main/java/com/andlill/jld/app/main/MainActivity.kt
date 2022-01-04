@@ -5,12 +5,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -19,7 +17,6 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.andlill.jld.BuildConfig
 import com.andlill.jld.R
 import com.andlill.jld.app.main.dialog.SearchDialog
 import com.andlill.jld.app.settings.SettingsActivity
@@ -73,10 +70,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Setup navigation.
         navigationDrawer = findViewById(R.id.navigation_drawer)
         navigationDrawer.setNavigationItemSelectedListener(this)
-
-        // Set current build version to drawer header text.
-        val versionTextView = navigationDrawer.getHeaderView(0).findViewById<TextView>(R.id.text_title_version)
-        versionTextView.text = BuildConfig.VERSION_NAME
     }
 
     private fun initializeTabs() {
