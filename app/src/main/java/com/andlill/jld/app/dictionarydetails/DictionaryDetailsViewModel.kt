@@ -9,19 +9,20 @@ import com.andlill.jld.io.repository.CollectionRepository
 import com.andlill.jld.io.repository.DictionaryRepository
 import com.andlill.jld.model.Collection
 import com.andlill.jld.model.DictionaryEntry
+import com.andlill.jld.language.VerbConjugation
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class DictionaryDetailsViewModel : ViewModel() {
 
-    private var dictionaryEntry = MutableLiveData<DictionaryEntry>()
+    private val dictionaryEntry = MutableLiveData<DictionaryEntry>()
     private val collections = MutableLiveData<ArrayList<Collection>>()
+    private lateinit var verbConjugation : VerbConjugation
 
     fun initialize(context: Context, id: Int) = runBlocking {
-        val dictionaryData = DictionaryRepository.getEntry(id)
-        dictionaryEntry.value = dictionaryData
-        val collectionsData = CollectionRepository.getAll(context)
-        collections.value = collectionsData
+        dictionaryEntry.value = DictionaryRepository.getEntry(id)
+        collections.value = CollectionRepository.getAll(context)
+        verbConjugation = DictionaryRepository.getVerbConjugation(id)
     }
 
     fun getDictionaryEntry(): LiveData<DictionaryEntry> {
@@ -30,6 +31,10 @@ class DictionaryDetailsViewModel : ViewModel() {
 
     fun getCollections(): LiveData<ArrayList<Collection>> {
         return collections
+    }
+
+    fun getVerbConjugation(): VerbConjugation {
+        return verbConjugation
     }
 
     fun getKanji(word: String) = runBlocking {

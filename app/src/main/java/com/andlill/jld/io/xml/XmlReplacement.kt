@@ -78,11 +78,11 @@ object XmlReplacement {
             "&v5u-s;" -> "Godan verb"
             "&v5uru;" -> "Godan verb"
             "&vi;" -> "Intransitive verb"
-            "&vk;" -> "Irregular verb"
+            "&vk;" -> "Kuru verb"
             "&vn;" -> "Irregular verb"
             "&vr;" -> "Irregular verb"
             "&vs;" -> "Irregular verb"
-            "&vs-i;" -> "Irregular verb"
+            "&vs-i;" -> "Suru verb"
             "&vs-s;" -> "Irregular verb"
             "&vt;" -> "Transitive verb"
             else -> text

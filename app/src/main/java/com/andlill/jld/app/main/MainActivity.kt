@@ -19,7 +19,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.andlill.jld.R
 import com.andlill.jld.app.main.dialog.AboutDialog
-import com.andlill.jld.app.main.dialog.ImportCollectionDialog
 import com.andlill.jld.app.main.dialog.SearchDialog
 import com.andlill.jld.app.settings.SettingsActivity
 import com.andlill.jld.io.repository.*

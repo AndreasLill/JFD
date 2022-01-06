@@ -34,7 +34,7 @@ class DictionaryEntry : Serializable {
         return commonScore in 1..24
     }
 
-    fun getReading(): String {
+    fun getPrimaryReading(): String {
         return when {
             reading[0].kanji.isNotEmpty() -> reading[0].kanji
             else -> reading[0].kana

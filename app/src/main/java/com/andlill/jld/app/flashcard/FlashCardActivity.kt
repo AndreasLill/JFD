@@ -238,7 +238,7 @@ class FlashCardActivity : AppCompatActivity() {
             return
 
         if (flashCards.size > 1)
-            updateBackgroundCard(true, flashCards[1].getReading())
+            updateBackgroundCard(true, flashCards[1].getPrimaryReading())
         else
             updateBackgroundCard(false, "")
 

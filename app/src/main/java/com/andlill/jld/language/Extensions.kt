@@ -1,6 +1,6 @@
-package com.andlill.jld.utils
+package com.andlill.jld.language
 
-object LanguageUtils {
+object Extensions {
 
     fun Char.isKanji(): Boolean {
         return Character.UnicodeBlock.of(this) == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS

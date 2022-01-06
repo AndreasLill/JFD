@@ -103,6 +103,28 @@ class DictionaryDetailsActivity : AppCompatActivity() {
             // Hide alternative readings if none exists.
             findViewById<View>(R.id.layout_alternative_reading).visibility = View.GONE
         }
+
+        // Verb conjugations
+        if (viewModel.getVerbConjugation().affirmative.present.isNotEmpty()) {
+            findViewById<TextView>(R.id.text_verb_affirmative_present).text = viewModel.getVerbConjugation().affirmative.present
+            findViewById<TextView>(R.id.text_verb_negative_present).text = viewModel.getVerbConjugation().negative.present
+            findViewById<TextView>(R.id.text_verb_affirmative_past).text = viewModel.getVerbConjugation().affirmative.past
+            findViewById<TextView>(R.id.text_verb_negative_past).text = viewModel.getVerbConjugation().negative.past
+            findViewById<TextView>(R.id.text_verb_affirmative_te_form).text = viewModel.getVerbConjugation().affirmative.teForm
+            findViewById<TextView>(R.id.text_verb_negative_te_form).text = viewModel.getVerbConjugation().negative.teForm
+            findViewById<TextView>(R.id.text_verb_affirmative_potential).text = viewModel.getVerbConjugation().affirmative.potential
+            findViewById<TextView>(R.id.text_verb_negative_potential).text = viewModel.getVerbConjugation().negative.potential
+            findViewById<TextView>(R.id.text_verb_affirmative_passive).text = viewModel.getVerbConjugation().affirmative.passive
+            findViewById<TextView>(R.id.text_verb_negative_passive).text = viewModel.getVerbConjugation().negative.passive
+            findViewById<TextView>(R.id.text_verb_affirmative_causative).text = viewModel.getVerbConjugation().affirmative.causative
+            findViewById<TextView>(R.id.text_verb_negative_causative).text = viewModel.getVerbConjugation().negative.causative
+            findViewById<TextView>(R.id.text_verb_affirmative_imperative).text = viewModel.getVerbConjugation().affirmative.imperative
+            findViewById<TextView>(R.id.text_verb_negative_imperative).text = viewModel.getVerbConjugation().negative.imperative
+        }
+        else {
+            // Hide verb conjugations if none exists.
+            findViewById<View>(R.id.layout_verb_conjugation).visibility = View.GONE
+        }
     }
 
     override fun onResume() {

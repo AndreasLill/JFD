@@ -1,7 +1,7 @@
 package com.andlill.jld.io.data
 
 import com.andlill.jld.model.Kanji
-import com.andlill.jld.utils.LanguageUtils.isKanji
+import com.andlill.jld.language.Extensions.isKanji
 
 object KanjiDictionary {
     private var data = HashMap<String, Kanji>()

@@ -25,7 +25,7 @@ class FlashCardFragment(private val entry: DictionaryEntry, private val cardType
 
         when (cardType) {
             Type.Front -> {
-                view.findViewById<TextView>(R.id.text_kanji).text = entry.getReading()
+                view.findViewById<TextView>(R.id.text_kanji).text = entry.getPrimaryReading()
             }
             Type.Back -> {
                 view.findViewById<View>(R.id.divider).visibility = View.VISIBLE
@@ -33,7 +33,7 @@ class FlashCardFragment(private val entry: DictionaryEntry, private val cardType
                 if (entry.reading[0].kanji.isNotEmpty())
                     view.findViewById<TextView>(R.id.text_reading).text = entry.reading[0].kana
 
-                view.findViewById<TextView>(R.id.text_kanji).text = entry.getReading()
+                view.findViewById<TextView>(R.id.text_kanji).text = entry.getPrimaryReading()
                 view.findViewById<TextView>(R.id.text_glossary).text = entry.sense[0].glossary.joinToString("\n")
             }
         }

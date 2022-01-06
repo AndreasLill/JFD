@@ -34,4 +34,8 @@ object DictionaryRepository {
     suspend fun getKanji(word: String) = withContext(Dispatchers.Default) {
         return@withContext KanjiDictionary.getKanji(word)
     }
+
+    suspend fun getVerbConjugation(id: Int) = withContext(Dispatchers.Default) {
+        return@withContext Dictionary.conjugateVerb(id)
+    }
 }

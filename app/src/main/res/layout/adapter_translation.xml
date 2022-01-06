@@ -5,7 +5,7 @@
     android:id="@+id/layout_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorSurface"
+    android:background="@color/transparent"
     android:paddingTop="2dp"
     android:paddingBottom="2dp"
     android:paddingStart="16dp"

@@ -38,6 +38,16 @@
     <string name="dictionary_details_translation">Translation</string>
     <string name="dictionary_details_reading">Alternative Readings</string>
     <string name="dictionary_details_kanji">Kanji</string>
+    <string name="dictionary_details_verb_conjugation">Verb Conjugation</string>
+    <string name="dictionary_details_verb_affirmative">Affirmative</string>
+    <string name="dictionary_details_verb_negative">Negative</string>
+    <string name="dictionary_details_verb_present">Present</string>
+    <string name="dictionary_details_verb_past">Past</string>
+    <string name="dictionary_details_verb_te_form">て-form</string>
+    <string name="dictionary_details_verb_potential">Potential</string>
+    <string name="dictionary_details_verb_passive">Passive</string>
+    <string name="dictionary_details_verb_causative">Causative</string>
+    <string name="dictionary_details_verb_imperative">Imperative</string>
     <string name="dictionary_add_to_collection">Added \'%s\' to \'%s\'.</string>
     <string name="dictionary_remove_from_collection">Removed \'%s\' from \'%s\'.</string>
 

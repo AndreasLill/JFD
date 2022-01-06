@@ -1,8 +1,10 @@
 package com.andlill.jld.io.data
 
 import com.andlill.jld.model.DictionaryEntry
-import com.andlill.jld.utils.LanguageUtils.containsKanji
-import com.andlill.jld.utils.LanguageUtils.isKana
+import com.andlill.jld.language.VerbConjugation
+import com.andlill.jld.language.Extensions.containsKanji
+import com.andlill.jld.language.Extensions.isKana
+import com.andlill.jld.model.Verb
 import kotlin.collections.HashMap
 
 object Dictionary {
@@ -26,6 +28,11 @@ object Dictionary {
             query.isKana() -> searchByKana(query)
             else -> searchByGlossary(query)
         }
+    }
+
+    fun conjugateVerb(id: Int): VerbConjugation {
+        val entry = data[id] as DictionaryEntry
+        return VerbConjugation(entry)
     }
 
     private fun searchByKanji(query: String): ArrayList<DictionaryEntry> {
