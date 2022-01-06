@@ -61,8 +61,8 @@ class DictionaryAdapter(private val callback: (DictionaryEntry) -> Unit) : Recyc
                 viewLabel.setBackgroundColor(MaterialColors.getColor(viewLabel, R.attr.colorDictionaryCommonTag))
             }
             else {
-                viewRoot.setBackgroundColor(Color.TRANSPARENT)
-                viewLabel.setBackgroundColor(Color.TRANSPARENT)
+                viewRoot.setBackgroundColor(MaterialColors.getColor(view, R.attr.colorItemBackground))
+                viewLabel.setBackgroundColor(MaterialColors.getColor(view, R.attr.colorItemBackground))
             }
 
             if (entry.reading[0].kanji.isNotEmpty()) {

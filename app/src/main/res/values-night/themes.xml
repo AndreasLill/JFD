@@ -32,6 +32,7 @@
         <item name="colorOnSecondary">?attr/colorOnPrimary</item>
         <!-- Background colors -->
         <item name="colorBackground">@color/app_dark_background</item>
+        <item name="colorItemBackground">@color/app_dark_background</item>
         <item name="colorOnBackground">?attr/colorOnSurface</item>
         <!-- Surface colors-->
         <item name="colorSurface">@color/app_dark</item>

@@ -3,6 +3,7 @@
     <attr name="colorProgress" format="color"/>
     <attr name="colorElevatedSurface" format="color"/>
     <attr name="colorBackground" format="color"/>
+    <attr name="colorItemBackground" format="color"/>
     <attr name="colorHint" format="color"/>
     <attr name="colorTextPrimary" format="color"/>
     <attr name="colorTextSecondary" format="color"/>

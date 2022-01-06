@@ -60,7 +60,7 @@ class CollectionContentAdapter(private val viewModel: CollectionDetailsViewModel
     private fun updateSelection(view: View, entry: DictionaryEntry) {
         if (selection.contains(entry.id)) {
             selection.remove(entry.id)
-            view.setBackgroundColor(Color.TRANSPARENT)
+            view.setBackgroundColor(MaterialColors.getColor(view, R.attr.colorItemBackground))
         }
         else {
             selection.add(entry.id)
@@ -89,7 +89,7 @@ class CollectionContentAdapter(private val viewModel: CollectionDetailsViewModel
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(index: Int, entry: DictionaryEntry) {
-            view.setBackgroundColor(Color.TRANSPARENT)
+            view.setBackgroundColor(MaterialColors.getColor(view, R.attr.colorItemBackground))
             view.findViewById<TextView>(R.id.text_index).text = String.format("%d.", index + 1)
 
             if (entry.reading[0].kanji.isNotEmpty()) {

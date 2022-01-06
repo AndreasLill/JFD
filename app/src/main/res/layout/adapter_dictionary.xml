@@ -5,14 +5,14 @@
     android:id="@+id/layout_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/transparent"
+    android:background="?attr/colorItemBackground"
     android:foreground="@drawable/ripple_rectangle">
 
     <View
         android:id="@+id/view_label"
         android:layout_width="4dp"
         android:layout_height="0dp"
-        android:background="?attr/colorSurface"
+        android:background="?attr/colorItemBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
