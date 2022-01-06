@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.andlill.jld.io.data.Dictionary
-import com.andlill.jld.io.data.KanjiDictionary
+import com.andlill.jld.language.Dictionary
+import com.andlill.jld.language.KanjiDictionary
 import com.andlill.jld.io.repository.DictionaryRepository
 import com.andlill.jld.io.repository.SearchHistoryRepository
 import com.andlill.jld.model.SearchHistory

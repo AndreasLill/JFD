@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.andlill.jld.io.data.Dictionary
-import com.andlill.jld.io.data.KanjiDictionary
+import com.andlill.jld.language.Dictionary
+import com.andlill.jld.language.KanjiDictionary
 import com.andlill.jld.io.repository.CollectionRepository
 import com.andlill.jld.model.Collection
 import kotlinx.coroutines.launch

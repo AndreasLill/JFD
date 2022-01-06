@@ -1,4 +1,4 @@
-package com.andlill.jld.io.data
+package com.andlill.jld.language
 
 import com.andlill.jld.model.Kanji
 import com.andlill.jld.language.Extensions.isKanji
@@ -11,7 +11,7 @@ object KanjiDictionary {
     }
 
     fun setData(data: HashMap<String, Kanji>) {
-        this.data = data
+        KanjiDictionary.data = data
     }
 
     fun getKanji(word: String): ArrayList<Kanji> {

@@ -1,7 +1,7 @@
 package com.andlill.jld.io.repository
 
-import com.andlill.jld.io.data.Dictionary
-import com.andlill.jld.io.data.KanjiDictionary
+import com.andlill.jld.language.Dictionary
+import com.andlill.jld.language.KanjiDictionary
 import com.andlill.jld.io.xml.XmlManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async

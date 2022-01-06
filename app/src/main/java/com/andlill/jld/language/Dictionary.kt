@@ -1,10 +1,8 @@
-package com.andlill.jld.io.data
+package com.andlill.jld.language
 
 import com.andlill.jld.model.DictionaryEntry
-import com.andlill.jld.language.VerbConjugation
 import com.andlill.jld.language.Extensions.containsKanji
 import com.andlill.jld.language.Extensions.isKana
-import com.andlill.jld.model.Verb
 import kotlin.collections.HashMap
 
 object Dictionary {
@@ -19,7 +17,7 @@ object Dictionary {
     }
 
     fun setData(data: HashMap<Int, DictionaryEntry>) {
-        this.data = data
+        Dictionary.data = data
     }
 
     fun search(query: String): ArrayList<DictionaryEntry> {
