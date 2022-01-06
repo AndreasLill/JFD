@@ -11,11 +11,11 @@ class VerbConjugation(entry: DictionaryEntry) {
     init {
         val word = entry.getPrimaryReading()
         when {
-            entry.sense[0].partOfSpeech[0].lowercase().startsWith("ichidan") -> {
+            entry.sense[0].partOfSpeech.any { pos -> pos.lowercase().startsWith("ichidan") } -> {
                 val base = word.substring(0, word.length - 1)
                 conjugateIchidan(base)
             }
-            entry.sense[0].partOfSpeech[0].lowercase().startsWith("godan") -> {
+            entry.sense[0].partOfSpeech.any { pos -> pos.lowercase().startsWith("godan") } -> {
                 val character = word[word.length - 1]
                 val base = word.substring(0, word.length - 1)
                 when (character) {
@@ -30,11 +30,11 @@ class VerbConjugation(entry: DictionaryEntry) {
                     'つ' -> conjugateGodanTSU(base)
                 }
             }
-            entry.sense[0].partOfSpeech[0].lowercase().startsWith("kuru") -> {
+            entry.sense[0].partOfSpeech.any { pos -> pos.lowercase().startsWith("kuru") } -> {
                 val base = word.substring(0, word.length - 1)
                 conjugateKURU(base)
             }
-            entry.sense[0].partOfSpeech[0].lowercase().startsWith("suru") -> {
+            entry.sense[0].partOfSpeech.any { pos -> pos.lowercase().startsWith("suru") } -> {
                 val base = word.substring(0, word.length - 1)
                 conjugateSURU(base)
             }
