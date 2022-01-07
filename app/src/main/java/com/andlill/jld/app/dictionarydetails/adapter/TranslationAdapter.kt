@@ -26,7 +26,8 @@ class TranslationAdapter(private val dataSet: List<DictionaryEntry.Sense>) : Rec
 
         fun bind(index: Int, sense: DictionaryEntry.Sense) {
             view.findViewById<TextView>(R.id.text_type).text = sense.partOfSpeech.joinToString(", ")
-            view.findViewById<TextView>(R.id.text_translation).text = String.format("%d. %s", index+1, sense.glossary.joinToString("; "))
+            view.findViewById<TextView>(R.id.text_number).text = String.format("%d.", index+1)
+            view.findViewById<TextView>(R.id.text_translation).text = sense.glossary.joinToString("; ")
         }
     }
 }

@@ -6,12 +6,10 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andlill.jld.R
 import com.andlill.jld.app.dictionarydetails.adapter.KanjiAdapter
-import com.andlill.jld.app.dictionarydetails.adapter.ReadingAdapter
 import com.andlill.jld.app.dictionarydetails.adapter.TranslationAdapter
 import com.andlill.jld.app.dictionarydetails.dialog.AddToCollectionDialog
 import com.andlill.jld.model.DictionaryEntry
@@ -80,32 +78,16 @@ class DictionaryDetailsActivity : AppCompatActivity() {
 
         // Recycler view for Kanji in word.
         if (entry.reading[0].kanji.isNotEmpty()) {
+            findViewById<View>(R.id.layout_kanji).visibility = View.VISIBLE
             findViewById<RecyclerView>(R.id.recycler_kanji).apply {
                 layoutManager = LinearLayoutManager(this@DictionaryDetailsActivity)
-                addItemDecoration(DividerItemDecoration(this@DictionaryDetailsActivity, DividerItemDecoration.VERTICAL))
                 adapter = KanjiAdapter(viewModel.getKanji(entry.reading[0].kanji))
             }
-        }
-        else {
-            // Hide kanji if none exists.
-            findViewById<View>(R.id.layout_kanji).visibility = View.GONE
-        }
-
-        // Recycler view for alternative readings (skip reading zero, as it is primary reading).
-        if (entry.reading.size > 1) {
-            findViewById<RecyclerView>(R.id.recycler_reading).apply {
-                layoutManager = LinearLayoutManager(this@DictionaryDetailsActivity)
-                addItemDecoration(DividerItemDecoration(this@DictionaryDetailsActivity, DividerItemDecoration.VERTICAL))
-                adapter = ReadingAdapter(entry.reading.subList(1, entry.reading.size))
-            }
-        }
-        else {
-            // Hide alternative readings if none exists.
-            findViewById<View>(R.id.layout_alternative_reading).visibility = View.GONE
         }
 
         // Verb conjugations
         if (viewModel.getVerbConjugation().affirmative.present.isNotEmpty()) {
+            findViewById<View>(R.id.layout_verb_conjugation).visibility = View.VISIBLE
             findViewById<TextView>(R.id.text_verb_affirmative_present).text = viewModel.getVerbConjugation().affirmative.present
             findViewById<TextView>(R.id.text_verb_negative_present).text = viewModel.getVerbConjugation().negative.present
             findViewById<TextView>(R.id.text_verb_affirmative_past).text = viewModel.getVerbConjugation().affirmative.past
@@ -120,10 +102,6 @@ class DictionaryDetailsActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.text_verb_negative_causative).text = viewModel.getVerbConjugation().negative.causative
             findViewById<TextView>(R.id.text_verb_affirmative_imperative).text = viewModel.getVerbConjugation().affirmative.imperative
             findViewById<TextView>(R.id.text_verb_negative_imperative).text = viewModel.getVerbConjugation().negative.imperative
-        }
-        else {
-            // Hide verb conjugations if none exists.
-            findViewById<View>(R.id.layout_verb_conjugation).visibility = View.GONE
         }
     }
 

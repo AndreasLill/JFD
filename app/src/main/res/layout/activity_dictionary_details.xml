@@ -140,6 +140,7 @@
                     android:id="@+id/layout_kanji"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:orientation="vertical">
 
                     <TextView
@@ -153,32 +154,7 @@
                         android:id="@+id/recycler_kanji"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:elevation="2dp"
-                        android:background="?attr/colorSurface"
-                        android:scrollbars="none"
-                        android:nestedScrollingEnabled="false"
-                        android:overScrollMode="never"/>
-
-                </LinearLayout>
-
-                <!-- Contains alternative readings, can be hidden. -->
-                <LinearLayout
-                    android:id="@+id/layout_alternative_reading"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:text="@string/dictionary_details_reading"
-                        android:textAppearance="@style/AppStyle.TextAppearance.Title" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_reading"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:padding="4dp"
                         android:elevation="2dp"
                         android:background="?attr/colorSurface"
                         android:scrollbars="none"
@@ -192,6 +168,7 @@
                     android:id="@+id/layout_verb_conjugation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:orientation="vertical">
 
                     <TextView

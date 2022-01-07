@@ -8,10 +8,8 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageButton
-import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andlill.jld.R
@@ -66,7 +64,6 @@ class SearchDialog(private val viewModel: MainActivityViewModel, private val cal
 
         view.findViewById<RecyclerView>(R.id.recycler_history).apply {
             layoutManager = LinearLayoutManager(requireContext())
-            addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
             adapter = searchHistoryAdapter
         }
 

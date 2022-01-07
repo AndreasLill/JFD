@@ -30,6 +30,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.*
+import java.lang.Exception
 import java.util.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, TabLayout.OnTabSelectedListener {
@@ -202,18 +203,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         override fun createFragment(position: Int): Fragment {
-            var fragment = Fragment()
-
-            when (tabs[position]) {
+            return when (tabs[position]) {
                 R.string.menu_item_dictionary -> {
-                    fragment = DictionaryFragment()
+                    DictionaryFragment()
                 }
                 R.string.menu_item_collections -> {
-                    fragment = CollectionFragment()
+                    CollectionFragment()
                 }
+                else -> throw Exception("Selected tab not found!")
             }
-
-            return fragment
         }
     }
 
@@ -236,11 +234,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun searchDictionary(query: String) {
         // Scroll to dictionary fragment in view pager.
         viewPager.setCurrentItem(0, false)
-        val fragment = supportFragmentManager.findFragmentByTag("f" + viewPager.currentItem) as DictionaryFragment
-
         this.showProgressBar()
 
         // Call fragment to search dictionary.
+        val fragment = supportFragmentManager.findFragmentByTag("f0") as DictionaryFragment
         fragment.searchDictionary(query) {
             this.hideProgressBar()
         }
