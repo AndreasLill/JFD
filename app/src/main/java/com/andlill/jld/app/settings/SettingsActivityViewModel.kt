@@ -11,21 +11,18 @@ import com.andlill.jld.utils.AppSettings
 
 class SettingsActivityViewModel : ViewModel() {
 
-    private lateinit var sharedPreferences: SharedPreferences
-
     val optionsDarkMode = linkedMapOf(
-            "System" to AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM,
-            "On" to AppCompatDelegate.MODE_NIGHT_YES,
-            "Off" to AppCompatDelegate.MODE_NIGHT_NO,
+        "System" to AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM,
+        "On" to AppCompatDelegate.MODE_NIGHT_YES,
+        "Off" to AppCompatDelegate.MODE_NIGHT_NO,
     )
 
     private val darkMode = MutableLiveData<String>()
     private val textToSpeech = MutableLiveData<Boolean>()
 
     fun initialize(context: Context) {
-        sharedPreferences = context.getSharedPreferences(AppSettings.SHARED_PREFERENCES, Context.MODE_PRIVATE)
-        darkMode.value = optionsDarkMode.filterValues { it == sharedPreferences.getInt(AppSettings.KEY_DARK_MODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) }.keys.first()
-        textToSpeech.value = sharedPreferences.getBoolean(AppSettings.KEY_TEXT_TO_SPEECH, true)
+        darkMode.value = optionsDarkMode.filterValues { it == AppSettings.getDarkMode(context) }.keys.first()
+        textToSpeech.value = AppSettings.getTextToSpeech(context)
     }
 
     fun getDarkMode(): LiveData<String> {
@@ -36,20 +33,14 @@ class SettingsActivityViewModel : ViewModel() {
         return textToSpeech
     }
 
-    fun setDarkMode(selected: String) {
+    fun setDarkMode(context: Context, selected: String) {
         val value = optionsDarkMode[selected] as Int
-        sharedPreferences.edit {
-            putInt(AppSettings.KEY_DARK_MODE, value)
-            commit()
-        }
+        AppSettings.setDarkMode(context, value)
         darkMode.postValue(selected)
     }
 
-    fun setTextToSpeech(value: Boolean) {
-        sharedPreferences.edit {
-            putBoolean(AppSettings.KEY_TEXT_TO_SPEECH, value)
-            commit()
-        }
+    fun setTextToSpeech(context: Context, value: Boolean) {
+        AppSettings.setTextToSpeech(context, value)
         textToSpeech.postValue(value)
     }
 }

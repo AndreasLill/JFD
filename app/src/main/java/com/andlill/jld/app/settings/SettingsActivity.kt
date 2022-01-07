@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.Toolbar
-import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import com.andlill.jld.R
 import com.andlill.jld.app.settings.dialog.SettingsDialog
@@ -71,7 +70,7 @@ class SettingsActivity : AppCompatActivity() {
                 if (!isDialogVisible()) {
                     settingsDialog = SettingsDialog(getString(R.string.dark_mode), viewModel.optionsDarkMode.keys.toList(), key) { selectedKey ->
                         // Handle results from settings dialog.
-                        viewModel.setDarkMode(selectedKey)
+                        viewModel.setDarkMode(this@SettingsActivity, selectedKey)
                         AppCompatDelegate.setDefaultNightMode(AppSettings.getDarkMode(this@SettingsActivity))
                     }
                     settingsDialog.show(supportFragmentManager, SettingsDialog::class.simpleName)
@@ -87,7 +86,7 @@ class SettingsActivity : AppCompatActivity() {
             findViewById<SwitchCompat>(R.id.setting_switch).isChecked = value
             setOnClickListener {
                 findViewById<SwitchCompat>(R.id.setting_switch).isChecked = !value
-                viewModel.setTextToSpeech(!value)
+                viewModel.setTextToSpeech(this@SettingsActivity, !value)
             }
         }
     }
