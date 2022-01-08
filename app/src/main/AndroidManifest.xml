@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.andlill.jld">
+    package="com.andlill.jfd">
 
     <uses-permission android:name="android.permission.VIBRATE" />
 
@@ -15,7 +15,7 @@
         tools:ignore="AllowBackup">
 
         <activity
-            android:name="com.andlill.jld.app.main.MainActivity"
+            android:name="com.andlill.jfd.app.main.MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:launchMode="singleTop"
             android:exported="true">
@@ -25,11 +25,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.andlill.jld.app.settings.SettingsActivity"
+            android:name="com.andlill.jfd.app.settings.SettingsActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:launchMode="singleTop"/>
         <activity
-            android:name="com.andlill.jld.app.dictionarydetails.DictionaryDetailsActivity"
+            android:name="com.andlill.jfd.app.dictionarydetails.DictionaryDetailsActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:launchMode="singleTop"
             android:exported="false">
@@ -38,11 +38,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.andlill.jld.app.collectiondetails.CollectionDetailsActivity"
+            android:name="com.andlill.jfd.app.collectiondetails.CollectionDetailsActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:launchMode="singleTop"/>
         <activity
-            android:name="com.andlill.jld.app.flashcard.FlashCardActivity"
+            android:name="com.andlill.jfd.app.flashcard.FlashCardActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:launchMode="singleTop"
             android:exported="false">

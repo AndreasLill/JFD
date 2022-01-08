@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:clipChildren="false">
 
-    <com.andlill.jld.app.flashcard.DraggableCardView
+    <com.andlill.jfd.app.flashcard.DraggableCardView
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -119,6 +119,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.andlill.jld.app.flashcard.DraggableCardView>
+    </com.andlill.jfd.app.flashcard.DraggableCardView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
