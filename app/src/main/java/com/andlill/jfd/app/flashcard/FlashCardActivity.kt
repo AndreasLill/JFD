@@ -64,7 +64,7 @@ class FlashCardActivity : AppCompatActivity() {
         nextStageText = findViewById(R.id.text_next_stage)
         restartButton = findViewById<View>(R.id.button_restart).apply { setOnClickListener { restart(collection) } }
         nextStageButton = findViewById<View>(R.id.button_next_stage).apply { setOnClickListener { nextStage() } }
-        findViewById<ImageButton>(R.id.button_action_back).apply { setOnClickListener { finish() } }
+        findViewById<ImageButton>(R.id.button_back).apply { setOnClickListener { finish() } }
 
         viewModel.getFlashCards().observe(this, { cards ->
             updateProgress()

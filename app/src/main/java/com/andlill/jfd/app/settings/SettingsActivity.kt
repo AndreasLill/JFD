@@ -1,6 +1,7 @@
 package com.andlill.jfd.app.settings
 
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
@@ -13,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.andlill.jfd.R
 import com.andlill.jfd.app.settings.dialog.SettingsDialog
 import com.andlill.jfd.utils.AppSettings
+import com.andlill.jfd.utils.AppUtils
+import java.util.*
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -23,10 +26,7 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = getString(R.string.menu_item_settings)
+        findViewById<View>(R.id.button_back).setOnClickListener { finish() }
 
         viewModel = ViewModelProvider(this).get(SettingsActivityViewModel::class.java)
         viewModel.initialize(this)
@@ -40,19 +40,30 @@ class SettingsActivity : AppCompatActivity() {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        // Set status bar to dark if not in night mode.
+        if (!AppUtils.isDarkMode(this)) {
+            AppUtils.setStatusBarDark(this)
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        // Set status bar back to light if not in night mode.
+        if (!AppUtils.isDarkMode(this)) {
+            AppUtils.setStatusBarLight(this)
+        }
+    }
+
     // Override to add animation when activity is recreated by "AppCompatDelegate.setDefaultNightMode".
     override fun recreate() {
         finish()
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> finish()
-        }
-        return true
     }
 
     private fun isDialogVisible() : Boolean {
