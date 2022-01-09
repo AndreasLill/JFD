@@ -46,7 +46,7 @@
             android:textSize="15sp"
             android:elevation="8dp"
             android:stateListAnimator="@null"
-            app:backgroundTint="?attr/colorElevatedSurface"
+            app:backgroundTint="?attr/colorSurface"
             app:icon="@drawable/ic_study"
             app:iconTint="?attr/colorAccent"
             app:iconGravity="textStart"
