@@ -18,7 +18,7 @@ import com.andlill.jfd.app.collectiondetails.adapter.CollectionContentAdapter
 import com.andlill.jfd.app.dictionarydetails.DictionaryDetailsActivity
 import com.andlill.jfd.app.flashcard.FlashCardActivity
 import com.andlill.jfd.app.shared.dialog.ConfirmationDialog
-import com.andlill.jfd.app.main.dialog.RenameCollectionDialog
+import com.andlill.jfd.app.collectiondetails.dialog.RenameCollectionDialog
 import com.andlill.jfd.model.Collection
 import com.andlill.jfd.model.DictionaryEntry
 import com.google.android.material.snackbar.Snackbar

@@ -63,7 +63,7 @@ class NameCollectionDialog(private val callback: (String) -> Unit) : DialogFragm
     }
 
     private fun validateInput(text: String): Boolean {
-        return if (Regex("^\\w{1,30}\$").matches(text)) {
+        return if (Regex("^[\\w ]{1,30}\$").matches(text)) {
             inputLayout.isErrorEnabled = false
             true
         }

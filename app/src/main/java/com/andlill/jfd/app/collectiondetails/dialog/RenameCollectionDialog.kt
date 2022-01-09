@@ -1,4 +1,4 @@
-package com.andlill.jfd.app.main.dialog
+package com.andlill.jfd.app.collectiondetails.dialog
 
 import android.app.Dialog
 import android.os.Bundle
@@ -64,7 +64,7 @@ class RenameCollectionDialog(private val name: String, private val callback: (St
     }
 
     private fun validateInput(text: String): Boolean {
-        return if (Regex("^\\w{1,30}\$").matches(text)) {
+        return if (Regex("^[\\w ]{1,30}\$").matches(text)) {
             inputLayout.isErrorEnabled = false
             true
         }
