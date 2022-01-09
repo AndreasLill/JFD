@@ -59,12 +59,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:letterSpacing="0.05"
-            android:textAllCaps="true"
             android:text="@string/menu_item_import"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:textColor="?attr/colorTextPrimary"/>
+            android:textAppearance="@style/AppStyle.TextAppearance.Title"/>
 
     </LinearLayout>
 
@@ -96,12 +92,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:letterSpacing="0.05"
-            android:textAllCaps="true"
             android:text="@string/menu_item_new"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:textColor="?attr/colorTextPrimary"/>
+            android:textAppearance="@style/AppStyle.TextAppearance.Title"/>
 
     </LinearLayout>
 
