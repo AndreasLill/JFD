@@ -58,7 +58,6 @@ class SettingsActivity : AppCompatActivity() {
             // Setup click listener for settings dialog.
             setOnClickListener {
                 if (!isDialogVisible()) {
-                    AppUtils.vibrate(this@SettingsActivity)
                     settingsDialog = SettingsDialog(getString(R.string.dark_mode), viewModel.optionsDarkMode.keys.toList(), key) { selectedKey ->
                         // Handle results from settings dialog.
                         viewModel.setDarkMode(this@SettingsActivity, selectedKey)
@@ -76,7 +75,6 @@ class SettingsActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.text_title).text = getString(R.string.text_to_speech)
             findViewById<SwitchCompat>(R.id.setting_switch).isChecked = value
             setOnClickListener {
-                AppUtils.vibrate(this@SettingsActivity)
                 findViewById<SwitchCompat>(R.id.setting_switch).isChecked = !value
                 viewModel.setTextToSpeech(this@SettingsActivity, !value)
             }

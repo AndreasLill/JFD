@@ -23,17 +23,6 @@ object AppUtils {
         Snackbar.make(view, String.format(view.context.getString(R.string.copy_to_clipboard), text), 1500).show()
     }
 
-    @Suppress("DEPRECATION")
-    fun vibrate(context: Context) {
-        val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-
-        if (Build.VERSION.SDK_INT >= 26) {
-            vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
-        } else {
-            vibrator.vibrate(5)
-        }
-    }
-
     fun showSoftInput(activity: Activity, view: View) {
         val inputMethod = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         view.requestFocus()
