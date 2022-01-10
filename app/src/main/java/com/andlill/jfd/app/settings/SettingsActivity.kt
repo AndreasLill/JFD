@@ -1,15 +1,12 @@
 package com.andlill.jfd.app.settings
 
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
-import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.andlill.jfd.R
 import com.andlill.jfd.app.settings.dialog.SettingsDialog
@@ -40,24 +37,6 @@ class SettingsActivity : AppCompatActivity() {
         })
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        // Set status bar to dark if not in night mode.
-        if (!AppUtils.isDarkMode(this)) {
-            AppUtils.setStatusBarDark(this)
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        // Set status bar back to light if not in night mode.
-        if (!AppUtils.isDarkMode(this)) {
-            AppUtils.setStatusBarLight(this)
-        }
-    }
-
     // Override to add animation when activity is recreated by "AppCompatDelegate.setDefaultNightMode".
     override fun recreate() {
         finish()
@@ -79,6 +58,7 @@ class SettingsActivity : AppCompatActivity() {
             // Setup click listener for settings dialog.
             setOnClickListener {
                 if (!isDialogVisible()) {
+                    AppUtils.vibrate(this@SettingsActivity)
                     settingsDialog = SettingsDialog(getString(R.string.dark_mode), viewModel.optionsDarkMode.keys.toList(), key) { selectedKey ->
                         // Handle results from settings dialog.
                         viewModel.setDarkMode(this@SettingsActivity, selectedKey)
@@ -96,6 +76,7 @@ class SettingsActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.text_title).text = getString(R.string.text_to_speech)
             findViewById<SwitchCompat>(R.id.setting_switch).isChecked = value
             setOnClickListener {
+                AppUtils.vibrate(this@SettingsActivity)
                 findViewById<SwitchCompat>(R.id.setting_switch).isChecked = !value
                 viewModel.setTextToSpeech(this@SettingsActivity, !value)
             }

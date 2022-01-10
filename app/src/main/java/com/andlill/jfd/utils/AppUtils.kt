@@ -24,13 +24,13 @@ object AppUtils {
     }
 
     @Suppress("DEPRECATION")
-    fun vibrate(context: Context, value: Long) {
+    fun vibrate(context: Context) {
         val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
         if (Build.VERSION.SDK_INT >= 26) {
-            vibrator.vibrate(VibrationEffect.createOneShot(value, VibrationEffect.DEFAULT_AMPLITUDE))
+            vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
         } else {
-            vibrator.vibrate(value)
+            vibrator.vibrate(5)
         }
     }
 

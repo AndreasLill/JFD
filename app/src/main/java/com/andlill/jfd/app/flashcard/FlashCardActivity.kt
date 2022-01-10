@@ -214,6 +214,7 @@ class FlashCardActivity : AppCompatActivity() {
                         viewModel.dismissCard()
                     }
                 }
+                AppUtils.vibrate(this)
                 drawCard()
             }
         }
