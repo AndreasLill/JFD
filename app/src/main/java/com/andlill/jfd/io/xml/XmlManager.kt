@@ -2,6 +2,7 @@ package com.andlill.jfd.io.xml
 
 import com.andlill.jfd.model.DictionaryEntry
 import com.andlill.jfd.model.Kanji
+import com.andlill.jfd.model.Sense
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserFactory
 import java.io.InputStream
@@ -23,7 +24,7 @@ object XmlManager {
         var entry = DictionaryEntry()
         var kanji = XmlKanji()
         var kana = XmlKana()
-        var sense = DictionaryEntry.Sense()
+        var sense = Sense()
         val kanjiList = ArrayList<XmlKanji>()
         val kanaList = ArrayList<XmlKana>()
 
@@ -34,7 +35,7 @@ object XmlManager {
                     "entry" -> entry = DictionaryEntry()
                     "k_ele" -> kanji = XmlKanji()
                     "r_ele" -> kana = XmlKana()
-                    "sense" -> sense = DictionaryEntry.Sense()
+                    "sense" -> sense = Sense()
                 }
                 XmlPullParser.TEXT -> text = parser.text
                 XmlPullParser.END_TAG -> when (tag) {
@@ -50,23 +51,27 @@ object XmlManager {
                     "re_restr" -> kana.restriction.add(text)
                     "re_inf" -> kana.info.add(text)
                     "re_pri" -> kana.priority.add(text).also {
-                        if (text.startsWith("nf"))
-                            entry.updateCommonScore(Integer.valueOf(text.replace("nf", "")))
-                        else if ((text == "spec1" || text == "ichi1"))
-                            entry.updateCommonScore(24)
+                        if (text.startsWith("nf")) {
+                            val score = Integer.valueOf(text.replace("nf", ""))
+                            if (entry.commonScore > score)
+                                entry.commonScore = score
+                        }
+                        else if ((text == "spec1" || text == "ichi1")) {
+                            if (entry.commonScore > 24)
+                                entry.commonScore = 24
+                        }
                     }
                     "r_ele" -> kanaList.add(kana)
                     // Sense
-                    "pos" -> sense.partOfSpeech.add(XmlReplacement.getValue(text))
-                    "field" -> sense.field.add(text)
-                    "misc" -> sense.misc.add(text)
+                    "pos" -> sense.partOfSpeech.add(XmlReplacement.getPartOfSpeech(text))
+                    "field" -> sense.field.add(XmlReplacement.getField(text))
+                    "misc" -> sense.misc.add(XmlReplacement.getMisc(text))
                     "s_inf" -> sense.usage.add(text)
-                    "dial" -> sense.dialect.add(text)
+                    "dial" -> sense.dialect.add(XmlReplacement.getDialect(text))
                     "gloss" -> sense.glossary.add(text)
                     "sense" -> entry.sense.add(sense)
                     // Add entry to HashMap via id.
                     "entry" -> {
-                        entry.updateCommonScore(50)
                         entry.reading.addAll(createReadings(kanjiList, kanaList))
                         hashMap[entry.id] = entry
                         kanjiList.clear()

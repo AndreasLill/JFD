@@ -1,91 +1,199 @@
 package com.andlill.jfd.io.xml
 
+import com.andlill.jfd.model.Sense.Dialect
+import com.andlill.jfd.model.Sense.Field
+import com.andlill.jfd.model.Sense.PartOfSpeech
+import com.andlill.jfd.model.Sense.Misc
 import org.xmlpull.v1.XmlPullParser
 
 object XmlReplacement {
 
-    // Get JMdict readable entity replacement text.
-    fun getValue(text: String): String {
+    fun getDialect(text: String): Dialect {
         return when (text) {
-            "&adj-i;" -> "Adjective"
-            "&adj-ix;" -> "Adjective"
-            "&adj-na;" -> "Na-adjective"
-            "&adj-no;" -> "No-adjective"
-            "&adj-t;" -> "Adjective"
-            "&adv;" -> "Adverb"
-            "&adv-to;" -> "Adverb"
-            "&aux-adj;" -> "Auxiliary adjective"
-            "&aux-v;" -> "Auxiliary verb"
-            "&conj;" -> "Conjunction"
-            "&cop;" -> "Copula"
-            "&ctr;" -> "Counter"
-            "&exp;" -> "Expression"
-            "&n;" -> "Noun"
-            "&n-adv;" -> "Adverbial noun"
-            "&n-pr;" -> "Proper noun"
-            "&n-pref;" -> "Prefix noun"
-            "&n-suf;" -> "Suffix noun"
-            "&n-t;" -> "Temporal noun"
-            "&pref;" -> "Prefix"
-            "&suf;" -> "Suffix"
-            "&v-unspec;" -> "Unspecified verb"
-            "&v1;" -> "Ichidan verb"
-            "&v1-s;" -> "Ichidan verb"
-            "&v2a-s;" -> "Nidan verb"
-            "&v2b-k;" -> "Nidan verb"
-            "&v2b-s;" -> "Nidan verb"
-            "&v2d-k;" -> "Nidan verb"
-            "&v2d-s;" -> "Nidan verb"
-            "&v2g-k;" -> "Nidan verb"
-            "&v2g-s;" -> "Nidan verb"
-            "&v2h-k;" -> "Nidan verb"
-            "&v2h-s;" -> "Nidan verb"
-            "&v2k-k;" -> "Nidan verb"
-            "&v2k-s;" -> "Nidan verb"
-            "&v2m-k;" -> "Nidan verb"
-            "&v2m-s;" -> "Nidan verb"
-            "&v2n-s;" -> "Nidan verb"
-            "&v2r-k;" -> "Nidan verb"
-            "&v2r-s;" -> "Nidan verb"
-            "&v2s-s;" -> "Nidan verb"
-            "&v2t-k;" -> "Nidan verb"
-            "&v2t-s;" -> "Nidan verb"
-            "&v2w-s;" -> "Nidan verb"
-            "&v2y-k;" -> "Nidan verb"
-            "&v2y-s;" -> "Nidan verb"
-            "&v2z-s;" -> "Nidan verb"
-            "&v4b;" -> "Yodan verb"
-            "&v4g;" -> "Yodan verb"
-            "&v4h;" -> "Yodan verb"
-            "&v4k;" -> "Yodan verb"
-            "&v4m;" -> "Yodan verb"
-            "&v4n;" -> "Yodan verb"
-            "&v4r;" -> "Yodan verb"
-            "&v4s;" -> "Yodan verb"
-            "&v4t;" -> "Yodan verb"
-            "&v5aru;" -> "Godan verb"
-            "&v5b;" -> "Godan verb"
-            "&v5g;" -> "Godan verb"
-            "&v5k;" -> "Godan verb"
-            "&v5k-s;" -> "Godan verb"
-            "&v5m;" -> "Godan verb"
-            "&v5n;" -> "Godan verb"
-            "&v5r;" -> "Godan verb"
-            "&v5r-i;" -> "Godan verb"
-            "&v5s;" -> "Godan verb"
-            "&v5t;" -> "Godan verb"
-            "&v5u;" -> "Godan verb"
-            "&v5u-s;" -> "Godan verb"
-            "&v5uru;" -> "Godan verb"
-            "&vi;" -> "Intransitive verb"
-            "&vk;" -> "Kuru verb"
-            "&vn;" -> "Irregular verb"
-            "&vr;" -> "Irregular verb"
-            "&vs;" -> "Irregular verb"
-            "&vs-i;" -> "Suru verb"
-            "&vs-s;" -> "Irregular verb"
-            "&vt;" -> "Transitive verb"
-            else -> text
+            "&bra;" -> Dialect.Brazilian
+            "&hob;" -> Dialect.Hokkaido
+            "&ksb;" -> Dialect.Kansai
+            "&ktb;" -> Dialect.Kantou
+            "&kyb;" -> Dialect.Kyoto
+            "&kyu;" -> Dialect.Kyuushuu
+            "&nab;" -> Dialect.Nagano
+            "&osb;" -> Dialect.Osaka
+            "&rkb;" -> Dialect.Ryuukyuu
+            "&thb;" -> Dialect.Touhoku
+            "&tsb;" -> Dialect.Tosa
+            "&tsug;" -> Dialect.Tsugaru
+            else -> Dialect.Unclassified
+        }
+    }
+
+    fun getField(text: String): Field {
+        return when (text) {
+            "&agric;" -> Field.Agriculture
+            "&anat;" -> Field.Anatomy
+            "&archeol;" -> Field.Archeology
+            "&archit;" -> Field.Architecture
+            "&art;" -> Field.Art
+            "&astron;" -> Field.Astronomy
+            "&audvid;" -> Field.Audiovisual
+            "&aviat;" -> Field.Aviation
+            "&baseb;" -> Field.Baseball
+            "&biochem;" -> Field.Biochemistry
+            "&biol;" -> Field.Biology
+            "&bot;" -> Field.Botany
+            "&Buddh;" -> Field.Buddhism
+            "&bus;" -> Field.Business
+            "&chem;" -> Field.Chemistry
+            "&Christn;" -> Field.Christianity
+            "&cloth;" -> Field.Clothing
+            "&comp;" -> Field.Computing
+            "&cryst;" -> Field.Crystallography
+            "&ecol;" -> Field.Ecology
+            "&econ;" -> Field.Economics
+            "&elec;" -> Field.Electricity
+            "&electr;" -> Field.Electronics
+            "&embryo;" -> Field.Embryology
+            "&engr;" -> Field.Engineering
+            "&ent;" -> Field.Entomology
+            "&finc;" -> Field.Finance
+            "&fish;" -> Field.Fishing
+            "&food;" -> Field.Food
+            "&gardn;" -> Field.Gardening
+            "&genet;" -> Field.Genetics
+            "&geogr;" -> Field.Geography
+            "&geol;" -> Field.Geology
+            "&geom;" -> Field.Geometry
+            "&golf;" -> Field.Golf
+            "&gramm;" -> Field.Grammar
+            "&grmyth;" -> Field.GreekMythology
+            "&horse;" -> Field.HorseRacing
+            "&law;" -> Field.Law
+            "&ling;" -> Field.Linguistics
+            "&logic;" -> Field.Logic
+            "&MA;" -> Field.MartialArts
+            "&mahj;" -> Field.Mahjong
+            "&math;" -> Field.Mathematics
+            "&mech;" -> Field.MechanicalEngineering
+            "&med;" -> Field.Medicine
+            "&met;" -> Field.Meteorology
+            "&mil;" -> Field.Military
+            "&music;" -> Field.Music
+            "&ornith;" -> Field.Ornithology
+            "&paleo;" -> Field.Paleontology
+            "&pathol;" -> Field.Pathology
+            "&pharm;" -> Field.Pharmacy
+            "&phil;" -> Field.Philosophy
+            "&photo;" -> Field.Photography
+            "&physics;" -> Field.Physics
+            "&physiol;" -> Field.Physiology
+            "&print;" -> Field.Printing
+            "&psy;" -> Field.Psychiatry
+            "&psych;" -> Field.Psychology
+            "&rail;" -> Field.Railway
+            "&Shinto;" -> Field.Shinto
+            "&shogi;" -> Field.Shogi
+            "&sports;" -> Field.Sports
+            "&stat;" -> Field.Statistics
+            "&sumo;" -> Field.Sumo
+            "&telec;" -> Field.Telecommunications
+            "&tradem;" -> Field.Trademark
+            "&vidg;" -> Field.VideoGames
+            "&zool;" -> Field.Zoology
+            else -> Field.Unclassified
+        }
+    }
+
+    fun getMisc(text: String): Misc {
+        return when (text) {
+            "&abbr;" -> Misc.Abbreviation
+            "&arch;" -> Misc.Archaism
+            "&char;" -> Misc.Character
+            "&chn;" -> Misc.Children
+            "&col;" -> Misc.Colloquialism
+            "&company;" -> Misc.Company
+            "&creat;" -> Misc.Creature
+            "&dated;" -> Misc.Dated
+            "&dei;" -> Misc.Deity
+            "&derog;" -> Misc.Derogatory
+            "&doc;" -> Misc.Document
+            "&ev;" -> Misc.Event
+            "&fam;" -> Misc.Familiar
+            "&fem;" -> Misc.Female
+            "&fict;" -> Misc.Fiction
+            "&form;" -> Misc.Formal
+            "&given;" -> Misc.Given
+            "&group;" -> Misc.Group
+            "&hist;" -> Misc.Historical
+            "&hon;" -> Misc.Honorific
+            "&hum;" -> Misc.Humble
+            "&id;" -> Misc.Idiomatic
+            "&joc;" -> Misc.Jocular
+            "&leg;" -> Misc.Legend
+            "&m-sl;" -> Misc.Manga
+            "&male;" -> Misc.Male
+            "&myth;" -> Misc.Mythology
+            "&net-sl;" -> Misc.Internet
+            "&obj;" -> Misc.Object
+            "&obs;" -> Misc.Obsolete
+            "&obsc;" -> Misc.Obscure
+            "&on-mim;" -> Misc.Onomatopoeic
+            "&organization;" -> Misc.Organization
+            "&oth;" -> Misc.Other
+            "&person;" -> Misc.Person
+            "&place;" -> Misc.Place
+            "&poet;" -> Misc.Poet
+            "&pol;" -> Misc.Polite
+            "&product;" -> Misc.Product
+            "&proverb;" -> Misc.Proverb
+            "&quote;" -> Misc.Quote
+            "&rare;" -> Misc.Rare
+            "&relig;" -> Misc.Religion
+            "&sens;" -> Misc.Sensitive
+            "&serv;" -> Misc.Service
+            "&sl;" -> Misc.Slang
+            "&station;" -> Misc.Station
+            "&surname;" -> Misc.Surname
+            "&uk;" -> Misc.Kana
+            "&vulg;" -> Misc.Vulgar
+            "&work;" -> Misc.Work
+            "&yoji;" -> Misc.Yoji
+            else -> Misc.Unclassified
+        }
+    }
+
+    fun getPartOfSpeech(text: String): PartOfSpeech {
+        return when {
+            text == "&adj-i;" || text == "&adj-ix;" || text == "&adj-t;" -> PartOfSpeech.Adjective
+            text == "&adj-na;" -> PartOfSpeech.AdjectiveNa
+            text == "&adj-no;" -> PartOfSpeech.AdjectiveNo
+            text.startsWith("&adv") -> PartOfSpeech.Adverb
+            text == "&aux-adj;" -> PartOfSpeech.AdjectiveAux
+            text == "&aux-v;" -> PartOfSpeech.VerbAux
+            text == "&conj;" -> PartOfSpeech.Conjunction
+            text == "&cop;" -> PartOfSpeech.Copula
+            text == "&ctr;" -> PartOfSpeech.Counter
+            text == "&exp;" -> PartOfSpeech.Expression
+            text == "&int;" -> PartOfSpeech.Interjection
+            text == "&n;" -> PartOfSpeech.Noun
+            text == "&n-adv;" -> PartOfSpeech.NounAdverbial
+            text == "&n-pr;" -> PartOfSpeech.NounProper
+            text == "&n-pref;" -> PartOfSpeech.NounPrefix
+            text == "&n-suf;" -> PartOfSpeech.NounSuffix
+            text == "&n-t;" -> PartOfSpeech.NounTemporal
+            text == "&num;" -> PartOfSpeech.Numeric
+            text == "&pn;" -> PartOfSpeech.Pronoun
+            text == "&pref;" -> PartOfSpeech.Prefix
+            text == "&suf;" -> PartOfSpeech.Suffix
+            text == "&v-unspec;" -> PartOfSpeech.VerbUnspecified
+            text.startsWith("&v1") -> PartOfSpeech.VerbIchidan
+            text.startsWith("&v2") -> PartOfSpeech.VerbNidan
+            text.startsWith("&v4") -> PartOfSpeech.VerbYodan
+            text.startsWith("&v5") -> PartOfSpeech.VerbGodan
+            text == "&vi;" -> PartOfSpeech.VerbIntransitive
+            text == "&vk;" -> PartOfSpeech.VerbKuru
+            text == "&vn;" || text == "&vr;" || text == "&vs;" || text == "&vs-s;" -> PartOfSpeech.VerbIrregular
+            text == "&vs-i;" -> PartOfSpeech.VerbSuru
+            text == "&vt;" -> PartOfSpeech.VerbTransitive
+            else -> PartOfSpeech.Unclassified
         }
     }
 

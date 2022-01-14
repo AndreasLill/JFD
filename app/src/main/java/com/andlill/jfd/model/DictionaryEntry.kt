@@ -5,7 +5,7 @@ import java.io.Serializable
 class DictionaryEntry : Serializable {
 
     var id : Int = 0
-    var commonScore: Int = 0
+    var commonScore: Int = 50
     val reading : ArrayList<Reading> = ArrayList()
     val sense : ArrayList<Sense> = ArrayList()
 
@@ -14,20 +14,6 @@ class DictionaryEntry : Serializable {
         var kanji : String = ""
         var info : ArrayList<String> = ArrayList()
         var priority : ArrayList<String> = ArrayList()
-    }
-
-    class Sense : Serializable {
-        val partOfSpeech : ArrayList<String> = ArrayList()
-        val field : ArrayList<String> = ArrayList()
-        val misc : ArrayList<String> = ArrayList()
-        val usage : ArrayList<String> = ArrayList()
-        val dialect : ArrayList<String> = ArrayList()
-        val glossary : ArrayList<String> = ArrayList()
-    }
-
-    fun updateCommonScore(value: Int) {
-        if (commonScore == 0 || commonScore > value)
-            commonScore = value
     }
 
     fun isCommon(): Boolean {

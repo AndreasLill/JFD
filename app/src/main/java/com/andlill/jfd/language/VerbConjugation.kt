@@ -1,21 +1,31 @@
 package com.andlill.jfd.language
 
 import com.andlill.jfd.model.DictionaryEntry
-import com.andlill.jfd.model.Verb
+import com.andlill.jfd.model.Sense.PartOfSpeech
 
 class VerbConjugation(entry: DictionaryEntry) {
 
     val affirmative = Verb()
     val negative = Verb()
 
+    class Verb {
+        var present : String = ""
+        var past : String = ""
+        var teForm : String = ""
+        var potential : String = ""
+        var passive : String = ""
+        var causative : String = ""
+        var imperative : String = ""
+    }
+
     init {
         val word = entry.getPrimaryReading()
         when {
-            entry.sense[0].partOfSpeech.any { pos -> pos.lowercase().startsWith("ichidan") } -> {
+            entry.sense[0].partOfSpeech.any { pos -> pos == PartOfSpeech.VerbIchidan } -> {
                 val base = word.substring(0, word.length - 1)
                 conjugateIchidan(base)
             }
-            entry.sense[0].partOfSpeech.any { pos -> pos.lowercase().startsWith("godan") } -> {
+            entry.sense[0].partOfSpeech.any { pos -> pos == PartOfSpeech.VerbGodan } -> {
                 val character = word[word.length - 1]
                 val base = word.substring(0, word.length - 1)
                 when (character) {
@@ -30,11 +40,11 @@ class VerbConjugation(entry: DictionaryEntry) {
                     'つ' -> conjugateGodanTSU(base)
                 }
             }
-            entry.sense[0].partOfSpeech.any { pos -> pos.lowercase().startsWith("kuru") } -> {
+            entry.sense[0].partOfSpeech.any { pos -> pos == PartOfSpeech.VerbKuru } -> {
                 val base = word.substring(0, word.length - 1)
                 conjugateKURU(base)
             }
-            entry.sense[0].partOfSpeech.any { pos -> pos.lowercase().startsWith("suru") } -> {
+            entry.sense[0].partOfSpeech.any { pos -> pos == PartOfSpeech.VerbSuru } -> {
                 val base = word.substring(0, word.length - 1)
                 conjugateSURU(base)
             }
