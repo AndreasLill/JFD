@@ -35,21 +35,34 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, TabLayout.OnTabSelectedListener {
 
+    companion object {
+        private const val STATE_QUERY = "com.andlill.jld.MainActivity.State.Query"
+        private val savedState: Bundle = Bundle()
+    }
+
     private lateinit var viewModel: MainActivityViewModel
 
     private lateinit var tabs: Array<Int>
     private lateinit var navigationDrawer: NavigationView
     private lateinit var viewPager: ViewPager2
+    private var query: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
         viewModel.initialize(this)
 
+        this.initializeSavedState()
         this.initializeUI()
         this.initializeTabs()
+    }
+
+    private fun initializeSavedState() {
+        if (savedState.containsKey(STATE_QUERY)) {
+            query = savedState.getString(STATE_QUERY) as String
+        }
     }
 
     private fun initializeUI() {
@@ -97,6 +110,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             }
         }.attach()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        savedState.putString(STATE_QUERY, query)
     }
 
     override fun onResume() {
@@ -154,7 +173,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onTabSelected(tab: TabLayout.Tab) {
         when (tabs[tab.position]) {
             R.string.menu_item_dictionary -> {
-                supportActionBar?.title = getString(R.string.menu_item_dictionary)
+                this.setDictionaryTitle()
                 navigationDrawer.menu.findItem(R.id.menu_item_dictionary).isChecked = true
             }
             R.string.menu_item_collections -> {
@@ -231,18 +250,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    private fun setDictionaryTitle() {
+        if (query.isNotEmpty()) {
+            supportActionBar?.title = query
+        }
+        else {
+            supportActionBar?.title = getString(R.string.menu_item_dictionary)
+        }
+    }
+
     private fun searchDictionary(query: String) {
+        // Call fragment to search dictionary.
+        val fragment = supportFragmentManager.findFragmentByTag("f0") ?: return
+        val dictionaryFragment = fragment as DictionaryFragment
+
         // Scroll to dictionary fragment in view pager.
         viewPager.setCurrentItem(0, false)
         this.showProgressBar()
 
-        // Call fragment to search dictionary.
-        val fragment = supportFragmentManager.findFragmentByTag("f0") as DictionaryFragment
-        fragment.searchDictionary(query) {
+        dictionaryFragment.searchDictionary(query) {
             this.hideProgressBar()
         }
 
         // Update search history.
         viewModel.updateSearchHistory(this, query)
+        this.query = query
+        this.setDictionaryTitle()
     }
 }

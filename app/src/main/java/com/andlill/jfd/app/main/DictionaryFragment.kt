@@ -17,22 +17,20 @@ import com.andlill.jfd.model.DictionaryEntry
 class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
 
     companion object {
-        private const val STATE_DATA_DICTIONARY = "com.andlill.jld.DictionaryFragment.StateDataDictionary"
-        private const val STATE_RECYCLER_DICTIONARY = "com.andlill.jld.DictionaryFragment.StateRecyclerDictionary"
-        private var savedState: Bundle = Bundle()
+        private const val STATE_DATA_DICTIONARY = "com.andlill.jld.DictionaryFragment.State.DataDictionary"
+        private const val STATE_RECYCLER_DICTIONARY = "com.andlill.jld.DictionaryFragment.State.RecyclerDictionary"
+        private val savedState: Bundle = Bundle()
     }
 
     private lateinit var viewModel: DictionaryFragmentViewModel
     private lateinit var dictionaryAdapter: DictionaryAdapter
     private lateinit var dictionaryRecycler: RecyclerView
 
-    private var query = ""
-
     @Suppress("UNCHECKED_CAST")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(DictionaryFragmentViewModel::class.java)
+        viewModel = ViewModelProvider(this)[DictionaryFragmentViewModel::class.java]
 
         dictionaryAdapter = DictionaryAdapter { entry ->
             val intent = Intent(requireContext(), DictionaryDetailsActivity::class.java)
@@ -64,7 +62,7 @@ class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
         viewModel.getDictionaryResult().observe(viewLifecycleOwner, { dictionaryResult ->
             view.findViewById<View>(R.id.text_hint).visibility = View.INVISIBLE
             when {
-                dictionaryResult.isEmpty() -> view.findViewById<TextView>(R.id.text_result).text = String.format(getString(R.string.dictionary_no_results), query)
+                dictionaryResult.isEmpty() -> view.findViewById<TextView>(R.id.text_result).text = getString(R.string.dictionary_no_results)
                 dictionaryResult.isNotEmpty() -> view.findViewById<TextView>(R.id.text_result).text = ""
             }
 
@@ -76,14 +74,11 @@ class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
     override fun onDestroyView() {
         super.onDestroyView()
 
-        savedState = Bundle()
         savedState.putSerializable(STATE_DATA_DICTIONARY, dictionaryAdapter.dataSet())
         savedState.putParcelable(STATE_RECYCLER_DICTIONARY, dictionaryRecycler.layoutManager?.onSaveInstanceState())
     }
 
     fun searchDictionary(query: String, callback: () -> Unit) {
-        // Store the latest query.
-        this.query = query
         // Perform dictionary search.
         viewModel.searchDictionary(query) {
             callback()
