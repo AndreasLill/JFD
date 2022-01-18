@@ -12,7 +12,6 @@ import com.andlill.jfd.R
 import com.andlill.jfd.app.dictionarydetails.adapter.KanjiAdapter
 import com.andlill.jfd.app.dictionarydetails.adapter.TranslationAdapter
 import com.andlill.jfd.app.dictionarydetails.dialog.AddToCollectionDialog
-import com.andlill.jfd.model.DictionaryEntry
 import com.andlill.jfd.utils.AppSettings
 import com.andlill.jfd.utils.AppUtils
 import java.util.*
@@ -24,7 +23,7 @@ class DictionaryDetailsActivity : AppCompatActivity() {
         const val ARGUMENT_CALLED_FROM_EXTERNAL = "com.andlill.jld.CalledFromCollection"
     }
 
-    private lateinit var viewModel: DictionaryDetailsViewModel
+    private lateinit var viewModel: DictionaryDetailsActivityViewModel
     private lateinit var textToSpeech: TextToSpeech
 
     private var textToSpeechEnabled = true
@@ -41,17 +40,17 @@ class DictionaryDetailsActivity : AppCompatActivity() {
         val entryId = intent.getIntExtra(ARGUMENT_ENTRY_ID, 0)
         calledFromExternal = intent.getBooleanExtra(ARGUMENT_CALLED_FROM_EXTERNAL, false)
 
-        viewModel = ViewModelProvider(this).get(DictionaryDetailsViewModel::class.java)
-        viewModel.initialize(this, entryId)
+        viewModel = ViewModelProvider(this)[DictionaryDetailsActivityViewModel::class.java]
+        viewModel.initialize(entryId)
 
-        val entry = viewModel.getDictionaryEntry().value as DictionaryEntry
+        val entry = viewModel.getDictionaryEntry()
 
         findViewById<View>(R.id.button_add_to_collection).apply {
             // Hide if called from external collection.
             if (calledFromExternal)
                 visibility = View.GONE
 
-            setOnClickListener { AddToCollectionDialog(viewModel).show(supportFragmentManager, AddToCollectionDialog::class.simpleName) }
+            setOnClickListener { AddToCollectionDialog(entry.id).show(supportFragmentManager, AddToCollectionDialog::class.simpleName) }
         }
         findViewById<View>(R.id.button_back).setOnClickListener { finish() }
         findViewById<View>(R.id.button_text_to_speech).setOnClickListener {

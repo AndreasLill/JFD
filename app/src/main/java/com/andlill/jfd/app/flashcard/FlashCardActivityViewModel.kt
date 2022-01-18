@@ -9,7 +9,7 @@ import com.andlill.jfd.model.DictionaryEntry
 import kotlinx.coroutines.runBlocking
 import java.util.ArrayList
 
-class FlashCardViewModel : ViewModel() {
+class FlashCardActivityViewModel : ViewModel() {
 
     private val flashCards = MutableLiveData<ArrayList<DictionaryEntry>>()
     private val flashCardsDismissed = ArrayList<DictionaryEntry>()

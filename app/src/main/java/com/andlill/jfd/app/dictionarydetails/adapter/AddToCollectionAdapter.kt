@@ -14,7 +14,7 @@ import com.google.android.material.color.MaterialColors
 class AddToCollectionAdapter(private val dataSet: List<Collection>, private val entry: DictionaryEntry, private val callback: (Collection) -> Unit) : RecyclerView.Adapter<AddToCollectionAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.adapter_collection_add_entry, parent, false))
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.adapter_collection_add, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

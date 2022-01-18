@@ -12,7 +12,7 @@ import com.andlill.jfd.model.DictionaryEntry
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class CollectionDetailsViewModel : ViewModel() {
+class CollectionDetailsActivityViewModel : ViewModel() {
 
     private var collection = MutableLiveData<Collection>()
 

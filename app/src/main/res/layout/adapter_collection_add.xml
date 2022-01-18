@@ -9,13 +9,6 @@
     android:paddingTop="8dp"
     android:paddingBottom="8dp">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_horizontal_50"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
-
     <ImageView
         android:id="@+id/image_icon"
         android:layout_width="wrap_content"
@@ -24,8 +17,8 @@
         android:contentDescription="@string/menu_item_collection_add"
         app:tint="?attr/colorHint"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guideline_horizontal_50"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal_50" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <TextView
         android:id="@+id/text_title"
@@ -35,7 +28,7 @@
         android:textColor="?attr/colorTextPrimary"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/image_icon"
-        app:layout_constraintTop_toTopOf="@id/guideline_horizontal_50"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal_50" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,7 +24,7 @@ class FlashCardActivity : AppCompatActivity() {
     }
 
     // Flashcard View Model
-    private lateinit var viewModel: FlashCardViewModel
+    private lateinit var viewModel: FlashCardActivityViewModel
 
     // Views
     private lateinit var restartButton: View
@@ -51,7 +51,7 @@ class FlashCardActivity : AppCompatActivity() {
         val collection = intent.getSerializableExtra(ARGUMENT_COLLECTION) as Collection
 
         // Setup flashcard view model.
-        viewModel = ViewModelProvider(this).get(FlashCardViewModel::class.java)
+        viewModel = ViewModelProvider(this)[FlashCardActivityViewModel::class.java]
         viewModel.initialize(collection)
 
         // Setup views.

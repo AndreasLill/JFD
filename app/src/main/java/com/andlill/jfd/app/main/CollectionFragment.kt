@@ -13,8 +13,8 @@ import com.andlill.jfd.app.collectiondetails.CollectionDetailsActivity
 import com.andlill.jfd.app.main.adapter.CollectionAdapter
 import com.andlill.jfd.app.main.dialog.CollectionOptionsDialog
 import com.andlill.jfd.app.main.dialog.ImportCollectionDialog
-import com.andlill.jfd.app.main.dialog.NameCollectionDialog
 import com.andlill.jfd.app.shared.ResultActivityFragment
+import com.andlill.jfd.app.shared.dialog.NameCollectionDialog
 import com.andlill.jfd.model.Collection
 import com.google.android.material.snackbar.Snackbar
 
@@ -91,7 +91,7 @@ class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) 
     }
 
     private fun newCollectionDialog() {
-        NameCollectionDialog { name ->
+        NameCollectionDialog(getString(R.string.menu_item_collection_create), "") { name ->
             viewModel.createCollection(requireContext(), name)
         }.show(requireActivity().supportFragmentManager, NameCollectionDialog::class.simpleName)
     }

@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.andlill.jfd.R
-import com.andlill.jfd.app.collectiondetails.CollectionDetailsViewModel
+import com.andlill.jfd.app.collectiondetails.CollectionDetailsActivityViewModel
 import com.andlill.jfd.model.Collection
 import com.andlill.jfd.model.DictionaryEntry
 import com.google.android.material.color.MaterialColors
 
-class CollectionContentAdapter(private val viewModel: CollectionDetailsViewModel, private val callback: (Action, DictionaryEntry) -> Unit) : RecyclerView.Adapter<CollectionContentAdapter.ViewHolder>() {
+class CollectionContentAdapter(private val viewModel: CollectionDetailsActivityViewModel, private val callback: (Action, DictionaryEntry) -> Unit) : RecyclerView.Adapter<CollectionContentAdapter.ViewHolder>() {
 
     enum class Action {
         Select,

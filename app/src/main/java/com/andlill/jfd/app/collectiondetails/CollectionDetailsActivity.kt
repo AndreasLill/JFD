@@ -18,7 +18,7 @@ import com.andlill.jfd.app.collectiondetails.adapter.CollectionContentAdapter
 import com.andlill.jfd.app.dictionarydetails.DictionaryDetailsActivity
 import com.andlill.jfd.app.flashcard.FlashCardActivity
 import com.andlill.jfd.app.shared.dialog.ConfirmationDialog
-import com.andlill.jfd.app.collectiondetails.dialog.RenameCollectionDialog
+import com.andlill.jfd.app.shared.dialog.NameCollectionDialog
 import com.andlill.jfd.model.Collection
 import com.andlill.jfd.model.DictionaryEntry
 import com.google.android.material.snackbar.Snackbar
@@ -37,7 +37,7 @@ class CollectionDetailsActivity : AppCompatActivity() {
         Selection
     }
 
-    private lateinit var viewModel: CollectionDetailsViewModel
+    private lateinit var viewModel: CollectionDetailsActivityViewModel
 
     private lateinit var activityMenu: Menu
     private lateinit var contentRecyclerView: RecyclerView
@@ -51,7 +51,7 @@ class CollectionDetailsActivity : AppCompatActivity() {
 
         // Get intent extras.
         val collectionId = intent.getLongExtra(ARGUMENT_COLLECTION_ID, 0)
-        viewModel = ViewModelProvider(this).get(CollectionDetailsViewModel::class.java)
+        viewModel = ViewModelProvider(this)[CollectionDetailsActivityViewModel::class.java]
         viewModel.initialize(this, collectionId)
 
         // Setup toolbar.
@@ -129,9 +129,9 @@ class CollectionDetailsActivity : AppCompatActivity() {
 
     private fun rename() {
         val collection = viewModel.getCollection().value as Collection
-        RenameCollectionDialog(collection.name) { name ->
+        NameCollectionDialog(getString(R.string.menu_item_collection_rename) ,collection.name) { name ->
             viewModel.renameCollection(this, name)
-        }.show(supportFragmentManager, RenameCollectionDialog::class.simpleName)
+        }.show(supportFragmentManager, NameCollectionDialog::class.simpleName)
     }
 
     private fun delete() {
