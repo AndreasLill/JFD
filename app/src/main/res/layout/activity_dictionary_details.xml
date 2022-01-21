@@ -73,20 +73,18 @@
                 android:orientation="vertical">
 
                 <!-- Contains primary readings, always shown. -->
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:id="@+id/layout_primary_reading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:elevation="2dp"
-                    android:background="?attr/colorSurface">
+                    android:background="?attr/colorSurface"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="8dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:padding="8dp">
 
                         <TextView
                             android:id="@+id/text_primary_kana"
@@ -110,7 +108,12 @@
 
                     </LinearLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/dividerHorizontal" />
+
+                </LinearLayout>
 
                 <!-- Contains translations, always shown. -->
                 <LinearLayout
@@ -129,13 +132,17 @@
                         android:id="@+id/recycler_translation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:elevation="2dp"
                         android:background="?attr/colorSurface"
                         android:paddingTop="6dp"
                         android:paddingBottom="6dp"
                         android:scrollbars="none"
                         android:nestedScrollingEnabled="false"
                         android:overScrollMode="never"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/dividerHorizontal" />
 
                 </LinearLayout>
 
@@ -159,11 +166,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="4dp"
-                        android:elevation="2dp"
                         android:background="?attr/colorSurface"
                         android:scrollbars="none"
                         android:nestedScrollingEnabled="false"
                         android:overScrollMode="never"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/dividerHorizontal" />
 
                 </LinearLayout>
 
@@ -185,7 +196,6 @@
                     <TableLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:elevation="2dp"
                         android:background="?attr/colorSurface"
                         android:paddingStart="16dp"
                         android:paddingEnd="16dp"
@@ -381,6 +391,11 @@
                         </TableRow>
 
                     </TableLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/dividerHorizontal" />
 
                 </LinearLayout>
 

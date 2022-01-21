@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_collections_list"
-            android:elevation="2dp"
+            android:elevation="1dp"
             android:scrollbars="none"
             android:overScrollMode="never"
             android:nestedScrollingEnabled="false"/>
@@ -38,6 +38,7 @@
         android:layout_margin="16dp"
         android:src="@drawable/ic_add"
         android:contentDescription="@string/menu"
+        app:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 

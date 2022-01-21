@@ -10,15 +10,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="false"
-        android:clipChildren="false"
         android:background="?attr/colorBackground">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/action_bar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:elevation="4dp"
             android:background="?attr/colorSurface"
             android:padding="8dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -71,6 +68,15 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <View
+            android:id="@+id/divider_top"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="?android:attr/dividerHorizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/action_bar"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_history"
             android:layout_width="0dp"
@@ -78,7 +84,7 @@
             android:scrollbars="vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/action_bar"
+            app:layout_constraintTop_toBottomOf="@+id/divider_top"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

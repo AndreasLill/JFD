@@ -13,8 +13,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="false"
-        android:clipChildren="false"
         android:background="?attr/colorBackground">
 
         <include
@@ -23,6 +21,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
+        <View
+            android:id="@+id/divider_top"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="?android:attr/dividerHorizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_appbar"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_collection_content"
             android:layout_width="0dp"
@@ -30,7 +37,16 @@
             android:scrollbars="vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_appbar"
+            app:layout_constraintTop_toBottomOf="@+id/divider_top"
+            app:layout_constraintBottom_toTopOf="@+id/divider_bottom"/>
+
+        <View
+            android:id="@+id/divider_bottom"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="?android:attr/dividerHorizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/button_study"/>
 
         <com.google.android.material.button.MaterialButton
@@ -44,7 +60,6 @@
             android:textColor="?attr/colorAccent"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:elevation="8dp"
             android:stateListAnimator="@null"
             app:backgroundTint="?attr/colorSurface"
             app:icon="@drawable/ic_study"

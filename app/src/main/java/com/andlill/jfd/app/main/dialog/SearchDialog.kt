@@ -65,6 +65,7 @@ class SearchDialog(private val viewModel: MainActivityViewModel, private val cal
         view.findViewById<RecyclerView>(R.id.recycler_history).apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = searchHistoryAdapter
+            setHasFixedSize(true)
         }
 
         // Setup view model observe.
