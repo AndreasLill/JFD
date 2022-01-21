@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     companion object {
         private const val STATE_QUERY = "com.andlill.jld.MainActivity.State.Query"
+        private const val STATE_RESULT_COUNT = "com.andlill.jld.MainActivity.State.ResultCount"
         private val savedState: Bundle = Bundle()
     }
 
@@ -45,7 +46,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var tabs: Array<Int>
     private lateinit var navigationDrawer: NavigationView
     private lateinit var viewPager: ViewPager2
-    private var query: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,14 +54,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
         viewModel.initialize(this)
 
-        this.initializeSavedState()
         this.initializeUI()
         this.initializeTabs()
+        this.initializeSavedState()
+        this.setDictionaryTitle()
     }
 
     private fun initializeSavedState() {
         if (savedState.containsKey(STATE_QUERY)) {
-            query = savedState.getString(STATE_QUERY) as String
+            viewModel.query = savedState.getString(STATE_QUERY) as String
+        }
+        if (savedState.containsKey(STATE_RESULT_COUNT)) {
+            viewModel.resultCount = savedState.getInt(STATE_RESULT_COUNT)
         }
     }
 
@@ -115,7 +119,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onDestroy() {
         super.onDestroy()
 
-        savedState.putString(STATE_QUERY, query)
+        savedState.putString(STATE_QUERY, viewModel.query)
+        savedState.putInt(STATE_RESULT_COUNT, viewModel.resultCount)
     }
 
     override fun onResume() {
@@ -178,6 +183,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.string.menu_item_collections -> {
                 supportActionBar?.title = getString(R.string.menu_item_collections)
+                supportActionBar?.subtitle = ""
                 navigationDrawer.menu.findItem(R.id.menu_item_collections).isChecked = true
             }
         }
@@ -251,8 +257,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun setDictionaryTitle() {
-        if (query.isNotEmpty()) {
-            supportActionBar?.title = query
+        if (viewModel.query.isNotEmpty()) {
+            supportActionBar?.title = viewModel.query
+            supportActionBar?.subtitle = String.format(getString(R.string.dictionary_results), viewModel.resultCount.toString())
         }
         else {
             supportActionBar?.title = getString(R.string.menu_item_dictionary)
@@ -268,13 +275,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         viewPager.setCurrentItem(0, false)
         this.showProgressBar()
 
-        dictionaryFragment.searchDictionary(query) {
+        dictionaryFragment.searchDictionary(query) { resultCount ->
+            viewModel.query = query
+            viewModel.resultCount = resultCount
             this.hideProgressBar()
+            this.setDictionaryTitle()
         }
 
         // Update search history.
         viewModel.updateSearchHistory(this, query)
-        this.query = query
-        this.setDictionaryTitle()
     }
 }

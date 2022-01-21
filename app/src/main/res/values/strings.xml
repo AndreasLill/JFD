@@ -33,7 +33,7 @@
 
     <!-- Dictionary -->
     <string name="dictionary_hint">辞書</string>
-    <string name="dictionary_no_results">No results found \'%s\'.</string>
+    <string name="dictionary_results">%s results</string>
     <string name="dictionary_wait">Please wait until dictionary is finished loading.</string>
     <string name="dictionary_details_translation">Translation</string>
     <string name="dictionary_details_reading">Alternative Readings</string>

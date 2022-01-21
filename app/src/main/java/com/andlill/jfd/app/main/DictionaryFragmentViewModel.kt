@@ -16,9 +16,9 @@ class DictionaryFragmentViewModel : ViewModel() {
         return dictionaryResult
     }
 
-    fun searchDictionary(query: String, callback: () -> Unit) = viewModelScope.launch {
+    fun searchDictionary(query: String, callback: (Int) -> Unit) = viewModelScope.launch {
         val data = DictionaryRepository.search(query.trim())
         dictionaryResult.postValue(data)
-        callback()
+        callback(data.size)
     }
 }
