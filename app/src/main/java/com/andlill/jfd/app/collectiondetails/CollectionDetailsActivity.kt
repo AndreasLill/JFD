@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.MenuCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andlill.jfd.R
@@ -70,7 +69,6 @@ class CollectionDetailsActivity : AppCompatActivity() {
 
         contentRecyclerView = findViewById<RecyclerView>(R.id.recycler_collection_content).apply {
             layoutManager = LinearLayoutManager(this@CollectionDetailsActivity)
-            addItemDecoration(DividerItemDecoration(this@CollectionDetailsActivity, DividerItemDecoration.VERTICAL))
             setHasFixedSize(true)
             this.adapter = contentAdapter
         }
