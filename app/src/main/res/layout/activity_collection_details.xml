@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorBackground">
+        android:background="?attr/colorSurface">
 
         <include
             layout="@layout/layout_appbar"
@@ -21,42 +21,45 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
+        <TextView
+            android:id="@+id/text_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/collection_empty"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_appbar"
+            app:layout_constraintBottom_toBottomOf="@+id/button_study"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_collection_content"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
             android:scrollbars="vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_appbar"
-            app:layout_constraintBottom_toTopOf="@+id/divider_bottom"/>
-
-        <View
-            android:id="@+id/divider_bottom"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="?android:attr/dividerHorizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/button_study"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_study"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
+            android:layout_margin="8dp"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:foreground="@drawable/ripple_rectangle"
+            android:foreground="@drawable/ripple_rectangle_corners_32"
             android:text="@string/collection_details_study_flashcards"
-            android:textColor="?attr/colorAccent"
+            android:textColor="?attr/colorOnPrimary"
             android:textStyle="bold"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:stateListAnimator="@null"
-            app:backgroundTint="?attr/colorSurface"
+            app:backgroundTint="?attr/colorAccent"
             app:icon="@drawable/ic_study"
-            app:iconTint="?attr/colorAccent"
+            app:iconTint="?attr/colorOnPrimary"
             app:iconGravity="textStart"
-            app:cornerRadius="0dp"
+            app:cornerRadius="32dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>

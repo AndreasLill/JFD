@@ -42,6 +42,7 @@ class CollectionDetailsActivity : AppCompatActivity() {
     private lateinit var contentRecyclerView: RecyclerView
     private lateinit var contentAdapter: CollectionContentAdapter
     private lateinit var buttonStudy: View
+    private lateinit var textHint: View
     private var state = ActivityState.Default
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,8 +74,10 @@ class CollectionDetailsActivity : AppCompatActivity() {
             this.adapter = contentAdapter
         }
 
+        textHint = findViewById(R.id.text_hint)
+
         viewModel.getCollection().observe(this, {
-            updateToolBarTitle()
+            updateTitle()
         })
 
         buttonStudy = findViewById<View>(R.id.button_study).apply { setOnClickListener { study() } }
@@ -167,7 +170,7 @@ class CollectionDetailsActivity : AppCompatActivity() {
         activityMenu.setGroupVisible(R.id.group_default, true)
         activityMenu.setGroupVisible(R.id.group_selection, false)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
-        updateToolBarTitle()
+        updateTitle()
     }
 
     private fun deleteSelection() {
@@ -182,10 +185,15 @@ class CollectionDetailsActivity : AppCompatActivity() {
         endSelectionMode()
     }
 
-    private fun updateToolBarTitle() {
+    private fun updateTitle() {
         val collection = viewModel.getCollection().value as Collection
         supportActionBar?.title = collection.name
         supportActionBar?.subtitle = if (collection.content.isNotEmpty()) { String.format(getString(R.string.item_count), collection.content.size) } else { getString(R.string.empty) }
+
+        if (collection.content.isEmpty())
+            textHint.visibility = View.VISIBLE
+        else
+            textHint.visibility = View.INVISIBLE
     }
 
     private fun removeContent(selection: HashMap<Int, Int>) {
@@ -204,7 +212,7 @@ class CollectionDetailsActivity : AppCompatActivity() {
                     selection.keys.forEach { index -> contentAdapter.notifyItemInserted(index) }
                     // Update item range using the lowest index.
                     contentAdapter.notifyItemRangeChanged(lowestIndex, contentAdapter.itemCount)
-                    updateToolBarTitle()
+                    updateTitle()
                 }
             }.show()
         }
