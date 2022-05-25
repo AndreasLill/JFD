@@ -128,10 +128,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         // Check if assets require reloading into memory.
         if (!viewModel.isDictionaryReady()) {
+            supportActionBar?.subtitle = getString(R.string.dictionary_loading)
             this.showProgressBar()
 
             // Load required assets and callback when complete.
             viewModel.loadAssets(assets) {
+                supportActionBar?.subtitle = ""
                 this.hideProgressBar()
             }
         }
@@ -182,8 +184,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 navigationDrawer.menu.findItem(R.id.menu_item_dictionary).isChecked = true
             }
             R.string.menu_item_collections -> {
-                supportActionBar?.title = getString(R.string.menu_item_collections)
-                supportActionBar?.subtitle = ""
+                this.setCollectionsTitle()
                 navigationDrawer.menu.findItem(R.id.menu_item_collections).isChecked = true
             }
         }
@@ -264,6 +265,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         else {
             supportActionBar?.title = getString(R.string.menu_item_dictionary)
         }
+    }
+
+    private fun setCollectionsTitle() {
+        supportActionBar?.title = getString(R.string.menu_item_collections)
+
+        if (viewModel.isDictionaryReady())
+            supportActionBar?.subtitle = ""
     }
 
     private fun searchDictionary(query: String) {

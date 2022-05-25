@@ -3,7 +3,7 @@
     <!-- App -->
     <string name="app_name">JFD</string>
     <string name="app_name_full">JFD - Japanese Flashcard Dictionary</string>
-    <string name="app_version">App: v1.0.1</string>
+    <string name="app_version">App: v1.0.2</string>
     <string name="app_db_version">Database: v2</string>
 
     <!-- General -->
@@ -35,6 +35,7 @@
     <string name="dictionary_hint">辞書</string>
     <string name="dictionary_results">%s results</string>
     <string name="dictionary_wait">Please wait until dictionary is finished loading.</string>
+    <string name="dictionary_loading">Loading Dictionary…</string>
     <string name="dictionary_details_translation">Translation</string>
     <string name="dictionary_details_reading">Alternative Readings</string>
     <string name="dictionary_details_kanji">Kanji</string>
