@@ -1,25 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_vertical_left"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.3"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_vertical_right"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.7"/>
 
     <TextView
         android:id="@+id/text_title"
@@ -32,68 +17,52 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <LinearLayout
-        android:id="@+id/button_import"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:foreground="@drawable/ripple_round"
-        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_left"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical_left"
-        app:layout_constraintTop_toBottomOf="@+id/text_title"
-        android:clickable="true"
-        android:focusable="true"
-        tools:ignore="UseCompoundDrawables">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_title">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border_round"
-            android:padding="16dp"
-            android:src="@drawable/ic_import"
-            android:elevation="4dp"
-            app:tint="?attr/colorAccent"
-            android:contentDescription="@string/menu_item_import" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/menu_item_import"
-            android:textAppearance="@style/AppStyle.TextAppearance.Title"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/button_new"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:foreground="@drawable/ripple_round"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_right"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical_right"
-        app:layout_constraintTop_toBottomOf="@+id/text_title"
-        android:clickable="true"
-        android:focusable="true"
-        tools:ignore="UseCompoundDrawables">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border_round"
-            android:padding="16dp"
-            android:src="@drawable/ic_add"
-            android:elevation="4dp"
-            app:tint="?attr/colorAccent"
-            android:contentDescription="@string/menu_item_new" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_new"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginBottom="8dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:background="@drawable/background_material_button_corners_32"
             android:text="@string/menu_item_new"
-            android:textAppearance="@style/AppStyle.TextAppearance.Title"/>
+            android:textColor="?attr/colorOnPrimary"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:stateListAnimator="@null"
+            app:backgroundTint="?attr/colorAccent"
+            app:icon="@drawable/ic_add"
+            app:iconTint="?attr/colorOnPrimary"
+            app:iconGravity="textStart"
+            app:cornerRadius="32dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_import"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:background="@drawable/background_material_button_corners_32"
+            android:text="@string/menu_item_import"
+            android:textColor="?attr/colorOnPrimary"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:stateListAnimator="@null"
+            app:backgroundTint="?attr/colorAccent"
+            app:icon="@drawable/ic_import"
+            app:iconTint="?attr/colorOnPrimary"
+            app:iconGravity="textStart"
+            app:cornerRadius="32dp"/>
 
     </LinearLayout>
 

@@ -31,14 +31,22 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/floating_action_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_add"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:elevation="4dp"
+        android:background="@drawable/background_material_button_round"
         android:contentDescription="@string/menu"
-        app:elevation="4dp"
+        android:stateListAnimator="@null"
+        app:backgroundTint="?attr/colorAccent"
+        app:icon="@drawable/ic_add"
+        app:iconTint="?attr/colorOnPrimary"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
