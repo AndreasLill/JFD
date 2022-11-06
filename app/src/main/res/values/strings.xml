@@ -34,7 +34,6 @@
     <!-- Dictionary -->
     <string name="dictionary_hint">辞書</string>
     <string name="dictionary_results">%s results</string>
-    <string name="dictionary_wait">Please wait until dictionary is finished loading.</string>
     <string name="dictionary_loading">Loading Dictionary…</string>
     <string name="dictionary_details_translation">Translation</string>
     <string name="dictionary_details_reading">Alternative Readings</string>
@@ -68,9 +67,6 @@
     <!-- Study -->
     <string name="study_correct">Got it!</string>
     <string name="study_incorrect">Try again!</string>
-    <string name="study_next_stage">Next Stage</string>
-    <string name="study_stage">Stage %s</string>
-    <string name="study_restart">All cards done!\nRestart?</string>
 
     <!-- Menu -->
     <string name="menu_item_dictionary">Dictionary</string>

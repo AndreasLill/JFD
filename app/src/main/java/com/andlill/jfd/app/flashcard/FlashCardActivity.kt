@@ -9,7 +9,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.andlill.jfd.R
+import com.andlill.jfd.app.flashcard.adapter.FlashcardsSummaryAdapter
 import com.andlill.jfd.model.Collection
 import com.andlill.jfd.model.DictionaryEntry
 import com.andlill.jfd.utils.AppSettings
@@ -23,20 +26,15 @@ class FlashCardActivity : AppCompatActivity() {
         const val ARGUMENT_COLLECTION = "com.andlill.jld.Collection"
     }
 
-    // Flashcard View Model
     private lateinit var viewModel: FlashCardActivityViewModel
-
-    // Views
     private lateinit var restartButton: View
-    private lateinit var nextStageButton: View
-    private lateinit var restartText: TextView
-    private lateinit var nextStageText: TextView
-    private lateinit var stageText: TextView
     private lateinit var progressText: TextView
     private lateinit var progressBar: LinearProgressIndicator
     private lateinit var backgroundCard: View
     private lateinit var backgroundCardText: TextView
     private lateinit var textToSpeech: TextToSpeech
+    private lateinit var recyclerSummary: RecyclerView
+    private lateinit var summaryAdapter: FlashcardsSummaryAdapter
 
     private var textToSpeechEnabled = true
 
@@ -55,24 +53,25 @@ class FlashCardActivity : AppCompatActivity() {
         viewModel.initialize(collection)
 
         // Setup views.
-        stageText = findViewById(R.id.text_stage)
         progressText = findViewById(R.id.text_progress)
         progressBar = findViewById(R.id.progress_bar)
         backgroundCard = findViewById(R.id.card_background)
         backgroundCardText = findViewById(R.id.text_background)
-        restartText = findViewById(R.id.text_restart)
-        nextStageText = findViewById(R.id.text_next_stage)
         restartButton = findViewById<View>(R.id.button_restart).apply { setOnClickListener { restart(collection) } }
-        nextStageButton = findViewById<View>(R.id.button_next_stage).apply { setOnClickListener { nextStage() } }
         findViewById<ImageButton>(R.id.button_back).apply { setOnClickListener { finish() } }
 
-        viewModel.getFlashCards().observe(this) { cards ->
-            updateProgress()
-            updateRestartButton(cards.size, viewModel.getStageSize())
-            updateNextStageButton(cards.size, viewModel.getStageSize())
+        summaryAdapter = FlashcardsSummaryAdapter()
+        recyclerSummary = findViewById<RecyclerView>(R.id.recycler_flashcards_summary).apply {
+            layoutManager = LinearLayoutManager(this@FlashCardActivity)
+            adapter = summaryAdapter
+            itemAnimator = null
         }
-        viewModel.getStage().observe(this) { stage ->
-            stageText.text = String.format(getString(R.string.study_stage), stage)
+
+        viewModel.getSummary().observe(this) { items ->
+            summaryAdapter.submitList(items.toList())
+        }
+        viewModel.getFlashCards().observe(this) { cards ->
+            updateProgress(cards.size)
         }
 
         this.drawCard()
@@ -152,42 +151,27 @@ class FlashCardActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateProgress() {
+    private fun updateProgress(size: Int) {
         progressText.text = viewModel.getProgressText()
         progressBar.setProgressCompat(viewModel.getProgressAmount(), true)
-    }
 
-    private fun updateRestartButton(size: Int, stageSize: Int) {
-        if(size == 0 && stageSize == 0) {
-            restartText.animate().setDuration(100).alpha(1f).start()
+        if(size == 0) {
             restartButton.animate().setDuration(100).alpha(1f).withStartAction {
                 restartButton.isEnabled = true
                 restartButton.visibility = View.VISIBLE
             }.start()
+            recyclerSummary.animate().setDuration(100).alpha(1f).withStartAction {
+                recyclerSummary.visibility = View.VISIBLE
+            }
         }
         else {
-            restartText.animate().setDuration(100).alpha(0f).start()
             restartButton.animate().setDuration(100).alpha(0f).withEndAction {
                 restartButton.isEnabled = false
                 restartButton.visibility = View.INVISIBLE
             }.start()
-        }
-    }
-
-    private fun updateNextStageButton(size: Int, stageSize: Int) {
-        if(size == 0 && stageSize > 0) {
-            nextStageText.animate().setDuration(100).alpha(1f).start()
-            nextStageButton.animate().setDuration(100).alpha(1f).withStartAction {
-                nextStageButton.isEnabled = true
-                nextStageButton.visibility = View.VISIBLE
-            }.start()
-        }
-        else {
-            nextStageText.animate().setDuration(100).alpha(0f).start()
-            nextStageButton.animate().setDuration(100).alpha(0f).withEndAction {
-                nextStageButton.isEnabled = false
-                nextStageButton.visibility = View.INVISIBLE
-            }.start()
+            recyclerSummary.animate().setDuration(100).alpha(1f).withStartAction {
+                recyclerSummary.visibility = View.INVISIBLE
+            }
         }
     }
 
@@ -208,7 +192,7 @@ class FlashCardActivity : AppCompatActivity() {
             FlashCardFragment.Action.Dismiss -> {
                 when (direction) {
                     DraggableCardView.DIRECTION_LEFT -> {
-                        viewModel.stageCard()
+                        viewModel.redoCard()
                     }
                     DraggableCardView.DIRECTION_RIGHT -> {
                         viewModel.dismissCard()
@@ -221,11 +205,6 @@ class FlashCardActivity : AppCompatActivity() {
 
     private fun restart(collection: Collection) {
         viewModel.initialize(collection)
-        drawCard()
-    }
-
-    private fun nextStage() {
-        viewModel.nextStage()
         drawCard()
     }
 
