@@ -18,6 +18,8 @@ import java.io.InputStream
 class MainActivityViewModel : ViewModel() {
 
     private var searchHistoryList = MutableLiveData<List<SearchHistory>>()
+    var isLoading = false
+        private set
     var query = ""
     var resultCount = 0
 
@@ -48,12 +50,14 @@ class MainActivityViewModel : ViewModel() {
 
     // Load assets if required, callback when complete.
     fun loadAssets(assets: AssetManager, callback: () -> Unit) {
+        isLoading = true
         val dictStream: InputStream? = when { Dictionary.isEmpty() -> assets.open("JMdict_e.xml") else -> null }
         val kanjiStream: InputStream? = when { KanjiDictionary.isEmpty() -> assets.open("kanjidic2.xml") else -> null }
 
         viewModelScope.launch {
             DictionaryRepository.loadData(dictStream, kanjiStream)
             callback()
+            isLoading = false
         }
     }
 }

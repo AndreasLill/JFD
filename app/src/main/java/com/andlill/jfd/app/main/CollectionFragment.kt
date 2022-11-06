@@ -33,9 +33,9 @@ class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) 
             openCollection(collection)
         }
 
-        viewModel.getCollections().observe(viewLifecycleOwner, { collection ->
+        viewModel.getCollections().observe(viewLifecycleOwner) { collection ->
             collectionAdapter.submitList(collection.toList())
-        })
+        }
 
         view.findViewById<RecyclerView>(R.id.recycler_collection).apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -61,12 +61,6 @@ class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) 
     }
 
     private fun openCollection(collection: Collection) {
-        // Check if dictionary is finished loading.
-        if (!viewModel.isDictionaryReady()) {
-            Snackbar.make(requireActivity().findViewById(R.id.layout_root), getString(R.string.dictionary_wait), 1500).show()
-            return
-        }
-
         // Start new activity, fragment handles the result.
         val intent = Intent(activity, CollectionDetailsActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

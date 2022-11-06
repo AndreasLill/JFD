@@ -5,8 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.andlill.jfd.language.Dictionary
-import com.andlill.jfd.language.KanjiDictionary
 import com.andlill.jfd.io.repository.CollectionRepository
 import com.andlill.jfd.model.Collection
 import kotlinx.coroutines.launch
@@ -20,10 +18,6 @@ class CollectionFragmentViewModel : ViewModel() {
     fun initialize(context: Context) = runBlocking {
         val data = CollectionRepository.getAll(context)
         collectionList.value = data
-    }
-
-    fun isDictionaryReady(): Boolean {
-        return !Dictionary.isEmpty() && !KanjiDictionary.isEmpty()
     }
 
     fun getCollection(id: Long) : Collection {

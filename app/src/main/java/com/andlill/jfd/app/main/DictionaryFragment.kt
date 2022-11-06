@@ -31,11 +31,11 @@ class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this)[DictionaryFragmentViewModel::class.java]
-        viewModel.getDictionaryResult().observe(viewLifecycleOwner, { dictionaryResult ->
+        viewModel.getDictionaryResult().observe(viewLifecycleOwner) { dictionaryResult ->
             textHint.visibility = View.INVISIBLE
             requireView().findViewById<RecyclerView>(R.id.recycler_dictionary)?.scrollToPosition(0)
             dictionaryAdapter.update(dictionaryResult)
-        })
+        }
 
         this.initializeUI()
         this.initializeSavedState()

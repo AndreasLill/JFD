@@ -3,7 +3,7 @@
     <!-- App -->
     <string name="app_name">JFD</string>
     <string name="app_name_full">JFD - Japanese Flashcard Dictionary</string>
-    <string name="app_version">App: v1.0.2</string>
+    <string name="app_version">App: v1.0.3</string>
     <string name="app_db_version">Database: v2</string>
 
     <!-- General -->

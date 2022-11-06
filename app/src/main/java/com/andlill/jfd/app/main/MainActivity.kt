@@ -19,13 +19,13 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.andlill.jfd.R
 import com.andlill.jfd.app.main.dialog.AboutDialog
+import com.andlill.jfd.app.main.dialog.LoadingDialog
 import com.andlill.jfd.app.main.dialog.SearchDialog
 import com.andlill.jfd.app.settings.SettingsActivity
 import com.andlill.jfd.utils.AppSettings
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.progressindicator.LinearProgressIndicator
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -122,16 +122,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onResume() {
         super.onResume()
 
-        // Check if assets require reloading into memory.
         if (!viewModel.isDictionaryReady()) {
-            supportActionBar?.subtitle = getString(R.string.dictionary_loading)
-            this.showProgressBar()
-
-            // Load required assets and callback when complete.
-            viewModel.loadAssets(assets) {
-                supportActionBar?.subtitle = ""
-                this.hideProgressBar()
-            }
+            openLoadingDialog()
         }
     }
 
@@ -195,17 +187,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onBackPressed() {
         val drawerLayout = findViewById<DrawerLayout>(R.id.layout_drawer)
 
-        if (drawerLayout.isDrawerOpen(GravityCompat.START))
+        if (viewModel.isLoading)
+            return
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
-        else
-            super.onBackPressed()
+            return
+        }
+
+        super.onBackPressed()
     }
 
     private fun openSearchDialog() {
-        if (!viewModel.isDictionaryReady()) {
-            Snackbar.make(findViewById(R.id.layout_root), getString(R.string.dictionary_wait), 1500).show()
-            return
-        }
 
         // Open search dialog and get search query from callback.
         val dialog = SearchDialog(viewModel) { query ->
@@ -217,6 +209,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val transaction = supportFragmentManager.beginTransaction()
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         transaction.add(R.id.layout_drawer, dialog).addToBackStack(null).commit()
+    }
+
+    private fun openLoadingDialog() {
+
+        val dialog = LoadingDialog()
+
+        // Start transaction to open loading dialog.
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+        transaction.add(R.id.layout_drawer, dialog).addToBackStack(null).commit()
+
+        // Load assets into memory.
+        viewModel.loadAssets(assets) {
+            supportFragmentManager.popBackStack()
+        }
     }
 
     inner class PagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
@@ -265,9 +272,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun setCollectionsTitle() {
         supportActionBar?.title = getString(R.string.menu_item_collections)
-
-        if (viewModel.isDictionaryReady())
-            supportActionBar?.subtitle = ""
     }
 
     private fun searchDictionary(query: String) {
