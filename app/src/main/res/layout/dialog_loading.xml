@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textColor="?attr/colorTextSecondary"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="italic"
             android:text="@string/dictionary_loading" />
 

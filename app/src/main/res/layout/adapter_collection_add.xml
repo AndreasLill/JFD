@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="@drawable/ripple_rectangle"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp">
+    android:padding="10dp">
 
     <ImageView
         android:id="@+id/image_icon"

@@ -43,13 +43,13 @@
             app:layout_constraintTop_toBottomOf="@+id/text_body"/>
 
         <com.google.android.material.button.MaterialButton
-            style="@style/AppStyle.DialogButton"
+            style="@style/AppStyle.DialogButton.Filled"
             android:id="@+id/button_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/ok"
-            app:rippleColor="?attr/colorAccent"
+            app:backgroundTint="?attr/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_body"/>
 

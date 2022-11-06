@@ -17,33 +17,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/AppStyle.TextAppearance.Title"
-            android:text="@string/menu_item_collection_import"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/text_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textColor="?attr/colorHint"
-            android:textSize="12sp"
             android:text="@string/dialog_import_info"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_title" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/collection_import"
+            android:layout_marginTop="16dp"
+            android:hint="@string/collection_import_code"
             app:hintTextAppearance="@style/AppStyle.InputHintAppearance"
             app:hintTextColor="?attr/colorHint"
             app:boxBackgroundColor="?attr/colorBackground"
             app:boxStrokeColor="?attr/colorAccent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_info">
+            app:layout_constraintTop_toBottomOf="@+id/text_title">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input"
@@ -137,13 +126,13 @@
             app:layout_constraintTop_toBottomOf="@+id/layout_collection"/>
 
         <com.google.android.material.button.MaterialButton
-            style="@style/AppStyle.DialogButton"
+            style="@style/AppStyle.DialogButton.Filled"
             android:id="@+id/button_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/ok"
-            app:rippleColor="?attr/colorAccent"
+            app:backgroundTint="?attr/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_collection"/>
 
