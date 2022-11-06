@@ -21,7 +21,6 @@ import com.andlill.jfd.R
 import com.andlill.jfd.app.main.dialog.AboutDialog
 import com.andlill.jfd.app.main.dialog.SearchDialog
 import com.andlill.jfd.app.settings.SettingsActivity
-import com.andlill.jfd.io.repository.*
 import com.andlill.jfd.utils.AppSettings
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.navigation.NavigationView
@@ -29,9 +28,6 @@ import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.coroutines.*
-import java.lang.Exception
-import java.util.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, TabLayout.OnTabSelectedListener {
 

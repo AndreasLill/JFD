@@ -78,19 +78,19 @@ class DraggableCardView(context: Context, attributeSet: AttributeSet?) : CardVie
 
                     // Call listener dismiss.
                     view.animate().setDuration(400).translationX(view.x * 4).translationY(view.y * 4).setListener(object: Animator.AnimatorListener {
-                        override fun onAnimationStart(animator: Animator?) {}
-                        override fun onAnimationEnd(animator: Animator?) { onDragCardListener.onDismiss(direction) }
-                        override fun onAnimationCancel(animator: Animator?) {}
-                        override fun onAnimationRepeat(animator: Animator?) {}
+                        override fun onAnimationStart(animator: Animator) {}
+                        override fun onAnimationEnd(animator: Animator) { onDragCardListener.onDismiss(direction) }
+                        override fun onAnimationCancel(animator: Animator) {}
+                        override fun onAnimationRepeat(animator: Animator) {}
                     }).start()
                 }
                 else {
                     // Reset position to original position.
                     view.animate().setDuration(200).x(0f).y(0f).setListener(object: Animator.AnimatorListener {
-                        override fun onAnimationStart(animator: Animator?) {}
-                        override fun onAnimationEnd(animator: Animator?) { onDragCardListener.onReset() }
-                        override fun onAnimationCancel(animator: Animator?) {}
-                        override fun onAnimationRepeat(animator: Animator?) {}
+                        override fun onAnimationStart(animator: Animator) {}
+                        override fun onAnimationEnd(animator: Animator) { onDragCardListener.onReset() }
+                        override fun onAnimationCancel(animator: Animator) {}
+                        override fun onAnimationRepeat(animator: Animator) {}
                     }).start()
                 }
                 // Release view.
@@ -113,8 +113,8 @@ class DraggableCardView(context: Context, attributeSet: AttributeSet?) : CardVie
                         if (this::onDragCardListener.isInitialized)
                             onDragCardListener.onDragView()
                     }
-                } else if (view.isDragged) {
-
+                }
+                else {
                     if (event.rawX - dragStartX > 0 && this::onDragCardListener.isInitialized) {
                         // Right
                         // Calculate progress towards dismiss threshold from the right.

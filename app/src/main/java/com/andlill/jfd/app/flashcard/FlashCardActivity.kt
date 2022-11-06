@@ -66,14 +66,14 @@ class FlashCardActivity : AppCompatActivity() {
         nextStageButton = findViewById<View>(R.id.button_next_stage).apply { setOnClickListener { nextStage() } }
         findViewById<ImageButton>(R.id.button_back).apply { setOnClickListener { finish() } }
 
-        viewModel.getFlashCards().observe(this, { cards ->
+        viewModel.getFlashCards().observe(this) { cards ->
             updateProgress()
             updateRestartButton(cards.size, viewModel.getStageSize())
             updateNextStageButton(cards.size, viewModel.getStageSize())
-        })
-        viewModel.getStage().observe(this, { stage ->
+        }
+        viewModel.getStage().observe(this) { stage ->
             stageText.text = String.format(getString(R.string.study_stage), stage)
-        })
+        }
 
         this.drawCard()
     }
