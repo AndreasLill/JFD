@@ -20,8 +20,6 @@ class MainActivityViewModel : ViewModel() {
     private var searchHistoryList = MutableLiveData<List<SearchHistory>>()
     var isLoading = false
         private set
-    var query = ""
-    var resultCount = 0
 
     fun initialize(context: Context) = runBlocking {
         val data = SearchHistoryRepository.getAll(context)

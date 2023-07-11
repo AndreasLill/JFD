@@ -36,12 +36,6 @@ import kotlin.math.abs
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, TabLayout.OnTabSelectedListener {
 
-    companion object {
-        private const val STATE_QUERY = "com.andlill.jld.MainActivity.State.Query"
-        private const val STATE_RESULT_COUNT = "com.andlill.jld.MainActivity.State.ResultCount"
-        private val savedState: Bundle = Bundle()
-    }
-
     private lateinit var viewModel: MainActivityViewModel
     private lateinit var reviewManager: ReviewManager
     private lateinit var tabs: Array<Int>
@@ -57,17 +51,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         this.initializeUI()
         this.initializeTabs()
-        this.initializeSavedState()
-        this.setDictionaryTitle()
-    }
-
-    private fun initializeSavedState() {
-        if (savedState.containsKey(STATE_QUERY)) {
-            viewModel.query = savedState.getString(STATE_QUERY) as String
-        }
-        if (savedState.containsKey(STATE_RESULT_COUNT)) {
-            viewModel.resultCount = savedState.getInt(STATE_RESULT_COUNT)
-        }
     }
 
     private fun initializeUI() {
@@ -78,6 +61,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.setOnClickListener { openSearchDialog() }
         setSupportActionBar(toolbar)
+        supportActionBar?.title = getString(R.string.menu_item_dictionary)
 
         // Setup drawer layout.
         val drawerLayout = findViewById<DrawerLayout>(R.id.layout_drawer)
@@ -122,9 +106,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onDestroy() {
         super.onDestroy()
-
-        savedState.putString(STATE_QUERY, viewModel.query)
-        savedState.putInt(STATE_RESULT_COUNT, viewModel.resultCount)
     }
 
     override fun onResume() {
@@ -176,11 +157,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onTabSelected(tab: TabLayout.Tab) {
         when (tabs[tab.position]) {
             R.string.menu_item_dictionary -> {
-                this.setDictionaryTitle()
+                supportActionBar?.title = getString(R.string.menu_item_dictionary)
                 navigationDrawer.menu.findItem(R.id.menu_item_dictionary).isChecked = true
             }
             R.string.menu_item_collections -> {
-                this.setCollectionsTitle()
+                supportActionBar?.title = getString(R.string.menu_item_collections)
                 navigationDrawer.menu.findItem(R.id.menu_item_collections).isChecked = true
             }
         }
@@ -288,20 +269,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    private fun setDictionaryTitle() {
-        if (viewModel.query.isNotEmpty()) {
-            supportActionBar?.title = viewModel.query
-            supportActionBar?.subtitle = String.format(getString(R.string.dictionary_results), viewModel.resultCount.toString())
-        }
-        else {
-            supportActionBar?.title = getString(R.string.menu_item_dictionary)
-        }
-    }
-
-    private fun setCollectionsTitle() {
-        supportActionBar?.title = getString(R.string.menu_item_collections)
-    }
-
     private fun searchDictionary(query: String) {
         // Call fragment to search dictionary.
         val fragment = supportFragmentManager.findFragmentByTag("f0") ?: return
@@ -311,11 +278,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         viewPager.setCurrentItem(0, false)
         this.showProgressBar()
 
-        dictionaryFragment.searchDictionary(query) { resultCount ->
-            viewModel.query = query
-            viewModel.resultCount = resultCount
+        dictionaryFragment.searchDictionary(query) {
             this.hideProgressBar()
-            this.setDictionaryTitle()
         }
 
         // Update search history.

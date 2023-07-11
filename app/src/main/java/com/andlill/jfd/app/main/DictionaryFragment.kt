@@ -27,8 +27,12 @@ class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
     private lateinit var viewModel: DictionaryFragmentViewModel
     private lateinit var dictionaryAdapter: DictionaryAdapter
     private lateinit var dictionaryRecycler: RecyclerView
+    private lateinit var textHint: TextView
     private lateinit var layoutSuggestion: View
     private lateinit var textSuggestion: TextView
+    private lateinit var layoutResults: View
+    private lateinit var textQuery: TextView
+    private lateinit var textResult: TextView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,12 +49,20 @@ class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
 
     private fun initializeUI() {
         val view = requireView()
+        textHint = view.findViewById(R.id.text_hint)
+        layoutResults = view.findViewById(R.id.layout_results)
+        textQuery = view.findViewById(R.id.text_results_query)
+        textResult = view.findViewById(R.id.text_results_count)
         textSuggestion = view.findViewById(R.id.text_suggestion)
         layoutSuggestion = view.findViewById<View?>(R.id.layout_suggestion).apply {
             setOnClickListener {
                 AppUtils.postDelayed(100) {
                     layoutSuggestion.visibility = View.GONE
-                    viewModel.searchDictionary(textSuggestion.text.toString()) {}
+                    viewModel.searchDictionary(textSuggestion.text.toString()) { count ->
+                        layoutResults.visibility = View.VISIBLE
+                        textQuery.text = textSuggestion.text.toString()
+                        textResult.text = getString(R.string.dictionary_results_count, count.toString())
+                    }
                 }
             }
         }
@@ -62,6 +74,7 @@ class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
         }
         dictionaryRecycler = view.findViewById<RecyclerView>(R.id.recycler_dictionary).apply {
             layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
             addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
             adapter = dictionaryAdapter
         }
@@ -85,8 +98,15 @@ class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
         savedState.putParcelable(STATE_RECYCLER_DICTIONARY, dictionaryRecycler.layoutManager?.onSaveInstanceState())
     }
 
-    fun searchDictionary(query: String, callback: (Int) -> Unit) {
-        viewModel.searchDictionary(query) { resultCount ->
+    fun searchDictionary(query: String, callback: () -> Unit) {
+        viewModel.searchDictionary(query) { count ->
+            textHint.visibility = View.GONE
+            layoutResults.visibility = View.VISIBLE
+            textQuery.text = query
+            textResult.text = getString(R.string.dictionary_results_count, count.toString())
+            textSuggestion.text = ""
+            layoutSuggestion.visibility = View.GONE
+
             // Set suggestion hint above results.
             if (Wanakana.isRomaji(query)) {
                 val value = Wanakana.toHiragana(query)
@@ -95,7 +115,7 @@ class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
                     layoutSuggestion.visibility = View.VISIBLE
                 }
             }
-            callback(resultCount)
+            callback()
         }
     }
 }

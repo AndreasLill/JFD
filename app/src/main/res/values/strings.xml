@@ -32,8 +32,10 @@
     <string name="copy_to_clipboard">Copied \'%s\' to clipboard.</string>
 
     <!-- Dictionary -->
+    <string name="dictionary_hint">Touch the app bar above to search the dictionary.</string>
     <string name="dictionary_suggestion">Did you mean?</string>
-    <string name="dictionary_results">%s results</string>
+    <string name="dictionary_results_divider">—</string>
+    <string name="dictionary_results_count">%s results</string>
     <string name="dictionary_loading">Loading Dictionary…</string>
     <string name="dictionary_details_translation">Translation</string>
     <string name="dictionary_details_reading">Alternative Readings</string>

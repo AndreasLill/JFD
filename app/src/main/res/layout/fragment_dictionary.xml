@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,53 +11,106 @@
     tools:context=".app.main.DictionaryFragment">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/layout_results"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="16dp"
+        android:visibility="gone"
+        android:orientation="horizontal"
+        android:background="?attr/colorSurface"
+        android:elevation="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/layout_suggestion"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/text_results_query"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:foreground="@drawable/ripple_rectangle"
-            android:visibility="gone">
+            android:textSize="12sp"
+            android:textStyle="italic"
+            android:textColor="?attr/colorHint"
+            />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="16dp"
-                android:orientation="horizontal"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="13sp"
-                    android:textColor="?attr/colorHint"
-                    android:text="@string/dictionary_suggestion"
-                    />
-
-                <TextView
-                    android:id="@+id/text_suggestion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:textSize="13sp"
-                    android:gravity="center"
-                    android:textColor="?attr/colorAccent"
-                    />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_dictionary"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false" />
+            android:layout_marginHorizontal="4dp"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            android:textColor="?attr/colorHint"
+            android:text="@string/dictionary_results_divider"
+            />
+
+        <TextView
+            android:id="@+id/text_results_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            android:textColor="?attr/colorHint"
+            />
 
     </LinearLayout>
 
-</androidx.core.widget.NestedScrollView>
+    <LinearLayout
+        android:id="@+id/layout_suggestion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:padding="16dp"
+        android:background="?attr/colorSurface"
+        android:foreground="@drawable/ripple_rectangle"
+        android:visibility="gone"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_results">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="?attr/colorTextSecondary"
+            android:text="@string/dictionary_suggestion"
+            />
+
+        <TextView
+            android:id="@+id/text_suggestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:textSize="13sp"
+            android:textColor="?attr/colorAccent"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="64dp"
+        android:textAlignment="center"
+        android:text="@string/dictionary_hint"
+        android:textSize="20sp"
+        android:textColor="?attr/colorTextPrimary"
+        android:fontFamily="@font/sawarabi_gothic"
+        android:alpha="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_dictionary"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_suggestion"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

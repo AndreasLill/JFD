@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:indeterminate="false"
                     android:visibility="gone"
-                    android:elevation="4dp"
+                    android:elevation="8dp"
                     app:indicatorColor="?attr/colorProgress"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
