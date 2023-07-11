@@ -2,7 +2,7 @@ package com.andlill.jfd.language
 
 import com.andlill.jfd.model.DictionaryEntry
 import com.andlill.jfd.language.Extensions.containsKanji
-import com.andlill.jfd.language.Extensions.isKana
+import dev.esnault.wanakana.core.Wanakana
 import kotlin.collections.HashMap
 
 object Dictionary {
@@ -23,7 +23,7 @@ object Dictionary {
     fun search(query: String): ArrayList<DictionaryEntry> {
         return when {
             query.containsKanji() -> searchByKanji(query)
-            query.isKana() -> searchByKana(query)
+            Wanakana.isKana(query) -> searchByKana(query)
             else -> searchByGlossary(query)
         }
     }
@@ -45,8 +45,10 @@ object Dictionary {
     }
 
     private fun searchByKana(query: String): ArrayList<DictionaryEntry> {
+        val hiragana = Wanakana.toHiragana(query)
+        val katakana = Wanakana.toKatakana(query)
         val filteredMap = data.filterValues{ entity ->
-            entity.reading[0].kana.startsWith(query)
+            entity.reading[0].kana.startsWith(hiragana) || entity.reading[0].kana.startsWith(katakana)
         }
         val sortedList = filteredMap.values.toList().sortedWith(compareBy<DictionaryEntry>{ it.commonScore }.thenBy{ it.reading[0].kana.length })
         return ArrayList(sortedList)

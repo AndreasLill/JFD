@@ -1,7 +1,7 @@
 package com.andlill.jfd.language
 
 import com.andlill.jfd.model.Kanji
-import com.andlill.jfd.language.Extensions.isKanji
+import dev.esnault.wanakana.core.Wanakana
 
 object KanjiDictionary {
     private var data = HashMap<String, Kanji>()
@@ -18,7 +18,7 @@ object KanjiDictionary {
         val kanjiList = ArrayList<Kanji>()
 
         for (char in word) {
-            if (!char.isKanji())
+            if (!Wanakana.isKanji(char))
                 continue
 
             val entry = data[char.toString()]
