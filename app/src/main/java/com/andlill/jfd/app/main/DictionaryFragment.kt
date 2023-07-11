@@ -13,6 +13,7 @@ import com.andlill.jfd.R
 import com.andlill.jfd.app.dictionarydetails.DictionaryDetailsActivity
 import com.andlill.jfd.app.main.adapter.DictionaryAdapter
 import com.andlill.jfd.model.DictionaryEntry
+import dev.esnault.wanakana.core.Wanakana
 
 class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
 
@@ -25,14 +26,14 @@ class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
     private lateinit var viewModel: DictionaryFragmentViewModel
     private lateinit var dictionaryAdapter: DictionaryAdapter
     private lateinit var dictionaryRecycler: RecyclerView
-    private lateinit var textHint: TextView
+    private lateinit var layoutSuggestion: View
+    private lateinit var textSuggestion: TextView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this)[DictionaryFragmentViewModel::class.java]
         viewModel.getDictionaryResult().observe(viewLifecycleOwner) { dictionaryResult ->
-            textHint.visibility = View.INVISIBLE
             requireView().findViewById<RecyclerView>(R.id.recycler_dictionary)?.scrollToPosition(0)
             dictionaryAdapter.update(dictionaryResult)
         }
@@ -43,7 +44,13 @@ class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
 
     private fun initializeUI() {
         val view = requireView()
-        textHint = view.findViewById(R.id.text_hint)
+        textSuggestion = view.findViewById(R.id.text_suggestion)
+        layoutSuggestion = view.findViewById<View?>(R.id.layout_suggestion).apply {
+            setOnClickListener {
+                layoutSuggestion.visibility = View.GONE
+                viewModel.searchDictionary(textSuggestion.text.toString()) {}
+            }
+        }
         dictionaryAdapter = DictionaryAdapter { entry ->
             val intent = Intent(requireContext(), DictionaryDetailsActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -53,7 +60,6 @@ class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
         dictionaryRecycler = view.findViewById<RecyclerView>(R.id.recycler_dictionary).apply {
             layoutManager = LinearLayoutManager(requireContext())
             addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-            setHasFixedSize(true)
             adapter = dictionaryAdapter
         }
     }
@@ -65,9 +71,6 @@ class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
         }
         if (savedState.containsKey(STATE_DATA_DICTIONARY)) {
             val value = savedState.getSerializable(STATE_DATA_DICTIONARY) as ArrayList<DictionaryEntry>
-            if (value.isNotEmpty()) {
-                textHint.visibility = View.INVISIBLE
-            }
             dictionaryAdapter.update(value)
         }
     }
@@ -81,6 +84,14 @@ class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
 
     fun searchDictionary(query: String, callback: (Int) -> Unit) {
         viewModel.searchDictionary(query) { resultCount ->
+            // Set suggestion hint above results.
+            if (Wanakana.isRomaji(query)) {
+                val value = Wanakana.toHiragana(query)
+                if (Wanakana.isHiragana(value)) {
+                    textSuggestion.text = value
+                    layoutSuggestion.visibility = View.VISIBLE
+                }
+            }
             callback(resultCount)
         }
     }

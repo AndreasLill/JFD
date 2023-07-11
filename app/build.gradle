@@ -34,6 +34,8 @@ android {
 
 dependencies {
 
+    implementation 'dev.esnault.wanakana:wanakana-android:1.1.1'
+
     // Core
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
     implementation 'androidx.core:core-ktx:1.10.1'

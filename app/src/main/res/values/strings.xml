@@ -32,7 +32,7 @@
     <string name="copy_to_clipboard">Copied \'%s\' to clipboard.</string>
 
     <!-- Dictionary -->
-    <string name="dictionary_hint">辞書</string>
+    <string name="dictionary_suggestion">Did you mean?</string>
     <string name="dictionary_results">%s results</string>
     <string name="dictionary_loading">Loading Dictionary…</string>
     <string name="dictionary_details_translation">Translation</string>
