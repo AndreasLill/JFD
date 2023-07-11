@@ -45,15 +45,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/divider_bottom"/>
-
-                <View
-                    android:id="@+id/divider_bottom"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:background="?android:attr/dividerHorizontal"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toTopOf="@+id/layout_tab"/>
 
                 <include
