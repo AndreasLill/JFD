@@ -13,6 +13,7 @@ import com.andlill.jfd.R
 import com.andlill.jfd.app.dictionarydetails.DictionaryDetailsActivity
 import com.andlill.jfd.app.main.adapter.DictionaryAdapter
 import com.andlill.jfd.model.DictionaryEntry
+import com.andlill.jfd.utils.AppUtils
 import dev.esnault.wanakana.core.Wanakana
 
 class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
@@ -47,8 +48,10 @@ class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
         textSuggestion = view.findViewById(R.id.text_suggestion)
         layoutSuggestion = view.findViewById<View?>(R.id.layout_suggestion).apply {
             setOnClickListener {
-                layoutSuggestion.visibility = View.GONE
-                viewModel.searchDictionary(textSuggestion.text.toString()) {}
+                AppUtils.postDelayed(100) {
+                    layoutSuggestion.visibility = View.GONE
+                    viewModel.searchDictionary(textSuggestion.text.toString()) {}
+                }
             }
         }
         dictionaryAdapter = DictionaryAdapter { entry ->

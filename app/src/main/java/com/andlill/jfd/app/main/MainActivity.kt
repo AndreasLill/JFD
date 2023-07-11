@@ -28,6 +28,11 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.play.core.review.ReviewManager
+import com.google.android.play.core.review.ReviewManagerFactory
+import java.util.*
+import java.util.concurrent.TimeUnit
+import kotlin.math.abs
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, TabLayout.OnTabSelectedListener {
 
@@ -38,7 +43,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private lateinit var viewModel: MainActivityViewModel
-
+    private lateinit var reviewManager: ReviewManager
     private lateinit var tabs: Array<Int>
     private lateinit var navigationDrawer: NavigationView
     private lateinit var viewPager: ViewPager2
@@ -85,6 +90,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Setup navigation.
         navigationDrawer = findViewById(R.id.navigation_drawer)
         navigationDrawer.setNavigationItemSelectedListener(this)
+
+        // Setup review manager.
+        reviewManager = ReviewManagerFactory.create(this)
     }
 
     private fun initializeTabs() {
@@ -223,6 +231,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Load assets into memory.
         viewModel.loadAssets(assets) {
             supportFragmentManager.popBackStack()
+
+            // Set app first start time in ms.
+            val firstUse = AppSettings.getFirstUse(this@MainActivity)
+            if (firstUse == 0L) {
+                AppSettings.setFirstUse(this@MainActivity, System.currentTimeMillis())
+            } else {
+                val today = Calendar.getInstance()
+                val days = TimeUnit.MILLISECONDS.toDays(abs(today.timeInMillis - firstUse))
+
+                // Launch review flow if app is used more than 5 days.
+                if (days > 5) {
+                    val request = reviewManager.requestReviewFlow()
+                    request.addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val reviewInfo = task.result
+                            reviewManager.launchReviewFlow(this@MainActivity, reviewInfo)
+                        }
+                    }
+                }
+            }
         }
     }
 
