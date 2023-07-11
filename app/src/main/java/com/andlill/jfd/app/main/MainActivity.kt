@@ -184,6 +184,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onTabReselected(tab: TabLayout.Tab) {
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val drawerLayout = findViewById<DrawerLayout>(R.id.layout_drawer)
 
@@ -193,8 +194,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             drawerLayout.closeDrawer(GravityCompat.START)
             return
         }
-
-        super.onBackPressed()
+        onBackPressedDispatcher.onBackPressed()
     }
 
     private fun openSearchDialog() {

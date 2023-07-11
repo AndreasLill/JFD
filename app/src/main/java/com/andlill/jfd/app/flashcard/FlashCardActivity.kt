@@ -7,8 +7,10 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andlill.jfd.R
@@ -18,6 +20,7 @@ import com.andlill.jfd.model.DictionaryEntry
 import com.andlill.jfd.utils.AppSettings
 import com.andlill.jfd.utils.AppUtils
 import com.google.android.material.progressindicator.LinearProgressIndicator
+import kotlinx.coroutines.launch
 import java.util.*
 
 class FlashCardActivity : AppCompatActivity() {
@@ -109,6 +112,7 @@ class FlashCardActivity : AppCompatActivity() {
         textToSpeech.shutdown()
     }
 
+    @Deprecated("Deprecated in Java", ReplaceWith("finish()"))
     override fun onBackPressed() {
         finish()
     }
@@ -126,12 +130,14 @@ class FlashCardActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().add(R.id.fragment_container, cardFragment).commit()
 
         // Animate flash card.
-        cardFragment.lifecycleScope.launchWhenResumed {
-            val xy = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2f, resources.displayMetrics)
-            val cardView = cardFragment.getCardView()
-            cardView.translationX = xy
-            cardView.translationY = xy
-            cardView.animate().setDuration(100).translationX(-xy).translationY(-xy).start()
+        cardFragment.lifecycleScope.launch {
+            cardFragment.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                val xy = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2f, resources.displayMetrics)
+                val cardView = cardFragment.getCardView()
+                cardView.translationX = xy
+                cardView.translationY = xy
+                cardView.animate().setDuration(100).translationX(-xy).translationY(-xy).start()
+            }
         }
     }
 
@@ -145,8 +151,10 @@ class FlashCardActivity : AppCompatActivity() {
                 .commit()
 
         if (textToSpeechEnabled) {
-            cardFragment.lifecycleScope.launchWhenResumed {
-                textToSpeech.speak(dictionaryEntry.reading[0].kana, TextToSpeech.QUEUE_FLUSH, null, null)
+            cardFragment.lifecycleScope.launch {
+                cardFragment.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                    textToSpeech.speak(dictionaryEntry.reading[0].kana, TextToSpeech.QUEUE_FLUSH, null, null)
+                }
             }
         }
     }

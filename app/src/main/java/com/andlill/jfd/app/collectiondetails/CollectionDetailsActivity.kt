@@ -22,8 +22,6 @@ import com.andlill.jfd.model.Collection
 import com.andlill.jfd.model.DictionaryEntry
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
-import java.util.*
-import kotlin.collections.HashMap
 
 class CollectionDetailsActivity : AppCompatActivity() {
 
@@ -76,13 +74,14 @@ class CollectionDetailsActivity : AppCompatActivity() {
 
         textHint = findViewById(R.id.text_hint)
 
-        viewModel.getCollection().observe(this, {
+        viewModel.getCollection().observe(this) {
             updateTitle()
-        })
+        }
 
         buttonStudy = findViewById<View>(R.id.button_study).apply { setOnClickListener { study() } }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         when (state) {
             ActivityState.Default -> finish()
