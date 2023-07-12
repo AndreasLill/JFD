@@ -21,6 +21,8 @@ class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
     companion object {
         private const val STATE_DATA_DICTIONARY = "com.andlill.jld.DictionaryFragment.State.DataDictionary"
         private const val STATE_RECYCLER_DICTIONARY = "com.andlill.jld.DictionaryFragment.State.RecyclerDictionary"
+        private const val STATE_TEXT_QUERY = "com.andlill.jld.DictionaryFragment.State.TextQuery"
+        private const val STATE_TEXT_RESULT = "com.andlill.jld.DictionaryFragment.State.TextResult"
         private val savedState: Bundle = Bundle()
     }
 
@@ -89,6 +91,16 @@ class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
             val value = savedState.getSerializable(STATE_DATA_DICTIONARY) as ArrayList<DictionaryEntry>
             dictionaryAdapter.update(value)
         }
+        if (savedState.containsKey(STATE_TEXT_QUERY)) {
+            textQuery.text = savedState.getString(STATE_TEXT_QUERY, "")
+        }
+        if (savedState.containsKey(STATE_TEXT_RESULT)) {
+            textResult.text = savedState.getString(STATE_TEXT_RESULT, "")
+
+            if (textResult.text.isNotEmpty()) {
+                layoutResults.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -96,6 +108,8 @@ class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
 
         savedState.putSerializable(STATE_DATA_DICTIONARY, dictionaryAdapter.dataSet())
         savedState.putParcelable(STATE_RECYCLER_DICTIONARY, dictionaryRecycler.layoutManager?.onSaveInstanceState())
+        savedState.putString(STATE_TEXT_QUERY, textQuery.text.toString())
+        savedState.putString(STATE_TEXT_RESULT, textResult.text.toString())
     }
 
     fun searchDictionary(query: String, callback: () -> Unit) {
