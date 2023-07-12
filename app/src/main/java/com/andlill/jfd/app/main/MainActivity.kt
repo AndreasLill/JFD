@@ -223,11 +223,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
                 // Launch review flow if app is used more than 5 days.
                 if (days > 5) {
-                    val request = reviewManager.requestReviewFlow()
-                    request.addOnCompleteListener { task ->
+                    reviewManager.requestReviewFlow().addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            val reviewInfo = task.result
-                            reviewManager.launchReviewFlow(this@MainActivity, reviewInfo)
+                            reviewManager.launchReviewFlow(this@MainActivity, task.result)
                         }
                     }
                 }
