@@ -104,10 +104,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }.attach()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
     override fun onResume() {
         super.onResume()
 
@@ -207,7 +203,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Start transaction to open loading dialog.
         val transaction = supportFragmentManager.beginTransaction()
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-        transaction.add(R.id.layout_drawer, dialog).addToBackStack(null).commit()
+        transaction.add(R.id.layout_drawer, dialog).addToBackStack(null).commitAllowingStateLoss()
 
         // Load assets into memory.
         viewModel.loadAssets(assets) {
