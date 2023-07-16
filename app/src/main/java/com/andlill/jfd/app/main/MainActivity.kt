@@ -19,7 +19,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.andlill.jfd.R
 import com.andlill.jfd.app.main.dialog.AboutDialog
-import com.andlill.jfd.app.main.dialog.LoadingDialog
 import com.andlill.jfd.app.main.dialog.SearchDialog
 import com.andlill.jfd.app.settings.SettingsActivity
 import com.andlill.jfd.utils.AppSettings
@@ -107,6 +106,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onResume() {
         super.onResume()
 
+        // Set app first start time in ms.
+        val firstUse = AppSettings.getFirstUse(this@MainActivity)
+        if (firstUse == 0L) {
+            AppSettings.setFirstUse(this@MainActivity, System.currentTimeMillis())
+        } else {
+            val today = Calendar.getInstance()
+            val days = TimeUnit.MILLISECONDS.toDays(abs(today.timeInMillis - firstUse))
+
+            // Launch review flow if app is used more than 5 days.
+            if (days > 5) {
+                reviewManager.requestReviewFlow().addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        reviewManager.launchReviewFlow(this@MainActivity, task.result)
+                    }
+                }
+            }
+        }
         //if (!viewModel.isDictionaryReady()) { openLoadingDialog() }
     }
 
@@ -192,41 +208,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val transaction = supportFragmentManager.beginTransaction()
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         transaction.add(R.id.layout_drawer, dialog).addToBackStack(null).commit()
-    }
-
-    private fun openLoadingDialog() {
-
-        val dialog = LoadingDialog()
-
-        // Start transaction to open loading dialog.
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-        transaction.add(R.id.layout_drawer, dialog).addToBackStack(null).commitAllowingStateLoss()
-
-        // Load assets into memory.
-        /*
-        viewModel.loadAssets(assets) {
-            supportFragmentManager.popBackStack()
-
-            // Set app first start time in ms.
-            val firstUse = AppSettings.getFirstUse(this@MainActivity)
-            if (firstUse == 0L) {
-                AppSettings.setFirstUse(this@MainActivity, System.currentTimeMillis())
-            } else {
-                val today = Calendar.getInstance()
-                val days = TimeUnit.MILLISECONDS.toDays(abs(today.timeInMillis - firstUse))
-
-                // Launch review flow if app is used more than 5 days.
-                if (days > 5) {
-                    reviewManager.requestReviewFlow().addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            reviewManager.launchReviewFlow(this@MainActivity, task.result)
-                        }
-                    }
-                }
-            }
-        }
-        */
     }
 
     inner class PagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
