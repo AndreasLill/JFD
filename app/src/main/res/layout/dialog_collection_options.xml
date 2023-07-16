@@ -11,7 +11,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_new"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
+        android:layout_height="42dp"
         android:layout_marginBottom="8dp"
         android:insetTop="0dp"
         android:insetBottom="0dp"
@@ -32,7 +32,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_import"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
+        android:layout_height="42dp"
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:background="@drawable/background_material_button_corners_32"
