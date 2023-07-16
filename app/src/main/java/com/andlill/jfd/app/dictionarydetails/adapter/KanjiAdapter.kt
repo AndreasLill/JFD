@@ -26,7 +26,7 @@ class KanjiAdapter(private val dataSet: List<DictKanji>) : RecyclerView.Adapter<
 
         fun bind(kanji: DictKanji) {
             view.findViewById<TextView>(R.id.text_kanji).text = kanji.character
-            view.findViewById<TextView>(R.id.text_meaning).text = kanji.meaning
+            view.findViewById<TextView>(R.id.text_meaning).text = kanji.meaning.joinToString("; ")
         }
 
     }

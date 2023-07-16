@@ -20,11 +20,11 @@ class VerbConjugation(entry: DictionaryEntry) {
     init {
         val word = entry.primaryReading
         when {
-            entry.sense[0].partOfSpeech.any { pos -> pos == 21 /* PartOfSpeech.VerbIchidan */ } -> {
+            entry.sense[0].partOfSpeech.any { pos -> pos == 22 /* VerbIchidan */ } -> {
                 val base = word.substring(0, word.length - 1)
                 conjugateIchidan(base)
             }
-            entry.sense[0].partOfSpeech.any { pos -> pos == 25 /* PartOfSpeech.VerbGodan */ } -> {
+            entry.sense[0].partOfSpeech.any { pos -> pos == 26 /* VerbGodan */ } -> {
                 val character = word[word.length - 1]
                 val base = word.substring(0, word.length - 1)
                 when (character) {
@@ -39,11 +39,11 @@ class VerbConjugation(entry: DictionaryEntry) {
                     'つ' -> conjugateGodanTSU(base)
                 }
             }
-            entry.sense[0].partOfSpeech.any { pos -> pos == 24 /* PartOfSpeech.VerbKuru */ } -> {
+            entry.sense[0].partOfSpeech.any { pos -> pos == 25 /* VerbKuru */ } -> {
                 val base = word.substring(0, word.length - 1)
                 conjugateKURU(base)
             }
-            entry.sense[0].partOfSpeech.any { pos -> pos == 27 /* PartOfSpeech.VerbSuru */ } -> {
+            entry.sense[0].partOfSpeech.any { pos -> pos == 28 /* VerbSuru */ } -> {
                 val base = word.substring(0, word.length - 1)
                 conjugateSURU(base)
             }
