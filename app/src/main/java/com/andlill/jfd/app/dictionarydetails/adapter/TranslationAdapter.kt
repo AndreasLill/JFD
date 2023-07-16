@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.andlill.jfd.R
-import com.andlill.jfd.model.Sense
+import com.andlill.jfd.model.DictSense
 
-class TranslationAdapter(private val dataSet: List<Sense>) : RecyclerView.Adapter<TranslationAdapter.ViewHolder>() {
+class TranslationAdapter(private val dataSet: List<DictSense>) : RecyclerView.Adapter<TranslationAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.adapter_translation, parent, false))
@@ -24,8 +24,8 @@ class TranslationAdapter(private val dataSet: List<Sense>) : RecyclerView.Adapte
 
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(index: Int, sense: Sense) {
-            view.findViewById<TextView>(R.id.text_type).text = sense.partOfSpeech.joinToString(", ") { it.description }
+        fun bind(index: Int, sense: DictSense) {
+            view.findViewById<TextView>(R.id.text_type).text = sense.partOfSpeech.joinToString(", ") { it.toString() /* TODO: Change to part of speech enum description */ }
             view.findViewById<TextView>(R.id.text_number).text = String.format("%d.", index+1)
             view.findViewById<TextView>(R.id.text_translation).text = sense.glossary.joinToString("; ")
         }

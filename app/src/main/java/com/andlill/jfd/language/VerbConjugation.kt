@@ -1,7 +1,6 @@
 package com.andlill.jfd.language
 
 import com.andlill.jfd.model.DictionaryEntry
-import com.andlill.jfd.model.Sense.PartOfSpeech
 
 class VerbConjugation(entry: DictionaryEntry) {
 
@@ -19,13 +18,13 @@ class VerbConjugation(entry: DictionaryEntry) {
     }
 
     init {
-        val word = entry.getPrimaryReading()
+        val word = entry.primaryReading
         when {
-            entry.sense[0].partOfSpeech.any { pos -> pos == PartOfSpeech.VerbIchidan } -> {
+            entry.sense[0].partOfSpeech.any { pos -> pos == 21 /* PartOfSpeech.VerbIchidan */ } -> {
                 val base = word.substring(0, word.length - 1)
                 conjugateIchidan(base)
             }
-            entry.sense[0].partOfSpeech.any { pos -> pos == PartOfSpeech.VerbGodan } -> {
+            entry.sense[0].partOfSpeech.any { pos -> pos == 25 /* PartOfSpeech.VerbGodan */ } -> {
                 val character = word[word.length - 1]
                 val base = word.substring(0, word.length - 1)
                 when (character) {
@@ -40,11 +39,11 @@ class VerbConjugation(entry: DictionaryEntry) {
                     'つ' -> conjugateGodanTSU(base)
                 }
             }
-            entry.sense[0].partOfSpeech.any { pos -> pos == PartOfSpeech.VerbKuru } -> {
+            entry.sense[0].partOfSpeech.any { pos -> pos == 24 /* PartOfSpeech.VerbKuru */ } -> {
                 val base = word.substring(0, word.length - 1)
                 conjugateKURU(base)
             }
-            entry.sense[0].partOfSpeech.any { pos -> pos == PartOfSpeech.VerbSuru } -> {
+            entry.sense[0].partOfSpeech.any { pos -> pos == 27 /* PartOfSpeech.VerbSuru */ } -> {
                 val base = word.substring(0, word.length - 1)
                 conjugateSURU(base)
             }

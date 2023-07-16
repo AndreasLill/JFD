@@ -25,7 +25,7 @@ class FlashcardsSummaryAdapter : ListAdapter<Pair<DictionaryEntry, Boolean>, Fla
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(item: Pair<DictionaryEntry, Boolean>) {
-            view.findViewById<TextView>(R.id.text_value).text = item.first.getPrimaryReading()
+            view.findViewById<TextView>(R.id.text_value).text = item.first.primaryReading
             view.findViewById<TextView>(R.id.text_result).apply {
                 text = if (item.second) "✓" else "✗"
 

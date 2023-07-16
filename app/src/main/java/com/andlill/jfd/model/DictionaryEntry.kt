@@ -1,29 +1,29 @@
 package com.andlill.jfd.model
 
+import androidx.room.*
 import java.io.Serializable
 
-class DictionaryEntry : Serializable {
+data class DictionaryEntry (
+    @Embedded
+    val entry: DictEntry,
 
-    var id : Int = 0
-    var commonScore: Int = 50
-    val reading : ArrayList<Reading> = ArrayList()
-    val sense : ArrayList<Sense> = ArrayList()
+    @Relation(
+        parentColumn = "ID",
+        entityColumn = "EntryID"
+    )
+    val reading: List<DictReading>,
 
-    class Reading : Serializable {
-        var kana : String = ""
-        var kanji : String = ""
-        var info : ArrayList<String> = ArrayList()
-        var priority : ArrayList<String> = ArrayList()
-    }
-
-    fun isCommon(): Boolean {
-        return commonScore in 1..24
-    }
-
-    fun getPrimaryReading(): String {
-        return when {
-            reading[0].kanji.isNotEmpty() -> reading[0].kanji
-            else -> reading[0].kana
-        }
+    @Relation(
+        parentColumn = "ID",
+        entityColumn = "EntryID"
+    )
+    val sense: List<DictSense>
+) : Serializable {
+    val id: Int inline get() = entry.id
+    val commonScore: Int inline get() = entry.commonScore
+    val isCommon: Boolean inline get() = entry.commonScore in 1..24
+    val primaryReading: String inline get() = when {
+        !reading[0].kanji.isNullOrEmpty() -> reading[0].kanji!!
+        else -> reading[0].kana
     }
 }

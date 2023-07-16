@@ -18,7 +18,7 @@ class AddToCollectionDialogViewModel : ViewModel() {
     private lateinit var dictionaryEntry: DictionaryEntry
 
     fun initialize(context: Context, id: Int) = runBlocking {
-        dictionaryEntry = DictionaryRepository.getEntry(id)
+        dictionaryEntry = DictionaryRepository.getEntry(context, id)
         collections = CollectionRepository.getAll(context)
     }
 

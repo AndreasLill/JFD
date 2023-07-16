@@ -1,5 +1,6 @@
 package com.andlill.jfd.app.flashcard
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,13 +16,11 @@ class FlashCardActivityViewModel : ViewModel() {
     private val summary = MutableLiveData<ArrayList<Pair<DictionaryEntry, Boolean>>>()
     var canFlip = false
 
-    fun initialize(collection: Collection) = runBlocking {
+    fun initialize(context: Context, collection: Collection) = runBlocking {
         val temp = ArrayList<DictionaryEntry>()
 
         // Get dictionary data for each card.
-        collection.content.forEach { id ->
-            temp.add(DictionaryRepository.getEntry(id))
-        }
+        temp.addAll(DictionaryRepository.getEntry(context, collection.content))
 
         // Shuffle cards and add cards to live data.
         temp.shuffle()

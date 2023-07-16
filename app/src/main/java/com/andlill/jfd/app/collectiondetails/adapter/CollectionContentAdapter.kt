@@ -28,7 +28,7 @@ class CollectionContentAdapter(private val viewModel: CollectionDetailsActivityV
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val collection = viewModel.getCollection().value as Collection
-        val entry = viewModel.getDictionaryEntry(collection.content[position])
+        val entry = viewModel.getDictionaryEntry(holder.itemView.context, collection.content[position])
         holder.bind(position, entry)
         holder.itemView.setOnClickListener {
             callback(Action.Select, entry)
@@ -91,7 +91,7 @@ class CollectionContentAdapter(private val viewModel: CollectionDetailsActivityV
             view.setBackgroundColor(MaterialColors.getColor(view, R.attr.colorItemBackground))
             view.findViewById<TextView>(R.id.text_index).text = String.format("%d.", index + 1)
 
-            if (entry.reading[0].kanji.isNotEmpty()) {
+            if (!entry.reading[0].kanji.isNullOrEmpty()) {
                 view.findViewById<TextView>(R.id.text_kanji).text = entry.reading[0].kanji
                 view.findViewById<TextView>(R.id.text_kana).text = String.format("【%s】", entry.reading[0].kana)
             } else {

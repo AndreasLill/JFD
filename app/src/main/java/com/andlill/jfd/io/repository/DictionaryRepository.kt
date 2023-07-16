@@ -1,41 +1,33 @@
 package com.andlill.jfd.io.repository
 
-import com.andlill.jfd.language.Dictionary
-import com.andlill.jfd.language.KanjiDictionary
-import com.andlill.jfd.io.xml.XmlManager
+import android.content.Context
+import com.andlill.jfd.io.database.dictionary.DictionaryDatabase
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
-import java.io.InputStream
 
 object DictionaryRepository {
 
-    suspend fun loadData(dictionaryInput: InputStream?, kanjiInput: InputStream?) = withContext(Dispatchers.IO) {
-        val dictionary = async {
-            if (dictionaryInput != null)
-                Dictionary.setData(XmlManager.parseJMdict(dictionaryInput))
-        }
-        val kanji = async {
-            if (kanjiInput != null)
-                KanjiDictionary.setData(XmlManager.parseKanji(kanjiInput))
-        }
-        dictionary.await()
-        kanji.await()
+    suspend fun searchByKanji(context: Context, kanji: String) = withContext(Dispatchers.IO) {
+        return@withContext DictionaryDatabase.database(context).dictionary().searchByKanji(kanji)
     }
 
-    suspend fun search(query: String) = withContext(Dispatchers.Default) {
-        return@withContext Dictionary.search(query)
+    suspend fun searchByKana(context: Context, hiragana: String, katakana: String) = withContext(Dispatchers.IO) {
+        return@withContext DictionaryDatabase.database(context).dictionary().searchByKana(hiragana, katakana)
     }
 
-    suspend fun getEntry(id: Int) = withContext(Dispatchers.Default) {
-        return@withContext Dictionary.getEntry(id)
+    suspend fun searchByGlossary(context: Context, query: String) = withContext(Dispatchers.IO) {
+        return@withContext DictionaryDatabase.database(context).dictionary().searchByGlossary(query)
     }
 
-    suspend fun getKanji(word: String) = withContext(Dispatchers.Default) {
-        return@withContext KanjiDictionary.getKanji(word)
+    suspend fun getEntry(context: Context, id: Int) = withContext(Dispatchers.IO) {
+        return@withContext DictionaryDatabase.database(context).dictionary().getEntry(id)
     }
 
-    suspend fun getVerbConjugation(id: Int) = withContext(Dispatchers.Default) {
-        return@withContext Dictionary.conjugateVerb(id)
+    suspend fun getEntry(context: Context, ids: List<Int>) = withContext(Dispatchers.IO) {
+        return@withContext DictionaryDatabase.database(context).dictionary().getEntry(ids)
+    }
+
+    suspend fun getKanji(context: Context, characters: List<String>) = withContext(Dispatchers.IO) {
+        return@withContext DictionaryDatabase.database(context).dictionary().getKanji(characters)
     }
 }

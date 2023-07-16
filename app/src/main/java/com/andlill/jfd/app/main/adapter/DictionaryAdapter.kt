@@ -26,10 +26,14 @@ class DictionaryAdapter(private val callback: (DictionaryEntry) -> Unit) : Recyc
             callback(entry)
         }
         holder.itemView.setOnCreateContextMenuListener { contextMenu, view, _ ->
-            if (entry.reading[0].kanji.isNotEmpty()) {
+            if (!entry.reading[0].kanji.isNullOrEmpty()) {
                 contextMenu?.setHeaderTitle(String.format(view.context.getString(R.string.context_menu_options_title), entry.reading[0].kanji))
-                contextMenu?.add(Menu.NONE, 1, Menu.NONE, view.context.getString(R.string.menu_item_copy_kanji))?.setOnMenuItemClickListener { AppUtils.copyToClipboard(view, entry.reading[0].kanji); true }
+                contextMenu?.add(Menu.NONE, 1, Menu.NONE, view.context.getString(R.string.menu_item_copy_kanji))?.setOnMenuItemClickListener { AppUtils.copyToClipboard(view, entry.reading[0].kanji!!); true }
                 contextMenu?.add(Menu.NONE, 2, Menu.NONE, view.context.getString(R.string.menu_item_copy_kana))?.setOnMenuItemClickListener { AppUtils.copyToClipboard(view, entry.reading[0].kana); true }
+            }
+            else {
+                contextMenu?.setHeaderTitle(String.format(view.context.getString(R.string.context_menu_options_title), entry.reading[0].kana))
+                contextMenu?.add(Menu.NONE, 1, Menu.NONE, view.context.getString(R.string.menu_item_copy_kana))?.setOnMenuItemClickListener { AppUtils.copyToClipboard(view, entry.reading[0].kana); true }
             }
         }
     }
@@ -55,7 +59,7 @@ class DictionaryAdapter(private val callback: (DictionaryEntry) -> Unit) : Recyc
             val viewRoot = view.findViewById<View>(R.id.layout_root)
             val viewLabel = view.findViewById<View>(R.id.view_label)
 
-            if (entry.isCommon()) {
+            if (entry.isCommon) {
                 viewRoot.setBackgroundColor(MaterialColors.getColor(viewLabel, R.attr.colorDictionaryCommonBackground))
                 viewLabel.setBackgroundColor(MaterialColors.getColor(viewLabel, R.attr.colorDictionaryCommonTag))
             }
@@ -64,7 +68,7 @@ class DictionaryAdapter(private val callback: (DictionaryEntry) -> Unit) : Recyc
                 viewLabel.setBackgroundColor(MaterialColors.getColor(view, R.attr.colorItemBackground))
             }
 
-            if (entry.reading[0].kanji.isNotEmpty()) {
+            if (!entry.reading[0].kanji.isNullOrEmpty()) {
                 view.findViewById<TextView>(R.id.text_kanji).text = entry.reading[0].kanji
                 view.findViewById<TextView>(R.id.text_kana).text = String.format("【%s】", entry.reading[0].kana)
             }

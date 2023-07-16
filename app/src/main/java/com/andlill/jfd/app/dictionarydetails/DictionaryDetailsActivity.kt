@@ -41,7 +41,7 @@ class DictionaryDetailsActivity : AppCompatActivity() {
         calledFromExternal = intent.getBooleanExtra(ARGUMENT_CALLED_FROM_EXTERNAL, false)
 
         viewModel = ViewModelProvider(this)[DictionaryDetailsActivityViewModel::class.java]
-        viewModel.initialize(entryId)
+        viewModel.initialize(this, entryId)
 
         val entry = viewModel.getDictionaryEntry()
 
@@ -60,7 +60,7 @@ class DictionaryDetailsActivity : AppCompatActivity() {
         }
 
         // Set top primary reading.
-        if (entry.reading[0].kanji.isNotEmpty()) {
+        if (!entry.reading[0].kanji.isNullOrEmpty()) {
             findViewById<TextView>(R.id.text_primary_kanji).text = entry.reading[0].kanji
             findViewById<TextView>(R.id.text_primary_kana).text = entry.reading[0].kana
         }
@@ -76,11 +76,11 @@ class DictionaryDetailsActivity : AppCompatActivity() {
         }
 
         // Recycler view for Kanji in word.
-        if (entry.reading[0].kanji.isNotEmpty()) {
+        entry.reading[0].kanji?.let {
             findViewById<View>(R.id.layout_kanji).visibility = View.VISIBLE
             findViewById<RecyclerView>(R.id.recycler_kanji).apply {
                 layoutManager = LinearLayoutManager(this@DictionaryDetailsActivity)
-                adapter = KanjiAdapter(viewModel.getKanji(entry.reading[0].kanji))
+                adapter = KanjiAdapter(viewModel.getKanji(this@DictionaryDetailsActivity, it))
             }
         }
 

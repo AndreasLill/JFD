@@ -1,5 +1,6 @@
 package com.andlill.jfd.app.flashcard
 
+import android.content.Context
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.TypedValue
@@ -53,14 +54,14 @@ class FlashCardActivity : AppCompatActivity() {
 
         // Setup flashcard view model.
         viewModel = ViewModelProvider(this)[FlashCardActivityViewModel::class.java]
-        viewModel.initialize(collection)
+        viewModel.initialize(this, collection)
 
         // Setup views.
         progressText = findViewById(R.id.text_progress)
         progressBar = findViewById(R.id.progress_bar)
         backgroundCard = findViewById(R.id.card_background)
         backgroundCardText = findViewById(R.id.text_background)
-        restartButton = findViewById<View>(R.id.button_restart).apply { setOnClickListener { restart(collection) } }
+        restartButton = findViewById<View>(R.id.button_restart).apply { setOnClickListener { restart(this@FlashCardActivity, collection) } }
         findViewById<ImageButton>(R.id.button_back).apply { setOnClickListener { finish() } }
 
         summaryAdapter = FlashcardsSummaryAdapter()
@@ -211,8 +212,8 @@ class FlashCardActivity : AppCompatActivity() {
         }
     }
 
-    private fun restart(collection: Collection) {
-        viewModel.initialize(collection)
+    private fun restart(context: Context, collection: Collection) {
+        viewModel.initialize(context, collection)
         drawCard()
     }
 
@@ -224,7 +225,7 @@ class FlashCardActivity : AppCompatActivity() {
             return
 
         if (flashCards.size > 1)
-            updateBackgroundCard(true, flashCards[1].getPrimaryReading())
+            updateBackgroundCard(true, flashCards[1].primaryReading)
         else
             updateBackgroundCard(false, "")
 

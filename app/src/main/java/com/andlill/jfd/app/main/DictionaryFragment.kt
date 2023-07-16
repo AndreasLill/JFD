@@ -60,7 +60,7 @@ class DictionaryFragment() : Fragment(R.layout.fragment_dictionary) {
             setOnClickListener {
                 AppUtils.postDelayed(100) {
                     layoutSuggestion.visibility = View.GONE
-                    viewModel.searchDictionary(textSuggestion.text.toString()) { count ->
+                    viewModel.searchDictionary(requireContext(), textSuggestion.text.toString()) { count ->
                         layoutResults.visibility = View.VISIBLE
                         textQuery.text = textSuggestion.text.toString()
                         textResult.text = getString(R.string.dictionary_results_count, count.toString())
@@ -113,7 +113,7 @@ class DictionaryFragment() : Fragment(R.layout.fragment_dictionary) {
     }
 
     fun searchDictionary(query: String, callback: () -> Unit) {
-        viewModel.searchDictionary(query) { count ->
+        viewModel.searchDictionary(requireContext(), query) { count ->
             textHint.visibility = View.GONE
             layoutResults.visibility = View.VISIBLE
             textQuery.text = query

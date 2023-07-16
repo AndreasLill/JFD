@@ -107,9 +107,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onResume() {
         super.onResume()
 
-        if (!viewModel.isDictionaryReady()) {
-            openLoadingDialog()
-        }
+        //if (!viewModel.isDictionaryReady()) { openLoadingDialog() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -206,6 +204,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         transaction.add(R.id.layout_drawer, dialog).addToBackStack(null).commitAllowingStateLoss()
 
         // Load assets into memory.
+        /*
         viewModel.loadAssets(assets) {
             supportFragmentManager.popBackStack()
 
@@ -227,6 +226,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             }
         }
+        */
     }
 
     inner class PagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {

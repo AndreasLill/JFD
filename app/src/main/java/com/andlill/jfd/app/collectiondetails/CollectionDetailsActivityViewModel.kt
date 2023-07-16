@@ -25,8 +25,8 @@ class CollectionDetailsActivityViewModel : ViewModel() {
         return collection
     }
 
-    fun getDictionaryEntry(entryId: Int) : DictionaryEntry = runBlocking {
-        return@runBlocking DictionaryRepository.getEntry(entryId)
+    fun getDictionaryEntry(context: Context, entryId: Int) : DictionaryEntry = runBlocking {
+        return@runBlocking DictionaryRepository.getEntry(context, entryId)
     }
 
     fun renameCollection(context: Context, name: String) = viewModelScope.launch {

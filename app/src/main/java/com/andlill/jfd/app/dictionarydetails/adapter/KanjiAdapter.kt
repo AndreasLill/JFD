@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.andlill.jfd.R
-import com.andlill.jfd.model.Kanji
+import com.andlill.jfd.model.DictKanji
 
-class KanjiAdapter(private val dataSet: List<Kanji>) : RecyclerView.Adapter<KanjiAdapter.ViewHolder>() {
+class KanjiAdapter(private val dataSet: List<DictKanji>) : RecyclerView.Adapter<KanjiAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.adapter_kanji, parent, false))
@@ -24,9 +24,9 @@ class KanjiAdapter(private val dataSet: List<Kanji>) : RecyclerView.Adapter<Kanj
 
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(kanji: Kanji) {
+        fun bind(kanji: DictKanji) {
             view.findViewById<TextView>(R.id.text_kanji).text = kanji.character
-            view.findViewById<TextView>(R.id.text_meaning).text = kanji.meaning.joinToString("; ")
+            view.findViewById<TextView>(R.id.text_meaning).text = kanji.meaning
         }
 
     }

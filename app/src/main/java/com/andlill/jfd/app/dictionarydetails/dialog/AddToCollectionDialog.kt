@@ -31,7 +31,7 @@ class AddToCollectionDialog(private val entryId: Int) : DialogFragment() {
         layout.findViewById<View>(R.id.layout_collection_new).setOnClickListener {
             NameCollectionDialog(getString(R.string.menu_item_collection_create), "") { name ->
                 viewModel.createCollection(requireContext(), name)
-                showMessageAdd(entry.getPrimaryReading(), name)
+                showMessageAdd(entry.primaryReading, name)
                 dismiss()
             }.show(requireActivity().supportFragmentManager, NameCollectionDialog::class.simpleName)
         }
@@ -41,11 +41,11 @@ class AddToCollectionDialog(private val entryId: Int) : DialogFragment() {
             adapter = AddToCollectionAdapter(collections, entry) { collection ->
                 if (!collection.content.contains(entry.id)) {
                     collection.content.add(entry.id)
-                    showMessageAdd(entry.getPrimaryReading(), collection.name)
+                    showMessageAdd(entry.primaryReading, collection.name)
                 }
                 else {
                     collection.content.remove(entry.id)
-                    showMessageRemove(entry.getPrimaryReading(), collection.name)
+                    showMessageRemove(entry.primaryReading, collection.name)
                 }
 
                 viewModel.updateCollection(requireContext(), collection)
