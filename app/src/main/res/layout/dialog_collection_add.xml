@@ -36,7 +36,7 @@
             android:id="@+id/layout_collection_new"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="12dp"
             android:foreground="@drawable/ripple_rectangle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,8 +44,8 @@
 
             <ImageView
                 android:id="@+id/image_icon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:src="@drawable/ic_add"
                 android:contentDescription="@null"
                 app:tint="?attr/colorHint"
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:textColor="?attr/colorHint"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:text="@string/menu_item_collection_create"
                 app:layout_constraintStart_toEndOf="@+id/image_icon"
                 app:layout_constraintTop_toTopOf="parent"
