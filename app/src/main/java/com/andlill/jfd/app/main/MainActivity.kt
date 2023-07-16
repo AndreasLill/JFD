@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
         viewModel.initialize(this)
+        viewModel.initializeDatabase(this)
 
         this.initializeUI()
         this.initializeTabs()

@@ -1,10 +1,13 @@
 package com.andlill.jfd.app.main
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.andlill.jfd.io.database.dictionary.DictionaryDatabase
+import com.andlill.jfd.io.repository.DictionaryRepository
 import com.andlill.jfd.io.repository.SearchHistoryRepository
 import com.andlill.jfd.model.SearchHistory
 import kotlinx.coroutines.launch
@@ -19,6 +22,11 @@ class MainActivityViewModel : ViewModel() {
     fun initialize(context: Context) = runBlocking {
         val data = SearchHistoryRepository.getAll(context)
         searchHistoryList.value = data
+    }
+
+    fun initializeDatabase(context: Context) = viewModelScope.launch {
+        // Cold start database to improve performance for user interaction.
+        DictionaryDatabase.database(context).dictionary().getEntry(9999999)
     }
 
     fun getSearchHistory(): LiveData<List<SearchHistory>> {
