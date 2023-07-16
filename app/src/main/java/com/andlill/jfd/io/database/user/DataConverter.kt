@@ -1,4 +1,4 @@
-package com.andlill.jfd.io.database
+package com.andlill.jfd.io.database.user
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

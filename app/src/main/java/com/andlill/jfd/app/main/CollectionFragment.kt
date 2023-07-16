@@ -18,7 +18,7 @@ import com.andlill.jfd.app.shared.dialog.NameCollectionDialog
 import com.andlill.jfd.model.Collection
 import com.google.android.material.snackbar.Snackbar
 
-class CollectionFragment : ResultActivityFragment(R.layout.fragment_collection) {
+class CollectionFragment() : ResultActivityFragment(R.layout.fragment_collection) {
 
     private lateinit var viewModel: CollectionFragmentViewModel
     private lateinit var collectionAdapter: CollectionAdapter

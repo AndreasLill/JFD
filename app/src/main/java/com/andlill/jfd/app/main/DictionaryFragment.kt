@@ -16,7 +16,7 @@ import com.andlill.jfd.model.DictionaryEntry
 import com.andlill.jfd.utils.AppUtils
 import dev.esnault.wanakana.core.Wanakana
 
-class DictionaryFragment : Fragment(R.layout.fragment_dictionary) {
+class DictionaryFragment() : Fragment(R.layout.fragment_dictionary) {
 
     companion object {
         private const val STATE_DATA_DICTIONARY = "com.andlill.jld.DictionaryFragment.State.DataDictionary"

@@ -1,7 +1,7 @@
 package com.andlill.jfd.io.repository
 
 import android.content.Context
-import com.andlill.jfd.io.database.AppDatabase
+import com.andlill.jfd.io.database.user.UserDatabase
 import com.andlill.jfd.model.SearchHistory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -11,11 +11,11 @@ import kotlin.collections.ArrayList
 object SearchHistoryRepository {
 
     suspend fun getAll(context: Context) = withContext(Dispatchers.IO) {
-        return@withContext AppDatabase.database(context).searchHistory().getAll() as ArrayList<SearchHistory>
+        return@withContext UserDatabase.database(context).searchHistory().getAll() as ArrayList<SearchHistory>
     }
 
     suspend fun update(context: Context, query: String) = withContext(Dispatchers.IO) {
-        var searchHistory = AppDatabase.database(context).searchHistory().find(query)
+        var searchHistory = UserDatabase.database(context).searchHistory().find(query)
         if (searchHistory == null) {
             searchHistory = SearchHistory().apply {
                 id = 0
@@ -23,10 +23,10 @@ object SearchHistoryRepository {
             }
         }
         searchHistory.created = Calendar.getInstance().timeInMillis
-        AppDatabase.database(context).searchHistory().insertAndLimit(searchHistory)
+        UserDatabase.database(context).searchHistory().insertAndLimit(searchHistory)
     }
 
     suspend fun delete(context: Context, searchHistory: SearchHistory) = withContext(Dispatchers.IO) {
-        AppDatabase.database(context).searchHistory().delete(searchHistory)
+        UserDatabase.database(context).searchHistory().delete(searchHistory)
     }
 }

@@ -1,4 +1,4 @@
-package com.andlill.jfd.io.database.dao
+package com.andlill.jfd.io.database.user
 
 import androidx.room.*
 import com.andlill.jfd.model.SearchHistory
