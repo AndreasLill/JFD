@@ -2,7 +2,9 @@ package com.andlill.jfd.app.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -16,7 +18,7 @@ import com.andlill.jfd.model.DictionaryEntry
 import com.andlill.jfd.utils.AppUtils
 import dev.esnault.wanakana.core.Wanakana
 
-class DictionaryFragment() : Fragment(R.layout.fragment_dictionary) {
+class DictionaryFragment : Fragment() {
 
     companion object {
         private const val STATE_DATA_DICTIONARY = "com.andlill.jld.DictionaryFragment.State.DataDictionary"
@@ -35,6 +37,10 @@ class DictionaryFragment() : Fragment(R.layout.fragment_dictionary) {
     private lateinit var layoutResults: View
     private lateinit var textQuery: TextView
     private lateinit var textResult: TextView
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_dictionary, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

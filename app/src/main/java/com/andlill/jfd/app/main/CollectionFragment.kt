@@ -3,7 +3,9 @@ package com.andlill.jfd.app.main
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,11 +20,15 @@ import com.andlill.jfd.app.shared.dialog.NameCollectionDialog
 import com.andlill.jfd.model.Collection
 import com.google.android.material.snackbar.Snackbar
 
-class CollectionFragment() : ResultActivityFragment(R.layout.fragment_collection) {
+class CollectionFragment : ResultActivityFragment() {
 
     private lateinit var viewModel: CollectionFragmentViewModel
     private lateinit var collectionAdapter: CollectionAdapter
     private lateinit var actionButton: View
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_collection, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

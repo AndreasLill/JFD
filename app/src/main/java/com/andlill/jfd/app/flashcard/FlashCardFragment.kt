@@ -1,13 +1,15 @@
 package com.andlill.jfd.app.flashcard
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.andlill.jfd.R
 import com.andlill.jfd.model.DictionaryEntry
 
-class FlashCardFragment(private val entry: DictionaryEntry, private val cardType: Type, val callback: (Action, Int) -> Unit) : Fragment(R.layout.fragment_flashcard) {
+class FlashCardFragment(private val entry: DictionaryEntry, private val cardType: Type, val callback: (Action, Int) -> Unit) : Fragment() {
 
     enum class Type {
         Front,
@@ -16,6 +18,10 @@ class FlashCardFragment(private val entry: DictionaryEntry, private val cardType
     enum class Action {
         Click,
         Dismiss
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_flashcard, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
