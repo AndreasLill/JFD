@@ -107,24 +107,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onResume() {
         super.onResume()
 
-        // Set app first start time in ms.
-        val firstUse = AppSettings.getFirstUse(this@MainActivity)
-        if (firstUse == 0L) {
-            AppSettings.setFirstUse(this@MainActivity, System.currentTimeMillis())
+        val reviewTime = AppSettings.getReviewTime(this@MainActivity)
+        if (reviewTime == 0L) {
+            AppSettings.setReviewTime(this@MainActivity, System.currentTimeMillis())
         } else {
-            val today = Calendar.getInstance()
-            val days = TimeUnit.MILLISECONDS.toDays(abs(today.timeInMillis - firstUse))
-
-            // Launch review flow if app is used more than 5 days.
-            if (days > 5) {
-                reviewManager.requestReviewFlow().addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        reviewManager.launchReviewFlow(this@MainActivity, task.result)
+            try {
+                val today = Calendar.getInstance()
+                val days = TimeUnit.MILLISECONDS.toDays(abs(today.timeInMillis - reviewTime))
+                if (days > 5) {
+                    // Try to launch in-app review flow once per 5 days.
+                    reviewManager.requestReviewFlow().addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            reviewManager.launchReviewFlow(this@MainActivity, task.result).addOnCompleteListener {
+                                AppSettings.setReviewTime(this@MainActivity, System.currentTimeMillis())
+                            }
+                        }
                     }
                 }
-            }
+            } catch (_: Exception) { }
         }
-        //if (!viewModel.isDictionaryReady()) { openLoadingDialog() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

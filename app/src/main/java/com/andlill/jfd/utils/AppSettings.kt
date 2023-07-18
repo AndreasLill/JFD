@@ -4,12 +4,11 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
-import java.util.Date
 
 object AppSettings {
 
     private const val SHARED_PREFERENCES = "com.andlill.jld.Preferences"
-    private const val KEY_FIRST_USE = "com.andlill.jld.FirstUse"
+    private const val KEY_REVIEW_TIME = "com.andlill.jld.ReviewTime"
     private const val KEY_DARK_MODE = "com.andlill.jld.KeyDarkMode"
     private const val KEY_TEXT_TO_SPEECH = "com.andlill.jld.KeyTextToSpeech"
 
@@ -20,13 +19,13 @@ object AppSettings {
         else context.getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE)
     }
 
-    fun getFirstUse(context: Context): Long {
-        return getPreferences(context).getLong(KEY_FIRST_USE, 0)
+    fun getReviewTime(context: Context): Long {
+        return getPreferences(context).getLong(KEY_REVIEW_TIME, 0)
     }
 
-    fun setFirstUse(context: Context, value: Long) {
+    fun setReviewTime(context: Context, value: Long) {
         getPreferences(context).edit {
-            putLong(KEY_FIRST_USE, value)
+            putLong(KEY_REVIEW_TIME, value)
             commit()
         }
     }
