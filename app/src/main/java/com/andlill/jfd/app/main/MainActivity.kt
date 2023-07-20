@@ -114,8 +114,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             try {
                 val today = Calendar.getInstance()
                 val days = TimeUnit.MILLISECONDS.toDays(abs(today.timeInMillis - reviewTime))
-                if (days > 5) {
-                    // Try to launch in-app review flow once per 5 days.
+                if (days > 7) {
+                    // Try to launch in-app review flow once per 7 days.
                     reviewManager.requestReviewFlow().addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             reviewManager.launchReviewFlow(this@MainActivity, task.result).addOnCompleteListener {
